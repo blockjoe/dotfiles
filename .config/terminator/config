@@ -1,0 +1,62 @@
+[global_config]
+  focus = mouse
+  tab_position = bottom
+  hide_from_taskbar = True
+  title_transmit_fg_color = "#0d1926"
+  title_transmit_bg_color = "#08ff83"
+  title_receive_fg_color = "#0d1926"
+  title_receive_bg_color = "#0883ff"
+  title_inactive_fg_color = "#0d1926"
+  title_inactive_bg_color = "#b4e1fd"
+  enabled_plugins = TerminatorThemes, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  always_split_with_profile = True
+  title_use_system_font = False
+  title_font = Hack 9
+[keybindings]
+  zoom_in = <Primary>equal
+  go_up = <Super>k
+  go_down = <Super>j
+  go_left = <Super>h
+  go_right = <Super>l
+  split_horiz = <Super>bracketleft
+  split_vert = <Super>bracketright
+  close_term = <Super>BackSpace
+  scaled_zoom = <Super>z
+  layout_launcher = <Primary><Alt>l
+[profiles]
+  [[default]]
+    background_darkness = 0.86
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    foreground_color = "#00ff00"
+    palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
+    use_theme_colors = True
+  [[default-pretty]]
+    background_color = "#2b2d2e"
+    background_darkness = 0.98
+    background_type = transparent
+    cursor_color = "#708284"
+    foreground_color = "#d2d8d9"
+    palette = "#7d8b8f:#b23a52:#789b6a:#b9ac4a:#2a7fac:#bd4f5a:#44a799:#d2d8d9:#888888:#f24840:#80c470:#ffeb62:#4196ff:#fc5275:#53cdbd:#d2d8d9"
+  [[remote]]
+    background_color = "#3f3f3f"
+    cursor_color = "#73635a"
+    foreground_color = "#dcdccc"
+    palette = "#4d4d4d:#705050:#60b48a:#f0dfaf:#506070:#dc8cc3:#8cd0d3:#dcdccc:#709080:#dca3a3:#c3bf9f:#e0cf9f:#94bff3:#ec93d3:#93e0e3:#ffffff"
+  [[Cobalt Neon]]
+    background_color = "#0d1926"
+    background_darkness = 0.86
+    background_type = transparent
+    cursor_color = "#c4e9ff"
+    foreground_color = "#b4e1fd"
+    palette = "#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6:#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = Cobalt Neon
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
