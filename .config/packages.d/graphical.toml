@@ -1,0 +1,10 @@
+# A list of any common graphical packages I reach for.
+
+[terminator]
+ubuntu = "apt:terminator"
+
+[xclip]
+ubuntu = "apt:xclip"
+
+[codium]
+ubuntu = "gitlab-repo:https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo"
