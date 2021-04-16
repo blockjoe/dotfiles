@@ -30,6 +30,16 @@ fnote::help(){
     echo "  version                  See dnote for usage."
 }
 
+fnote::fnotes(){
+    _note="$(echo "$1" | grep -E "\([0-9]+\)"  | fzf +m --preview '_num=$(echo {} | grep -Eo "\([0-9]+\)" | head -n 1  | grep -Eo "[0-9]+"); _header="$(dnote view "$_num") | head -n 6"; _book="$(echo "$_header" | grep -o "book name.*" | cut -f2- -d: | xargs echo -n)"; _note="$(echo "$_header" | grep -o "note id.*" | cut -f2- -d: | xargs echo -n)"; _time="$(echo "$_header" | grep -o "created at.*" | cut -f2- -d: | xargs echo -n)"; _fname="dnote ${_book} (${_note}) -- ${_time}"; dnote view "$_num" --content-only | bat --style="header,grid" --color=always --file-name="$_fname" -l md')"
+    if [ "$?" -ne 0 ]; then
+        echo "-1"
+    else
+        _note_id=$(echo "$_note" | grep -Eo "\([0-9]+\)" | grep -Eo "[0-9]+")
+        echo "$_note_id"
+    fi
+}
+
 fnote::select::note(){
     _note="$(dnote view "$1" | grep -E "\([0-9]+\)"  | fzf +m --preview '_num=$(echo {} | grep -Eo "\([0-9]+\)" | head -n 1  | grep -Eo "[0-9]+"); _header="$(dnote view "$_num") | head -n 6"; _book="$(echo "$_header" | grep -o "book name.*" | cut -f2- -d: | xargs echo -n)"; _note="$(echo "$_header" | grep -o "note id.*" | cut -f2- -d: | xargs echo -n)"; _time="$(echo "$_header" | grep -o "created at.*" | cut -f2- -d: | xargs echo -n)"; _fname="dnote ${_book} (${_note}) -- ${_time}"; dnote view "$_num" --content-only | bat --style="header,grid" --color=always --file-name="$_fname" -l md')"
     if [ "$?" -ne 0 ]; then
@@ -255,6 +265,15 @@ fnote::source(){
     fi
 }
 
+fnote::find-note(){
+    _note="$(fnote::fnotes "$1")"
+    if [ "$_note" == "-1" ]; then
+        echo "Error when selecting a note."
+    else
+        fnote::view::note "$_note"
+    fi
+}
+
 fnote(){
     if ! command -v dnote &> /dev/null; then
         echo "Error: Required dependency dnote does not appear to be installed."
@@ -266,8 +285,12 @@ fnote(){
         fnote::view
     else
         case "$1" in
-            add|find|login|logout|sync|version)
+            add|login|logout|sync|version)
                 dnote $@
+                ;;
+            find)
+                _notes="$(dnote $@)"
+                fnote::find-note "$_notes" 
                 ;;
             help)
                 fnote::help

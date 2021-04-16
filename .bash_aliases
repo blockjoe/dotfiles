@@ -7,18 +7,6 @@ alias x-c="xclip -selection clipboard" # copy to system clipboard
 alias x-pr="xclip -o" # paste from register
 alias x-p="xclip -o -selection clipboard" # paste from system clipboard
 
-# Dnote
-alias dnote-books="dnote view"
-
-dnote-read(){
-    _header="$(dnote view "$1") | head -n 4"
-    _book="$(echo "$_header" | grep -o "book name.*" | cut -f2- -d: | xargs echo -n)"
-    _note="$(echo "$_header" | grep -o "note id.*" | cut -f2- -d: | xargs echo -n)"
-    _time="$(echo "$_header" | grep -o "created at.*" | cut -f2- -d: | xargs echo -n)"
-    _fname="${_book} (${_note}) -- ${_time}"
-    dnote view "$1" --content-only | bat --paging=never --file-name="$_fname" -l md
-}
-
 # Bat
 ## cat to bat
 alias cat="bat --paging=never"
@@ -67,5 +55,3 @@ alias cat-ts="bat --paging=never -l ts"
 alias cat-verilog="bat --paging=never -l v"
 alias cat-xml="bat --paging=never -l xml"
 alias cat-yaml="bat --paging=never -l yaml"
-
-

@@ -64,14 +64,14 @@ bp(){
 bp::help(){
     echo "Usage: bp COMMAND"
     echo "  A simple bash plugin manager"
-    echo "COMMANDS"
     echo ""
-    echo "  init: Download and install any plugins, best run when migrating to a new system."
-    echo "  clean: Clear the installed directory, update, and install any plugins."
-    echo "  download: Download any plugin source repositories."
-    echo "  install: Install the specified plugins to the installed directory."
-    echo "  update: Update any plugin source repositories."
-    echo "  list: List all the plugins that currently are installed."
+    echo "Available Commands:"
+    echo "  init      Download and install any plugins, best run when migrating to a new system."
+    echo "  clean     Clear the installed directory, update, and install any plugins."
+    echo "  download  Download any plugin source repositories."
+    echo "  install   Install the specified plugins to the installed directory."
+    echo "  update    Update any plugin source repositories."
+    echo "  list      List all the plugins that currently are installed."
     echo "  help: Show this help string"
 }
 
@@ -118,3 +118,5 @@ bp::install(){
 bp::update(){
     . "${src_dir}/bash_plugins/update.sh"
 }
+
+complete -F _bp_completions bp

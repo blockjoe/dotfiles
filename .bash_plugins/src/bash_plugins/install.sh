@@ -28,6 +28,11 @@ dotbare(){
  sed -i "s|.*mydir=.*|mydir=$db_src|" "$db_install"
 }
 
+fnote(){
+ cp "${src_dir}/fnote/fnote.plugin.sh" "${install_dir}/fnote.plugin.sh"
+}
+
 mkdir -p "$install_dir"
 forgit
 dotbare
+fnote
