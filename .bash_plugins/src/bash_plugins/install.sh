@@ -13,6 +13,7 @@ else
     install_dir="$BP_INSTALL_DIR"
 fi
 
+
 forgit(){
  cp "${src_dir}/forgit/forgit.plugin.sh" "${install_dir}/forgit.plugin.sh"  
 }

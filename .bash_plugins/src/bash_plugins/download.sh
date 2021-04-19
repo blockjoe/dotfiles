@@ -16,6 +16,8 @@ dotbare(){
 }
 
 mkdir -p "$src_dir"
-
+_pwd="$(pwd)"
+cd "$src_dir"
 forgit
 dotbare
+cd "$_pwd"

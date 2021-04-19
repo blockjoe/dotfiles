@@ -17,5 +17,7 @@ dotbare(){
     git pull --ff-only
 }
 
+_pwd="$(pwd)"
 forgit
 dotbare
+cd "$_pwd"
