@@ -108,7 +108,7 @@ bp::clean(){
 }
 
 bp::download(){
-    . "${scr_dir}/bash_plugins/download.sh"
+    . "${src_dir}/bash_plugins/download.sh"
 }
 
 bp::install(){

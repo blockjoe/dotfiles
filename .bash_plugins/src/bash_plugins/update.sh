@@ -17,7 +17,13 @@ dotbare(){
     git pull --ff-only
 }
 
+fuzzysys(){
+    cd "${src_dir}/fuzzy-sys"
+    git pull --ff-only
+}
+
 _pwd="$(pwd)"
 forgit
 dotbare
+fuzzysys
 cd "$_pwd"

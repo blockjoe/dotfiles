@@ -33,7 +33,12 @@ fnote(){
  cp "${src_dir}/fnote/fnote.plugin.sh" "${install_dir}/fnote.plugin.sh"
 }
 
+fuzzysys(){
+ cp "${src_dir}/fuzzy-sys/fuzzy-sys.plugin.zsh" "${install_dir}/fuzzy-sys.plugin.sh"
+}
+
 mkdir -p "$install_dir"
 forgit
 dotbare
 fnote
+fuzzysys

@@ -15,9 +15,14 @@ dotbare(){
     git clone https://github.com/kazhala/dotbare.git
 }
 
+fuzzysys(){
+    git clone https://github.com/NullSense/fuzzy-sys.git
+}
+
 mkdir -p "$src_dir"
 _pwd="$(pwd)"
 cd "$src_dir"
 forgit
 dotbare
+fuzzysys
 cd "$_pwd"
