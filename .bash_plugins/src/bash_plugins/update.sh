@@ -32,10 +32,16 @@ fzf-scripts(){
     git pull --ff-only
 }
 
+fzf-interactively(){
+    cd "${src_dir}/interactively"
+    git pull --ff-only
+}
+
 _pwd="$(pwd)"
 forgit
 dotbare
 fuzzysys
 fzf-marks
 fzf-scripts
+fzf-interactively
 cd "$_pwd"

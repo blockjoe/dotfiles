@@ -27,6 +27,10 @@ fzf-scripts(){
     git clone https://github.com/DanielFGray/fzf-scripts.git
 }
 
+fzf-interactively(){
+    git clone https://github.com/bigH/interactively.git
+}
+
 mkdir -p "$src_dir"
 _pwd="$(pwd)"
 cd "$src_dir"
@@ -35,4 +39,5 @@ dotbare
 fuzzysys
 fzf-marks
 fzf-scripts
+fzf-interactively
 cd "$_pwd"

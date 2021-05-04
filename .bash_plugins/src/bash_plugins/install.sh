@@ -45,6 +45,18 @@ fzf-scripts(){
  cp "${src_dir}/fzf-scripts/sshget" "${install_dir}/bin/sshget"
 }
 
+fzf-interactively(){
+ cp "${src_dir}/interactively/bin/interactively" "${install_dir}/bin/interactively"
+ mkdir -p "$HOME/.history/fzf"
+ if [ -f "$HOME/.bash_env_vars" ]; then
+   if [ -z $(grep "FZF_HISTORY_DIR" "$HOME/.bash_env_vars") ]; then
+     echo "export FZF_HISTORY_DIR='$HOME/.history/fzf'" >> "$HOME/.bash_env_vars"
+   fi
+ else
+  echo "export FZF_HISTORY_DIR='$HOME/.history/fzf'" > "$HOME/.bash_env_vars" 
+ fi
+}
+
 mkdir -p "$install_dir/bin"
 forgit
 dotbare
@@ -52,3 +64,4 @@ fnote
 fuzzysys
 fzf-marks
 fzf-scripts
+fzf-interactively
