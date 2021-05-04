@@ -22,8 +22,20 @@ fuzzysys(){
     git pull --ff-only
 }
 
+fzf-marks(){
+    cd "${src_dir}/fzf-marks"
+    git pull --ff-only
+}
+
+fzf-scripts(){
+    cd "${src_dir}/fzf-scripts"
+    git pull --ff-only
+}
+
 _pwd="$(pwd)"
 forgit
 dotbare
 fuzzysys
+fzf-marks
+fzf-scripts
 cd "$_pwd"

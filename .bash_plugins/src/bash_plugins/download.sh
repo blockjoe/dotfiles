@@ -19,10 +19,20 @@ fuzzysys(){
     git clone https://github.com/NullSense/fuzzy-sys.git
 }
 
+fzf-marks(){
+    git clone https://github.com/urbainvaes/fzf-marks.git
+}
+
+fzf-scripts(){
+    git clone https://github.com/DanielFGray/fzf-scripts.git
+}
+
 mkdir -p "$src_dir"
 _pwd="$(pwd)"
 cd "$src_dir"
 forgit
 dotbare
 fuzzysys
+fzf-marks
+fzf-scripts
 cd "$_pwd"

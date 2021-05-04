@@ -37,8 +37,18 @@ fuzzysys(){
  cp "${src_dir}/fuzzy-sys/fuzzy-sys.plugin.zsh" "${install_dir}/fuzzy-sys.plugin.sh"
 }
 
-mkdir -p "$install_dir"
+fzf-marks(){
+ cp "${src_dir}/fzf-marks/fzf-marks.plugin.bash" "${install_dir}/fzf-marks.plugin.sh"
+}
+
+fzf-scripts(){
+ cp "${src_dir}/fzf-scripts/sshget" "${install_dir}/bin/sshget"
+}
+
+mkdir -p "$install_dir/bin"
 forgit
 dotbare
 fnote
 fuzzysys
+fzf-marks
+fzf-scripts

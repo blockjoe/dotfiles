@@ -78,17 +78,30 @@ bp::help(){
 bp::list(){
     echo "Plugins currently installed in ${install_dir}:"
     echo
+    _pwd="$(pwd)"
     if [ -d "$install_dir" ]; then
-        _pwd="$(pwd)"
         cd "$install_dir"
         for i in *.sh; do
             [ -f "$i" ] || continue
             echo "  - $(basename "$i")"
         done
-        cd "$_pwd"
     else
         echo "No plugins currently installed."
     fi
+    echo
+    echo "Scripts currently installed in ${install_dir}/bin:"
+    echo
+    if [ -d "$install_dir/bin" ]; then
+        cd "$install_dir/bin"
+        for i in *; do
+            [ -f "$i" ] || continue
+            echo "  - $(basename "$i")"
+        done
+     else
+        echo "No scripts currently installed."
+    fi
+    echo
+    cd "$_pwd"
 }
 
 bp::init(){
