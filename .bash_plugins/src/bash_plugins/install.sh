@@ -59,6 +59,7 @@ fzf-interactively(){
 
 pac-apt(){
  cp "${src_dir}/pac-apt/pac-apt.plugin.sh" "${install_dir}/pac-apt.plugin.sh"
+ cp "${src_dir}/pac-apt/apt" "${install_dir}/bin/apt"
 }
 
 mkdir -p "$install_dir/bin"
