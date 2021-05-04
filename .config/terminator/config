@@ -20,7 +20,7 @@
   go_right = <Super>l
   split_horiz = <Super>bracketleft
   split_vert = <Super>bracketright
-  close_term = <Super>BackSpace
+  close_term = <Super>backslash
   scaled_zoom = <Super>z
   layout_launcher = <Primary><Alt>l
 [profiles]
