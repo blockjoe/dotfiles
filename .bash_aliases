@@ -13,5 +13,3 @@ alias cat="bat --paging=never"
 
 ## use bat with fzf to preview files and color output
 alias fzf-cat="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-
-

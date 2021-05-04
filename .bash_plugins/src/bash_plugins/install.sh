@@ -49,12 +49,16 @@ fzf-interactively(){
  cp "${src_dir}/interactively/bin/interactively" "${install_dir}/bin/interactively"
  mkdir -p "$HOME/.history/fzf"
  if [ -f "$HOME/.bash_env_vars" ]; then
-   if [ -z $(grep "FZF_HISTORY_DIR" "$HOME/.bash_env_vars") ]; then
+   if [[ -z $(grep "FZF_HISTORY_DIR" "$HOME/.bash_env_vars") ]]; then
      echo "export FZF_HISTORY_DIR='$HOME/.history/fzf'" >> "$HOME/.bash_env_vars"
    fi
  else
   echo "export FZF_HISTORY_DIR='$HOME/.history/fzf'" > "$HOME/.bash_env_vars" 
  fi
+}
+
+pac-apt(){
+ cp "${src_dir}/pac-apt/pac-apt.plugin.sh" "${install_dir}/pac-apt.plugin.sh"
 }
 
 mkdir -p "$install_dir/bin"
@@ -65,3 +69,4 @@ fuzzysys
 fzf-marks
 fzf-scripts
 fzf-interactively
+pac-apt
