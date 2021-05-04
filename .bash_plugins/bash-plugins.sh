@@ -116,6 +116,9 @@ bp::clean(){
         rm *.sh
         cd "$_pwd"
     fi
+    if [ -d "$install_dir/bin" ]; then
+        rm -rf "$install_dir/bin"
+    fi
     bp::update
     bp::install
 }

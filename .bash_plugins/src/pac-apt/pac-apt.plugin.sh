@@ -11,6 +11,7 @@ _apt_completions(){
     COMPREPLY+=("autoclean")
     COMPREPLY+=("clean")
     COMPREPLY+=("autoremove")
+    COMPREPLY+=("remove")
 }
 
 complete -F _apt_completions apt
