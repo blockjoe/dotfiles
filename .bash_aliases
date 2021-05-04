@@ -16,3 +16,6 @@ alias fzf-cat="fzf --preview 'bat --color=always --style=numbers --line-range=:5
 
 ## sync master dotbare changes with the arch branch
 alias dotbare-sync="dotbare checkout main; dotbare pull; dotbare checout arch; dotbare merge --no-ff main"
+
+## add dnote changes to main branch
+alias dotbare-dnote='dotbare checkout main; dotbare add /home/joe/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnotes"; dotbare push; dotbare checkout arch; echo "dnote changes committed to the main branch. Try dotbare-sync to merge them into the arch branch."' 
