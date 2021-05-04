@@ -124,6 +124,10 @@ if [ -f ~/.bash_paths ]; then
     . ~/.bash_paths
 fi
 
+if [ -f ~/.bash_env_vars ]; then
+    . ~/.bash_env_vars
+fi
+
 # Plugins
 # The .bash_plugin directory will be searched, and any .sh file in that
 # directory will included.
@@ -144,5 +148,8 @@ if [ -f ~/.bash_plugins/bash-plugins.sh ]; then
             . "$i"
         done
         cd "$_pwd"    
+    fi
+    if [ -d "$bp_dir/bin" ]; then
+       export PATH="${PATH}:${bp_dir}/bin"
     fi
 fi
