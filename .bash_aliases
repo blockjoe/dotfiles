@@ -19,3 +19,6 @@ alias dotbare-sync="dotbare checkout main; dotbare pull; dotbare checkout arch; 
 
 ## add dnote changes to main branch
 alias dotbare-dnote='dotbare checkout main; dotbare add /home/joe/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnotes"; dotbare push; dotbare checkout arch; echo "dnote changes committed to the main branch. Try dotbare-sync to merge them into the arch branch."' 
+
+## cointop
+alias cointop='ssh -t 3900x screen "cointop"; clear'
