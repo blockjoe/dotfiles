@@ -52,6 +52,9 @@ bp(){
             list)
                 bp::list
                 ;;
+            init)
+                bp::init
+                ;;
             *)
                 echo "Error: Unrecognized command ${1}"
                 echo ""
