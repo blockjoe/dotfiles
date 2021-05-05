@@ -14,4 +14,5 @@ alias cat="bat --paging=never"
 ## use bat with fzf to preview files and color output
 alias fzf-cat="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
-
+## dotbare dnote
+alias dotbare-dnote='dotbare add ~/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnote"; dotbare push'
