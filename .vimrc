@@ -1,7 +1,14 @@
+" vim not vi
 set nocompatible
+
+" Hybrid line numbers
+set number relativenumber
 
 " Clipboard
 set clipboard=unamedplus
+
+" Backspace
+set backspace=start,eol,indent
 
 " Two semicolons for Escape
 imap ;; <Esc>
@@ -29,5 +36,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'ackyshake/VimCompletesMe'
+
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
