@@ -11,7 +11,7 @@
   enabled_plugins = TerminatorThemes, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   always_split_with_profile = True
   title_use_system_font = False
-  title_font = Hack 9
+  title_font = Hack 11
 [keybindings]
   zoom_in = <Primary>equal
   go_up = <Super>k
