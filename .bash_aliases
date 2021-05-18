@@ -11,6 +11,8 @@ alias x-p="xclip -o -selection clipboard" # paste from system clipboard
 ## cat to bat
 alias cat="bat --paging=never"
 
+alias ccat="bat --paging=never -p"
+
 ## use bat with fzf to preview files and color output
 alias fzf-cat="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
