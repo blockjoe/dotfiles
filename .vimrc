@@ -10,6 +10,9 @@ set clipboard=unamedplus
 " Backspace
 set backspace=start,eol,indent
 
+" Split right and below
+set splitright splitbelow
+
 " Two semicolons for Escape
 imap ;; <Esc>
 
@@ -26,17 +29,25 @@ filetype indent on
 " init
 call plug#begin("~/.vim/plugged")
 
+" Quote, (), and [] manipulations
 Plug 'tpope/vim-surround'
 
+" Highlight and fix trailing whitespace
 Plug 'bronson/vim-trailing-whitespace'
 
+" Project Tree view
 Plug 'scrooloose/nerdtree'
+
+" Comment manipulations
 Plug 'scrooloose/nerdcommenter'
 
+" Added language support
 Plug 'sheerun/vim-polyglot'
 
+" Autocomplete
 Plug 'ackyshake/VimCompletesMe'
 
+" Centered view; good for reading prose
 Plug 'junegunn/goyo.vim'
 
 call plug#end()
