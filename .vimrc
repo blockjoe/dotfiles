@@ -10,8 +10,12 @@ set clipboard=unamedplus
 " Backspace
 set backspace=start,eol,indent
 
-" Split right and below
+" Better split behavior
 set splitright splitbelow
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Two semicolons for Escape
 imap ;; <Esc>
@@ -51,3 +55,7 @@ Plug 'ackyshake/VimCompletesMe'
 Plug 'junegunn/goyo.vim'
 
 call plug#end()
+
+" Global mappings
+
+nnoremap <C-S> :NERDTreeToggle<CR>
