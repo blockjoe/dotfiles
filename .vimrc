@@ -4,9 +4,6 @@ set nocompatible
 " Hybrid line numbers
 set number relativenumber
 
-" Clipboard
-set clipboard=unamedplus
-
 " Backspace
 set backspace=start,eol,indent
 
