@@ -51,6 +51,9 @@ Plug 'ackyshake/VimCompletesMe'
 " Centered view; good for reading prose
 Plug 'junegunn/goyo.vim'
 
+" Solidity syntax highlighting
+Plug 'tomlion/vim-solidity'
+
 call plug#end()
 
 " Global mappings
