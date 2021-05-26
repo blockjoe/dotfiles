@@ -4,9 +4,6 @@ set nocompatible
 " Hybrid line numbers
 set number relativenumber
 
-" Clipboard
-set clipboard=unamedplus
-
 " Backspace
 set backspace=start,eol,indent
 
@@ -53,6 +50,9 @@ Plug 'ackyshake/VimCompletesMe'
 
 " Centered view; good for reading prose
 Plug 'junegunn/goyo.vim'
+
+" Solidity syntax highlighting
+Plug 'tomlion/vim-solidity'
 
 call plug#end()
 
