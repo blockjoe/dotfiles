@@ -65,10 +65,12 @@ ltg() {
 	exa -lgBhm --git --git-ignore --tree --level="${_lvl}" --group-directories-first
 }
 
-## aliases
+## quick read configs
 
-alias cba="bat --paging=never /home/joe/.bash_aliases"
-alias cbp="bat --paging=never /home/joe/.bash_paths"
-alias cbv="bat --paging=never /home/joe/.bash_env_vars"
-alias cbrc="bat --paging=never /home/joe/.bashrc"
-alias cvrc="bat --paging=never /home/joe/.vimrc"
+alias cba="bat /home/joe/.bash_aliases"
+alias cbp="bat /home/joe/.bash_paths"
+alias cbv="bat /home/joe/.bash_env_vars"
+alias cbrc="bat /home/joe/.bashrc"
+alias cvrc="bat /home/joe/.vimrc"
+
+alias ctb="bat /home/joe/.config/taskell/bindings.ini"
