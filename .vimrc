@@ -30,6 +30,20 @@ filetype indent on
 " init
 call plug#begin("~/.vim/plugged")
 
+" Custom text objects
+Plug 'kana/vim-textobj-user'
+
+Plug 'fvictorio/vim-textobj-backticks'
+Plug 'kana/vim-textobj-diff'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-line'
+Plug 'lucapette/vim-textobj-underscore'
+Plug 'mattn/vim-textobj-url'
+Plug 'rbonvall/vim-textobj-latex'
+Plug 'coachshea/vim-textobj-markdown'
+Plug 'bps/vim-textobj-python'
+
 " Quote, (), and [] manipulations
 Plug 'tpope/vim-surround'
 
