@@ -1,5 +1,9 @@
+set encoding=UTF-8
 " vim not vi
 set nocompatible
+
+" leader
+let mapleader=' '
 
 " Hybrid line numbers
 set number relativenumber
@@ -26,11 +30,15 @@ filetype plugin on
 " Enable filtetype based indenting .vim/indent
 filetype indent on
 
+" Last status
+set laststatus=2
+
 " External Plugins
 " init
 call plug#begin("~/.vim/plugged")
 
-" Custom text objects
+" Custom text object library
+
 Plug 'kana/vim-textobj-user'
 
 Plug 'fvictorio/vim-textobj-backticks'
@@ -44,6 +52,9 @@ Plug 'rbonvall/vim-textobj-latex'
 Plug 'coachshea/vim-textobj-markdown'
 Plug 'bps/vim-textobj-python'
 
+" Comment manipulations
+Plug 'scrooloose/nerdcommenter'
+
 " Quote, (), and [] manipulations
 Plug 'tpope/vim-surround'
 
@@ -53,23 +64,62 @@ Plug 'bronson/vim-trailing-whitespace'
 " Project Tree view
 Plug 'scrooloose/nerdtree'
 
-" Comment manipulations
-Plug 'scrooloose/nerdcommenter'
+" fzf integration
+Plug 'junegunn/fzf.vim'
+
+" Language Specifics
 
 " Added language support
 Plug 'sheerun/vim-polyglot'
+" Solidity syntax highlighting
+Plug 'tomlion/vim-solidity'
+"HTML/JS/CSS
+Plug 'mattn/emmet-vim'
 
 " Autocomplete
 Plug 'ackyshake/VimCompletesMe'
 
-" Centered view; good for reading prose
-Plug 'junegunn/goyo.vim'
+" Rendering Type Stuff
 
-" Solidity syntax highlighting
-Plug 'tomlion/vim-solidity'
+" Centered view; good for reading prose
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
+" Status Line
+Plug 'itchyny/lightline.vim'
+" Hex colors
+Plug 'ap/vim-css-color'
+" Sublime Cursors
+Plug 'terryma/vim-multiple-cursors'
+" devicons
+Plug 'ryanoasis/vim-devicons'
+" Brackets
+Plug 'frazrepo/vim-rainbow'
+" Highlight yank
+Plug 'machakann/vim-highlightedyank'
 
 call plug#end()
+
+" Powerline
+set background=dark
+let g:lightline = {
+      \ 'background' : 'dark',
+      \ 'colorscheme': 'one',
+      \ 'active': {
+  \         'left': [['mode', 'paste' ], ['readonly', 'filename', 'modified']],
+  \         'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding']]
+  \     }
+\ }
 
 " Global mappings
 
 nnoremap <C-S> :NERDTreeToggle<CR>
+nnoremap \ :Files<CR>
+nnoremap <C-A> :Maps<CR>
+
+nnoremap <leader>q :Goyo<CR>
+nnoremap <leader>ll :Limelight!!<CR>
+
+let g:limelight_conceal_ctermfg = 240
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
