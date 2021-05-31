@@ -112,9 +112,9 @@ let g:lightline = {
 
 " Global mappings
 
-nnoremap <C-S> :NERDTreeToggle<CR>
-nnoremap \ :Files<CR>
-nnoremap <C-A> :Maps<CR>
+nnoremap <leader>tt :NERDTreeToggle<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>? :Maps<CR>
 
 nnoremap <leader>q :Goyo<CR>
 nnoremap <leader>ll :Limelight!!<CR>
