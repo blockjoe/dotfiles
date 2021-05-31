@@ -99,7 +99,7 @@ Plug 'machakann/vim-highlightedyank'
 
 call plug#end()
 
-" Powerline
+" Lightline
 set background=dark
 let g:lightline = {
       \ 'background' : 'dark',
@@ -110,12 +110,20 @@ let g:lightline = {
   \     }
 \ }
 
-" Global mappings
-
+" File explorer
 nnoremap <leader>tt :NERDTreeToggle<CR>
+
+" FZF
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>? :Maps<CR>
 
+let g:fzf_action = {
+            \ 'ctrl-t': 'tab split',
+            \ 'alt-]': 'split',
+            \ 'ctrl-]': 'vsplit',
+            \ 'ctrl-o': '!open' }
+
+" Goyo and Limelight
 nnoremap <leader>q :Goyo<CR>
 nnoremap <leader>ll :Limelight!!<CR>
 
