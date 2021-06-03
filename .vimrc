@@ -8,6 +8,8 @@ let mapleader=' '
 " Hybrid line numbers
 set number relativenumber
 
+nnoremap <leader>ss :set hlsearch!<CR>
+
 " Backspace
 set backspace=start,eol,indent
 
@@ -66,6 +68,7 @@ Plug 'scrooloose/nerdtree'
 
 " fzf integration
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Language Specifics
 
