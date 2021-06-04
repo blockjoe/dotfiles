@@ -367,7 +367,7 @@ fnote(){
                     fi
                 fi
                 ;;
- 
+
             *)
                 echo "Error: Unsupported command ${1}."
                 echo ""
@@ -377,4 +377,4 @@ fnote(){
     fi
 }
 
-complete -F _fnote_completetions fnote
+complete -F _fnote_completions fnote
