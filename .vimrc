@@ -159,6 +159,8 @@ if (has("autocmd") && !has("gui_running"))
     autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
     let s:comment = { "gui" : "#737C8C", "cterm": "145", "cterm16" : "7" }
     autocmd ColorScheme * call onedark#set_highlight("Comment", { "fg": s:comment })
+    let s:gutter = { "gui" : "#768098", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("LineNr", {"fg": s:gutter})
   augroup END
 endif
 colorscheme onedark
