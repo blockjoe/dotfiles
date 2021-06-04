@@ -32,6 +32,9 @@ set termguicolors
 
 " # Mappings #
 
+" ## Leave Terminal ##
+tnoremap <Esc> <C-\><C-n>
+
 " ## Spell Check ##
 nnoremap <leader>sc :setlocal spell!<CR>
 
@@ -107,8 +110,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " ### A solid catchall ###
 Plug 'sheerun/vim-polyglot'
-" ### Solidity syntax ###
-Plug 'tomlion/vim-solidity'
+" ### Solidity compiler ###
+Plug 'dmdque/solidity.vim'
 " ### HTML/JS/CSS ###
 Plug 'mattn/emmet-vim'
 
@@ -161,9 +164,17 @@ if (has("autocmd") && !has("gui_running"))
     autocmd ColorScheme * call onedark#set_highlight("Comment", { "fg": s:comment })
     let s:gutter = { "gui" : "#768098", "cterm": "145", "cterm16" : "7" }
     autocmd ColorScheme * call onedark#set_highlight("LineNr", {"fg": s:gutter})
+    let s:vert = { "gui" : "#70777e", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("VertSplit", {"fg": s:vert})
   augroup END
 endif
 colorscheme onedark
+
+" ## Solidity Compiler ##
+augroup quickfix
+  autocmd!
+  autocmd QuickFixCmdPost make nested copen
+augroup END
 
 " ## Better Whitespace ##
 nnoremap <C-f> :StripWhitespace<CR>
