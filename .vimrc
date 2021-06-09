@@ -114,9 +114,13 @@ Plug 'sheerun/vim-polyglot'
 Plug 'dmdque/solidity.vim'
 " ### HTML/JS/CSS ###
 Plug 'mattn/emmet-vim'
+" ### JS Linter ###
+Plug 'eslint/eslint'
 
 " ## IDE-Like 'Behavior' Plugins  ##
 
+" ### Async Linter ###
+Plug 'w0rp/ale'
 " ### Highlike and fix trailing whitespace ###
 Plug 'ntpeters/vim-better-whitespace'
 " ### Highlight what was yanked. ###
@@ -148,6 +152,13 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " # External Plugin Config #
+
+" ## ALE ##
+let g:ale_fixers = {
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'soldity' : ['solhint']
+    \}
+
 
 " ## onedark colorscheme ##
 " Don't set a background color when running in a terminal;
