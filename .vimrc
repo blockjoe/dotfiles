@@ -33,7 +33,7 @@ set termguicolors
 " # Mappings #
 
 " ## Leave Terminal ##
-tnoremap <Esc> <C-\><C-n>
+" tnoremap <Esc> <C-\><C-n>
 
 " ## Spell Check ##
 nnoremap <leader>sc :setlocal spell!<CR>
