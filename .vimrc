@@ -33,6 +33,7 @@ set termguicolors
 " # Mappings #
 
 " ## Leave Terminal ##
+" Breaks fzf
 " tnoremap <Esc> <C-\><C-n>
 
 " ## Spell Check ##
@@ -47,6 +48,9 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" ## Easier delete to null register ##
+nnoremap <leader>d "_d
 
 " ## Two semicolons for Escape ##
 imap ;; <Esc>
