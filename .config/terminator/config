@@ -27,6 +27,7 @@
   resize_right = <Primary><Shift>l
   scaled_zoom = <Super>z
   layout_launcher = <Primary><Alt>l
+  help = <Super>F1
 [profiles]
   [[default]]
     background_darkness = 0.86
