@@ -8,6 +8,9 @@ set nocompatible
 " ## Space as leader ##
 let mapleader=' '
 
+" ## No mode status since we have lightline ##
+set noshowmode
+
 " ## See leader command ##
 set showcmd
 
@@ -36,6 +39,9 @@ set termguicolors
 " Breaks fzf
 " tnoremap <Esc> <C-\><C-n>
 
+" ## Change Ex mode to last macro ##
+nnoremap Q @@
+
 " ## Spell Check ##
 nnoremap <leader>sc :setlocal spell!<CR>
 
@@ -54,6 +60,12 @@ nnoremap <leader>d "_d
 
 " ## Two semicolons for Escape ##
 imap ;; <Esc>
+
+" cd to file directory
+nnoremap <leader>cd :lcd %:h<CR>
+
+" open ~/.vimrc
+nnoremap <leader>vimrc :vsp $MYVIMRC<CR>
 
 " # Internal Plugins #
 
@@ -87,6 +99,8 @@ Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-line'
 Plug 'lucapette/vim-textobj-underscore'
 Plug 'mattn/vim-textobj-url'
+Plug 'adolenc/vim-textobj-toplevel'
+Plug 'jasonlong/vim-textobj-css'
 Plug 'rbonvall/vim-textobj-latex'
 Plug 'coachshea/vim-textobj-markdown'
 Plug 'bps/vim-textobj-python'
@@ -99,7 +113,8 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 " ### . support for plugins ###
 Plug 'tpope/vim-repeat'
-
+" ### Weird mix of case combination handling ###
+Plug 'tpope/vim-abolish'
 
 " ## Plugins with additional windows ##
 
@@ -123,6 +138,8 @@ Plug 'eslint/eslint'
 
 " ## IDE-Like 'Behavior' Plugins  ##
 
+" ### Highlighting of motion searches ###
+Plug 'easymotion/vim-easymotion'
 " ### Async Linter ###
 Plug 'w0rp/ale'
 " ### Highlike and fix trailing whitespace ###
@@ -135,6 +152,9 @@ Plug 'ackyshake/VimCompletesMe'
 Plug 'mg979/vim-visual-multi', {'branch' : 'master'}
 " ### ctags ###
 Plug 'ludovicchabant/vim-gutentags'
+" ### Snippets ###
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " ## IDE-Like 'Rendering/Visual' Plugins ##
 
@@ -156,6 +176,38 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " # External Plugin Config #
+
+" ### easymotion ###
+" Turn off default mappings
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_startofline = 0
+
+map <Leader> <Plug>(easymotion-prefix)
+
+map s <Plug>(easymotion-s)
+map <Leader>s <Plug>(easymotion-s2)
+map <Leader>w <Plug>(easymotion-bd-w)
+
+map <Leader>t <Plug>(easymotion-bd-fl)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>kb <Plug>(easymotion-sol-k)
+map <Leader>ke <Plug>(easymotion-eol-k)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>jb <Plug>(easymotion-sol-j)
+map <Leader>je <Plug>(easymotion-eol-j)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+map / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
+
+" ### UltiSnips ###
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<C-\\>"
 
 " ## ALE ##
 let g:ale_fixers = {
@@ -204,7 +256,7 @@ let g:lightline = {
       \ 'colorscheme': 'one',
       \ 'active': {
   \         'left': [['mode', 'paste' ], ['readonly', 'filename', 'modified']],
-  \         'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding']]
+  \         'right': [['lineinfo'], ['percent'], ['filetype', 'fileformat', 'fileencoding']]
   \     }
 \ }
 
@@ -214,6 +266,7 @@ nnoremap <leader>tt :NERDTreeToggle<CR>
 " ## FZF ##
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>? :Maps<CR>
+nnoremap <leader>sn :Snippets<CR>
 
 let g:fzf_action = {
             \ 'ctrl-t': 'tab split',

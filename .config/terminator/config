@@ -14,6 +14,8 @@
   title_font = Hack 9
 [keybindings]
   zoom_in = <Primary>equal
+  cycle_next = None
+  cycle_prev = None
   go_up = <Super>k
   go_down = <Super>j
   go_left = <Super>h
