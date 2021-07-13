@@ -33,6 +33,22 @@ set formatoptions+=j
 " ## Colors ##
 set termguicolors
 
+" ## COC Config ##
+" https://github.com/neoclide/coc.nvim#example-vim-configuration
+" TextEdit might fail
+
+set hidden
+" Some LSPs break on backups
+set nobackup
+set nowritebackup
+" Less delays
+set updatetime=300
+" Don't pass messages to |ins-completion-menu|
+set shortmess+=c
+
+" Always show signcolumn
+set signcolumn=yes
+
 " # Mappings #
 
 " ## Leave Terminal ##
@@ -43,10 +59,10 @@ set termguicolors
 nnoremap Q @@
 
 " ## Spell Check ##
-nnoremap <leader>sc :setlocal spell!<CR>
+nnoremap <F3> :setlocal spell!<CR>
 
 " ## Highlight search matches ##
-nnoremap <leader>ss :set hlsearch!<CR>
+nnoremap <F4> :set hlsearch!<CR>
 
 " ## Better split navigation ##
 set splitright splitbelow
@@ -54,6 +70,17 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" ### Better tab navigation ###
+au TabLeave * let g:lasttab = tabpagenr()
+" <Alt-h/l> => prev/next
+nnoremap h gT " <a-h>
+nnoremap l gt " <a-l>
+" <Alt-j/k> toggles between previous and last
+nnoremap <silent> j :exe "tabn ".g:lasttab<CR>
+nnoremap <silent> k :exe "tabn ".g:lasttab<CR>
+
+
 
 " ## Easier delete to null register ##
 nnoremap <leader>d "_d
@@ -132,27 +159,37 @@ Plug 'sheerun/vim-polyglot'
 " ### Solidity compiler ###
 Plug 'dmdque/solidity.vim'
 " ### HTML/JS/CSS ###
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 " ### JS Linter ###
-Plug 'eslint/eslint'
+" Plug 'eslint/eslint'
+" ### JSON with Comments ###
+Plug 'kevinoid/vim-jsonc'
 
 " ## IDE-Like 'Behavior' Plugins  ##
 
 " ### Highlighting of motion searches ###
 Plug 'easymotion/vim-easymotion'
+" ### COC ###
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
+" ### Interactive Debugging ###
+Plug 'puremourning/vimspector'
+
+" Don't think I need these, now that COC is setup.
+" ### Autocomplete ###
+" Plug 'ackyshake/VimCompletesMe'
 " ### Async Linter ###
-Plug 'w0rp/ale'
-" ### Highlike and fix trailing whitespace ###
+" Plug 'w0rp/ale'
+" ### ctags ###
+" Plug 'ludovicchabant/vim-gutentags'
+
+" ### Highlight and fix trailing whitespace ###
 Plug 'ntpeters/vim-better-whitespace'
 " ### Highlight what was yanked. ###
 Plug 'machakann/vim-highlightedyank'
-" ### Autocomplete ###
-Plug 'ackyshake/VimCompletesMe'
 " ### Sublime-style multiple cursors ###
 Plug 'mg979/vim-visual-multi', {'branch' : 'master'}
-" ### ctags ###
-Plug 'ludovicchabant/vim-gutentags'
 " ### Snippets ###
+" Might not need with COC
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -177,11 +214,92 @@ call plug#end()
 
 " # External Plugin Config #
 
+" ## onedark colorscheme ##
+" Don't set a background color when running in a terminal;
+" just use the terminal's background color
+" `gui` is the hex color code used in GUI mode/nvim true-color mode
+" `cterm` is the color code used in 256-color mode
+" `cterm16` is the color code used in 16-color mode
+if (has("autocmd") && !has("gui_running"))
+  augroup colorset
+    autocmd!
+    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+    let s:comment = { "gui" : "#737C8C", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("Comment", { "fg": s:comment })
+    let s:gutter = { "gui" : "#768098", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("LineNr", {"fg": s:gutter})
+    let s:vert = { "gui" : "#70777e", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("VertSplit", {"fg": s:vert})
+  augroup END
+endif
+colorscheme onedark
+
+" ## COC ##
+" :Prettier will format the current buffer
+command -nargs=0 Prettier :CocCommand prettier.formatFile
+command -nargs=0 CocMP :CocList marketplace
+
+" TAB for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" ctrl + space  to trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Enter to confirm completetion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+
+" Use K to either doHover or show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" JSDoc
+autocmd FileType javascript nnoremap <silent> <leader>md :CocCommand docthis.documentThis<CR>
+
 " ### easymotion ###
-" Turn off default mappings
+
+" Settings
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0
+
+" Match to colorscheme
+hi link EasyMotionTarget search
+hi link EasyMotionTarget2First Search
+hi link EasyMotionTarget2Second Search
+hi link EasyMotionShade Comment
 
 map <Leader> <Plug>(easymotion-prefix)
 
@@ -205,37 +323,17 @@ map n <Plug>(easymotion-next)
 map N <Plug>(easymotion-prev)
 
 " ### UltiSnips ###
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<C-\\>"
+let g:UltiSnipsExpandTrigger="<C-\\>"
+let g:UltiSnipsJumpForwardTrigger="<C-\\>"
+let g:UltiSnipsJumpBackwardTrigger="<C-]>"
 
 " ## ALE ##
-let g:ale_fixers = {
-      \ 'javascript': ['prettier', 'eslint'],
-      \ 'soldity' : ['solhint']
-    \}
+" let g:ale_fixers = {
+"      \ 'javascript': ['prettier', 'eslint'],
+"      \ 'soldity' : ['solhint']
+"    \}
+" let g:ale_linters_ignore = {'javascript': ['eslint']}
 
-
-" ## onedark colorscheme ##
-" Don't set a background color when running in a terminal;
-" just use the terminal's background color
-" `gui` is the hex color code used in GUI mode/nvim true-color mode
-" `cterm` is the color code used in 256-color mode
-" `cterm16` is the color code used in 16-color mode
-if (has("autocmd") && !has("gui_running"))
-  augroup colorset
-    autocmd!
-    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
-    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
-    let s:comment = { "gui" : "#737C8C", "cterm": "145", "cterm16" : "7" }
-    autocmd ColorScheme * call onedark#set_highlight("Comment", { "fg": s:comment })
-    let s:gutter = { "gui" : "#768098", "cterm": "145", "cterm16" : "7" }
-    autocmd ColorScheme * call onedark#set_highlight("LineNr", {"fg": s:gutter})
-    let s:vert = { "gui" : "#70777e", "cterm": "145", "cterm16" : "7" }
-    autocmd ColorScheme * call onedark#set_highlight("VertSplit", {"fg": s:vert})
-  augroup END
-endif
-colorscheme onedark
 
 " ## Solidity Compiler ##
 augroup quickfix
@@ -248,6 +346,7 @@ nnoremap <C-f> :StripWhitespace<CR>
 
 " ## Rainbow bracket matching ##
 nnoremap <leader>bb :RainbowToggle<CR>
+
 
 " ## Lightline ##
 set background=dark
