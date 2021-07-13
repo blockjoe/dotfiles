@@ -236,8 +236,30 @@ endif
 colorscheme onedark
 
 " ## COC ##
+" extensions
+let g:coc_global_extensions = [
+  \ "coc-css",
+  \ "coc-json",
+  \ "coc-docker",
+  \ "coc-docthis",
+  \ "coc-markdownlint",
+  \ "coc-markmap",
+  \ "coc-reveal",
+  \ "coc-pyright",
+  \ "coc-react-refactor",
+  \ "coc-sh",
+  \ "coc-tsserver",
+  \ "coc-eslint",
+  \ "coc-prettier",
+  \ "coc-yaml",
+  \ "coc-yank",
+  \ "coc-snippets",
+  \ "coc-html-css-support",
+  \ "coc-marketplace" ]
+
 " :Prettier will format the current buffer
 command -nargs=0 Prettier :CocCommand prettier.formatFile
+" marketplace available through :CocMP
 command -nargs=0 CocMP :CocList marketplace
 
 " TAB for trigger completion with characters ahead and navigate.
