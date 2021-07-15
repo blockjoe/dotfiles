@@ -91,6 +91,9 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# Ctrl-S and Ctrl-Q don't call XOFF and XON (terminal scroll lock)
+stty -ixon
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -134,7 +137,7 @@ if [ -f ~/.bash_plugins/bash-plugins.sh ]; then
     else
         bp_dir="$BP_INSTALL_DIR"
     fi
-    
+
     if [ -d "$bp_dir" ]; then
         _pwd="$(pwd)"
         cd "$bp_dir"
@@ -142,7 +145,7 @@ if [ -f ~/.bash_plugins/bash-plugins.sh ]; then
             [ -f "$i" ] || continue
             . "$i"
         done
-        cd "$_pwd"    
+        cd "$_pwd"
     fi
     if [ -d "$bp_dir/bin" ]; then
        export PATH="${PATH}:${bp_dir}/bin"
