@@ -57,6 +57,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+
 if [ "$color_256" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\e[38;5;231m\e[48;5;244m \u \e[48;5;240m \w \e[0m '
 elif [ "$color_prompt" = yes ]; then
@@ -99,6 +100,17 @@ stty -ixon
 
 # vi mode over emacs
 set -o vi
+
+# .inputrc config
+bind "set colored-stats on"
+bind "set show-all-if-ambiguous"
+bind "set show-all-if-unmodified on"
+bind "set show-mode-in-prompt on"
+
+if [ "$color_256" = yes ]; then
+    bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 NORMAL \1\e[0m\2"'
+    bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 INSERT \1\e[0m\2"'
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
