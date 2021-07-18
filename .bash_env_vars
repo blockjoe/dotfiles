@@ -1,0 +1,31 @@
+#!/bin/bash
+
+source "$HOME/.cargo/env"
+
+export GOPATH="/home/joe/.local/go"
+
+export GH_EMAIL="69400937+blockjoe@users.noreply.github.com"
+
+# FZF
+source /usr/share/doc/fzf/examples/key-bindings.bash
+source /usr/share/doc/fzf/examples/completion.bash
+export FZF_HISTORY_DIR='/home/joe/.history/fzf'
+export FZF_DEFAULT_COMMAND="fd --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.steam' --exclude '.cache'"
+export FZF_DEFAULT_OPTS="
+	--layout=reverse
+	--height=75%
+	--info=hidden
+	--multi
+	--ansi
+	--preview '([[ -f {} ]] && (bat --color=always --style=numbers {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2>/dev/null | head -200'
+	--bind '?:toggle-preview'
+	--bind 'ctrl-a:select-all'
+"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+_fzf_compgen_path(){
+	fd .  "$1"
+}
+_fzf_compgen_dir(){
+	fd --type d . "$1"
+}

@@ -102,6 +102,9 @@ filetype indent on
 " ## Spellcheck on ##
 autocmd FileType markdown setlocal spell
 
+" ## Env Variable Overrides ##
+let $FZF_DEFAULT_COMMAND.=' --hidden'
+
 " # Loading External Plugins #
 
 call plug#begin("~/.vim/plugged")
