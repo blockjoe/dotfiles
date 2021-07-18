@@ -1,6 +1,18 @@
 # ~/.bash_aliases
 # A home for placing and interactive bash aliases
 
+# Ubuntu .bashrc defaults
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
 # Xclip
 alias x-cr="xclip" # copy to register
 alias x-c="xclip -selection clipboard" # copy to system clipboard

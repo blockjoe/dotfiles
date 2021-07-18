@@ -49,20 +49,13 @@ set shortmess+=c
 " Always show signcolumn
 set signcolumn=yes
 
-" # Mappings #
-
-" ## Leave Terminal ##
-" Breaks fzf
-" tnoremap <Esc> <C-\><C-n>
+" # Normal Mode Mappings #
 
 " ## Change Ex mode to last macro ##
 nnoremap Q @@
 
 " ## Spell Check ##
 nnoremap <F3> :setlocal spell!<CR>
-
-" ## Highlight search matches ##
-nnoremap <F4> :set hlsearch!<CR>
 
 " ## Better split navigation ##
 set splitright splitbelow
@@ -80,19 +73,18 @@ nnoremap l gt " <a-l>
 nnoremap <silent> j :exe "tabn ".g:lasttab<CR>
 nnoremap <silent> k :exe "tabn ".g:lasttab<CR>
 
-
-
 " ## Easier delete to null register ##
 nnoremap <leader>d "_d
-
-" ## Two semicolons for Escape ##
-imap ;; <Esc>
 
 " cd to file directory
 nnoremap <leader>cd :lcd %:h<CR>
 
 " open ~/.vimrc
 nnoremap <leader>vimrc :vsp $MYVIMRC<CR>
+
+" # Insert Mode Mappings #
+" ## Quick Spellcheck fix ##
+imap <C-Q> <Esc>[s1z=`]a
 
 " # Internal Plugins #
 

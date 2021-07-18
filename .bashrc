@@ -37,7 +37,8 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+    *-256color) color_256=yes;;
+    xterm-color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -56,7 +57,9 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
+if [ "$color_256" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\e[38;5;231m\e[48;5;244m \u \e[48;5;240m \w \e[0m '
+elif [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -94,6 +97,9 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # Ctrl-S and Ctrl-Q don't call XOFF and XON (terminal scroll lock)
 stty -ixon
 
+# vi mode over emacs
+set -o vi
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -126,7 +132,8 @@ if [ -f ~/.bash_env_vars ]; then
     . ~/.bash_env_vars
 fi
 
-# Plugins
+# Custom Bash Plugin Manager
+
 # The .bash_plugin directory will be searched, and any .sh file in that
 # directory will included.
 if [ -f ~/.bash_plugins/bash-plugins.sh ]; then
