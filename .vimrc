@@ -33,6 +33,9 @@ set formatoptions+=j
 " ## Colors ##
 set termguicolors
 
+" ## margin lines "
+set scrolloff=4
+
 " ## COC Config ##
 " https://github.com/neoclide/coc.nvim#example-vim-configuration
 
@@ -80,7 +83,7 @@ nnoremap <leader>d "_d
 nnoremap <leader>cd :lcd %:h<CR>
 
 " open ~/.vimrc
-nnoremap <leader>vimrc :vsp $MYVIMRC<CR>
+nnoremap <leader>vimrc :tabedit $MYVIMRC<CR>
 
 " # Insert Mode Mappings #
 " ## Quick Spellcheck fix ##
@@ -138,6 +141,9 @@ Plug 'tpope/vim-repeat'
 " ### Weird mix of case combination handling ###
 Plug 'tpope/vim-abolish'
 
+" ### Async Make ###
+Plug 'neomake/neomake'
+
 " ## Plugins with additional windows ##
 
 " ### Project Tree view ###
@@ -162,6 +168,8 @@ Plug 'kevinoid/vim-jsonc'
 Plug 'easymotion/vim-easymotion'
 " ### COC ###
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
+" ### Interactive Testing ###
+Plug 'janko/vim-test'
 " ### Interactive Debugging ###
 Plug 'puremourning/vimspector'
 
@@ -186,8 +194,12 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 " ### Status Line ###
 Plug 'itchyny/lightline.vim'
+" ### COC Functions for Status Line ###
+Plug 'josa42/vim-lightline-coc'
 " ### Hightlighting of hex color codes in that color ###
 Plug 'ap/vim-css-color'
+
+" !!! MUST BE FINAL IMPORT !!!
 " ### UTF-8 font icons ###
 Plug 'ryanoasis/vim-devicons'
 
@@ -291,6 +303,23 @@ nmap <leader>rn <Plug>(coc-rename)
 " JSDoc
 autocmd FileType javascript nnoremap <silent> <leader>md :CocCommand docthis.documentThis<CR>
 
+" ### vim-test ###
+
+" use jest-vim-reporter for nicer jest output
+let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+" use neomake for running strategy
+let test#strategy = "neomake"
+" don't open the run results
+let g:neomake_open_list = 0
+
+" Mappings
+nnoremap <leader>tn :TestNearest<CR>
+nnoremap <leader>tf :TestFile<CR>
+nnoremap <leader>ts :TestSuite<CR>
+nnoremap <leader>tl :TestLast<CR>
+" Latest run test file from anywhere.
+nnoremap <leader>tv: TestVisit<CR>
+
 " ### easymotion ###
 
 " Settings
@@ -334,6 +363,7 @@ augroup END
 
 " ## Better Whitespace ##
 nnoremap <C-f> :StripWhitespace<CR>
+inoremap <silent> <C-f> <ESC>mW:StripWhitespace<CR>`W:delmarks W<CR>i
 
 " ## Rainbow bracket matching ##
 nnoremap <leader>bb :RainbowToggle<CR>
@@ -345,10 +375,15 @@ let g:lightline = {
       \ 'background' : 'dark',
       \ 'colorscheme': 'one',
       \ 'active': {
-  \         'left': [['mode', 'paste' ], ['readonly', 'filename', 'modified']],
+  \         'left': [['mode', 'paste' ],
+                    \['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok'],
+                    \['readonly', 'filename', 'modified']],
   \         'right': [['lineinfo'], ['percent'], ['filetype', 'fileformat', 'fileencoding']]
   \     }
 \ }
+
+"let g:lightline#coc#indicator_warnings
+call lightline#coc#register()
 
 " ## NERDTree ##
 nnoremap <leader>tt :NERDTreeToggle<CR>

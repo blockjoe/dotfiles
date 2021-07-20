@@ -4,7 +4,7 @@
 # Ubuntu .bashrc defaults
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='lsd'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -35,15 +35,12 @@ alias fzf-cat="fzf --preview 'bat --color=always --style=numbers --line-range=:5
 # dotbare dnote
 alias dotbare-dnote='dotbare add ~/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnote"; dotbare push'
 
-# Exa
-
-alias l="exa --group-directories-first"
-alias ll="exa --long --group --group-directories-first"
-alias la="exa --long --all --group --group-directories-first"
-alias lm="exa --long --sort=modified --group-directories-first"
-alias lmr="exa --long --group --sort=modified --reverse --group-directories-first"
-
-## ls tree at level of first arg; default 2
+# lsd
+alias l="lsd --group-dirs first"
+alias la="lsd -A --group-dirs first"
+alias ld="lsd -d"
+alias ll="lsd -l --group-dirs first"
+alias lla="lsd -lA --group-dirs first"
 lt() {
 	if [ -z "$1" ]; then
 		_lvl=2
@@ -51,31 +48,51 @@ lt() {
 		_lvl="$1"
 	fi
 
-	exa --tree --level="${_lvl}" --group-directories-first
+	lsd --tree --depth "${_lvl}" --group-dirs first
 }
 
-## ls --all tree at level of first arg; default 2
-lta() {
-	if [ -z "$1" ]; then
-		_lvl=2
-	else
-		_lvl="$1"
-	fi
 
-	exa --all --tree --level="${_lvl}" --group-directories-first
+## Exa
 
-}
+#alias l="exa --group-directories-first"
+#alias ll="exa --long --group --group-directories-first"
+#alias la="exa --long --all --group --group-directories-first"
+#alias lm="exa --long --sort=modified --group-directories-first"
+#alias lmr="exa --long --group --sort=modified --reverse --group-directories-first"
 
-## ls tree with git info at level of first arg; default 2
-ltg() {
-	if [ -z "$1" ]; then
-		_lvl=2
-	else
-		_lvl="$1"
-	fi
+### ls tree at level of first arg; default 2
+#lt() {
+	#if [ -z "$1" ]; then
+		#_lvl=2
+	#else
+		#_lvl="$1"
+	#fi
 
-	exa -lgBhm --git --git-ignore --tree --level="${_lvl}" --group-directories-first
-}
+	#exa --tree --level="${_lvl}" --group-directories-first
+#}
+
+### ls --all tree at level of first arg; default 2
+#lta() {
+	#if [ -z "$1" ]; then
+		#_lvl=2
+	#else
+		#_lvl="$1"
+	#fi
+
+	#exa --all --tree --level="${_lvl}" --group-directories-first
+
+#}
+
+### ls tree with git info at level of first arg; default 2
+#ltg() {
+	#if [ -z "$1" ]; then
+		#_lvl=2
+	#else
+		#_lvl="$1"
+	#fi
+
+	#exa -lgBhm --git --git-ignore --tree --level="${_lvl}" --group-directories-first
+#}
 
 ## quick read configs
 
