@@ -35,8 +35,8 @@ set termguicolors
 
 " ## COC Config ##
 " https://github.com/neoclide/coc.nvim#example-vim-configuration
-" TextEdit might fail
 
+" TextEdit might fail
 set hidden
 " Some LSPs break on backups
 set nobackup
@@ -153,10 +153,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'sheerun/vim-polyglot'
 " ### Solidity compiler ###
 Plug 'dmdque/solidity.vim'
-" ### HTML/JS/CSS ###
-" Plug 'mattn/emmet-vim'
-" ### JS Linter ###
-" Plug 'eslint/eslint'
 " ### JSON with Comments ###
 Plug 'kevinoid/vim-jsonc'
 
@@ -169,14 +165,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 " ### Interactive Debugging ###
 Plug 'puremourning/vimspector'
 
-" Don't think I need these, now that COC is setup.
-" ### Autocomplete ###
-" Plug 'ackyshake/VimCompletesMe'
-" ### Async Linter ###
-" Plug 'w0rp/ale'
-" ### ctags ###
-" Plug 'ludovicchabant/vim-gutentags'
-
 " ### Highlight and fix trailing whitespace ###
 Plug 'ntpeters/vim-better-whitespace'
 " ### Highlight what was yanked. ###
@@ -184,8 +172,6 @@ Plug 'machakann/vim-highlightedyank'
 " ### Sublime-style multiple cursors ###
 Plug 'mg979/vim-visual-multi', {'branch' : 'master'}
 " ### Snippets ###
-" Might not need with COC
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " ## IDE-Like 'Rendering/Visual' Plugins ##
@@ -338,18 +324,6 @@ map / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map n <Plug>(easymotion-next)
 map N <Plug>(easymotion-prev)
-
-" ### UltiSnips ###
-let g:UltiSnipsExpandTrigger="<C-\\>"
-let g:UltiSnipsJumpForwardTrigger="<C-\\>"
-let g:UltiSnipsJumpBackwardTrigger="<C-]>"
-
-" ## ALE ##
-" let g:ale_fixers = {
-"      \ 'javascript': ['prettier', 'eslint'],
-"      \ 'soldity' : ['solhint']
-"    \}
-" let g:ale_linters_ignore = {'javascript': ['eslint']}
 
 
 " ## Solidity Compiler ##
