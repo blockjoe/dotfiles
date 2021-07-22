@@ -1,4 +1,4 @@
-#!/bin/bash
+# !/bin/bash
 
 source "$HOME/.cargo/env"
 
@@ -17,10 +17,11 @@ export FZF_DEFAULT_OPTS="
 	--info=hidden
 	--multi
 	--ansi
-	--preview '([[ -f {} ]] && (bat --color=always --style=numbers {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2>/dev/null | head -200'
+	--preview '([[ -f {} ]] && (bat --color=always --style=numbers {} || cat {})) || ([[ -d {} ]] && (lsd --icon always --color always --tree --depth 2 --group-dirs first {} | less)) || echo {} 2>/dev/null | head -200'
 	--bind '?:toggle-preview'
 	--bind 'ctrl-a:select-all'
 "
+
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 _fzf_compgen_path(){

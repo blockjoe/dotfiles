@@ -4,10 +4,12 @@
 		"javascriptreact",
 		"css",
 		"html",
-		"markdown"
+		"markdown",
 	],
 	"diagnostic.checkCurrentLine": true,
-	"diagnostic.hintSign": "➤",
-	"diagnostic.errorSign": "✘",
-	"diagnostic.infoSign": "i"
+	"diagnostic.hintSign": "\uF7C6",
+	"diagnostic.warningSign": "\uF071",
+	"diagnostic.errorSign": "\uF057",
+	"diagnostic.infoSign": "\uF05A",
+	"prettier.disableSuccessMessage" : true
 }

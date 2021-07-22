@@ -57,9 +57,6 @@ set signcolumn=yes
 " ## Change Ex mode to last macro ##
 nnoremap Q @@
 
-" ## Spell Check ##
-nnoremap <F3> :setlocal spell!<CR>
-
 " ## Better split navigation ##
 set splitright splitbelow
 nnoremap <C-J> <C-W><C-J>
@@ -105,12 +102,14 @@ filetype indent on
 " ## Spellcheck on ##
 autocmd FileType markdown setlocal spell
 
-" ## Env Variable Overrides ##
-let $FZF_DEFAULT_COMMAND.=' --hidden'
-
 " # Loading External Plugins #
 
 call plug#begin("~/.vim/plugged")
+
+" ## Variable Init ##
+let $FZF_DEFAULT_COMMAND.=' --hidden'
+
+let g:maximizer_set_default_mapping = 0
 
 " ## Vim specific ##
 " ### Custom text objects ###
@@ -128,7 +127,6 @@ Plug 'adolenc/vim-textobj-toplevel'
 Plug 'jasonlong/vim-textobj-css'
 Plug 'rbonvall/vim-textobj-latex'
 Plug 'coachshea/vim-textobj-markdown'
-Plug 'bps/vim-textobj-python'
 
 " ### Comment manipulations ###
 Plug 'scrooloose/nerdcommenter'
@@ -140,6 +138,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 " ### Weird mix of case combination handling ###
 Plug 'tpope/vim-abolish'
+" ### Async Make Dispatch ###
+Plug 'tpope/vim-dispatch'
+" ### Unimpaired ###
+Plug 'tpope/vim-unimpaired'
 
 " ### Async Make ###
 Plug 'neomake/neomake'
@@ -169,7 +171,7 @@ Plug 'easymotion/vim-easymotion'
 " ### COC ###
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 " ### Interactive Testing ###
-Plug 'janko/vim-test'
+Plug 'vim-test/vim-test'
 " ### Interactive Debugging ###
 Plug 'puremourning/vimspector'
 
@@ -188,6 +190,8 @@ Plug 'honza/vim-snippets'
 Plug 'joshdick/onedark.vim'
 " ### Colored bracket matching ###
 Plug 'frazrepo/vim-rainbow'
+" ### Split 'Zoom' Behavior ###
+Plug 'szw/vim-maximizer'
 " ### Centered View, 'focus-mode' ###
 Plug 'junegunn/goyo.vim'
 " ### Dim all text not in current paragraph ###
@@ -241,6 +245,7 @@ let g:coc_global_extensions = [
   \ "coc-pyright",
   \ "coc-react-refactor",
   \ "coc-sh",
+  \ "coc-emmet",
   \ "coc-tsserver",
   \ "coc-eslint",
   \ "coc-prettier",
@@ -267,15 +272,15 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" ctrl + space  to trigger completion
-inoremap <silent><expr> <c-space> coc#refresh()
+" ctrl + @  to trigger completion
+inoremap <silent><expr> <c-@> coc#refresh()
 
 " Enter to confirm completetion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -300,10 +305,68 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
+" COC Language Specific Function and Class Text Objects
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
 " JSDoc
 autocmd FileType javascript nnoremap <silent> <leader>md :CocCommand docthis.documentThis<CR>
 
+" ### vimspector ###
+let g:vimpsector_enable_mappings = 'HUMAN'
+let g:vimpsector_base_dir=expand('$HOME/.config/vimspector')
+let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-bash-debug', 'debugger-for-chrome', 'vscode-node-debug2' ]
+
+function! GoToWindow(id)
+  call win_gotoid(a:id)
+  MaximizerToggle
+endfunction
+
+" Mappings
+
+" Start/Stop
+nnoremap <leader>il :call vimspector#Launch()<CR>
+nnoremap <leader>ie :call vimspector#Reset()<CR>
+
+" Zoom to the Window
+nnoremap <leader>zc :call GoToWindow(g:vimspector_session_windows.code)<CR>
+nnoremap <leader>zv :call GoToWindow(g:vimspector_session_windows.variables)<CR>
+nnoremap <leader>zt :call GoToWindow(g:vimspector_session_windows.tagpage)<CR>
+nnoremap <leader>zw :call GoToWindow(g:vimspector_session_windows.watches)<CR>
+nnoremap <leader>zo :call GoToWindow(g:vimspector_session_windows.output)<CR>
+nnoremap <leader>zst :call GoToWindow(g:vimspector_session_windows.stack_trace)<CR>
+
+" Stepping
+nmap <leader>isi <Plug>VimspectorStepInto
+nmap <leader>iss <Plug>VimspectorStepOver
+nmap <leader>iso <Plug>VimspectorStepOut
+nnoremap <leader>ic :call vimspector#Continue()<CR>
+nmap <leader>ir <Plug>VimspectorRestart
+
+" Breakpoints
+nmap <leader>bp <Plug>VimspectorToggleBreakpoint
+nmap <leader>cbp <Plug>VimspectorToggleConditionalBreakpoint
+nmap <leader>rth <Plug>VimspectorRunToCursor
+nnoremap <leader>rbp :call vimspector#ClearBreakpoints()<CR>
+
+" Popup of value of variable under cursor.
+nmap <leader>ia <Plug>VimspectorBalloonEval
+
+" Up and down the stack
+nmap [s <Plug>VimspectorUpFrame
+nmap ]s <Plug>VimspectorDownFrame
+
+
 " ### vim-test ###
+
+" executables
+let g:test#javascript#runner = 'jest'
 
 " use jest-vim-reporter for nicer jest output
 let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
@@ -318,7 +381,44 @@ nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ts :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 " Latest run test file from anywhere.
-nnoremap <leader>tv: TestVisit<CR>
+nnoremap <leader>tv :TestVisit<CR>
+" Run the nearest test verbose
+nnoremap <leader>tm :exec RunTestVerbose()<CR>
+
+" Verbose output
+function! RunTestVerbose()
+  let g:test#javascript#jest#options=''
+  :TestNearest -strategy=vimterminal
+  let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+endfunction
+
+" Status hooks
+augroup neomake_hook
+  au!
+  autocmd User NeomakeJobFinished call TestFinished()
+  autocmd User NeomakeJobStarted call TestStarted()
+augroup END
+
+" Test Status Functions
+let g:testing_status = ''
+
+function! TestStarted() abort
+  let g:testing_status="\uF252 "
+endfunction
+
+function! TestFinished() abort
+  let context = g:neomake_hook_context
+  if context.jobinfo.exit_code == 0
+    let g:testing_status = "\uF164 "
+  endif
+  if context.jobinfo.exit_code == 1
+    let g:testing_status = "\uF165 "
+  endif
+endfunction
+
+function! TestStatus() abort
+  return g:testing_status
+endfunction
 
 " ### easymotion ###
 
@@ -368,21 +468,26 @@ inoremap <silent> <C-f> <ESC>mW:StripWhitespace<CR>`W:delmarks W<CR>i
 " ## Rainbow bracket matching ##
 nnoremap <leader>bb :RainbowToggle<CR>
 
-
 " ## Lightline ##
 set background=dark
 let g:lightline = {
       \ 'background' : 'dark',
       \ 'colorscheme': 'one',
       \ 'active': {
-  \         'left': [['mode', 'paste' ],
-                    \['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok'],
-                    \['readonly', 'filename', 'modified']],
+  \         'left': [['mode'],
+                    \['coc_info', 'coc_errors', 'coc_warnings', 'coc_hints', 'coc_ok'],
+                    \['readonly', 'filename', 'teststatus', 'modified']],
   \         'right': [['lineinfo'], ['percent'], ['filetype', 'fileformat', 'fileencoding']]
-  \     }
+  \     },
+    \ 'component_function': {
+      \ 'teststatus': 'TestStatus'
+    \ }
 \ }
 
-"let g:lightline#coc#indicator_warnings
+let g:lightline#coc#indicator_warnings="\uF071 "
+let g:lightline#coc#indicator_errors="\uF057 "
+let g:lightline#coc#indicator_info="\uF05A "
+let g:lightline#coc#indicator_hints="\uF7C6 "
 call lightline#coc#register()
 
 " ## NERDTree ##
@@ -398,6 +503,10 @@ let g:fzf_action = {
             \ 'alt-]': 'split',
             \ 'ctrl-]': 'vsplit',
             \ 'ctrl-o': '!open' }
+
+" ## Maximizer ##
+nnoremap <silent><leader>m :MaximizerToggle<CR>
+vnoremap <silent><leader>m :MaximizerToggle<CR>gv
 
 " ## Goyo ##
 nnoremap <leader>q :Goyo<CR>
