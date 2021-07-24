@@ -5,7 +5,7 @@ bg_dir="/home/joe/Pictures/DesktopSlides"
 
 case "$HH" in
 	23|00|01)
-		bg="7.jpg"
+		bg="7.png"
 		;;
 	02|04)
 		bg="8.jpg"

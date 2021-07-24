@@ -1,0 +1,10 @@
+[Unit]
+Description=Try to update the lockscreen and desktop background every hour.
+Requires=background-slides.service
+
+[Timer]
+OnCalendar=*-*-* *:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
