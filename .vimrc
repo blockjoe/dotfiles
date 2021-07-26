@@ -107,6 +107,8 @@ autocmd FileType markdown setlocal spell
 call plug#begin("~/.vim/plugged")
 
 " ## Variable Init ##
+let g:coc_node_path = '/usr/bin/node'
+
 let $FZF_DEFAULT_COMMAND.=' --hidden'
 
 let g:maximizer_set_default_mapping = 0
@@ -365,6 +367,14 @@ nmap ]s <Plug>VimspectorDownFrame
 
 " ### vim-test ###
 
+" Custom Strats
+function! JestDebugStrategy(cmd)
+  let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+  call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
+endfunction
+
+let g:test#custom_strategies = {'jest': function('JestDebugStrategy')}
+
 " executables
 let g:test#javascript#runner = 'jest'
 
@@ -384,11 +394,19 @@ nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tv :TestVisit<CR>
 " Run the nearest test verbose
 nnoremap <leader>tm :exec RunTestVerbose()<CR>
+nnoremap <leader>td :exec RunJestDebug()<CR>
+
+" Run Debug
+function! RunJestDebug()
+  let g:test#javascript#jest#options=''
+  :TestNearest -strategy=jest
+  let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+endfunction
 
 " Verbose output
 function! RunTestVerbose()
   let g:test#javascript#jest#options=''
-  :TestNearest -strategy=vimterminal
+  :TestNearest -strategy="vimterminal"
   let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
 endfunction
 

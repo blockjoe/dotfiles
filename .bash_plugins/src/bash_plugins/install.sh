@@ -15,14 +15,14 @@ fi
 
 
 forgit(){
- cp "${src_dir}/forgit/forgit.plugin.sh" "${install_dir}/forgit.plugin.sh"  
+ cp "${src_dir}/forgit/forgit.plugin.sh" "${install_dir}/forgit.plugin.sh"
 }
 
 dotbare(){
  db_src="${src_dir}/dotbare"
  db_install="${install_dir}/dotbare.plugin.sh"
- cp "${db_src}/dotbare.plugin.bash" "$db_install" 
- 
+ cp "${db_src}/dotbare.plugin.bash" "$db_install"
+
  # enable auto completion
  echo "_dotbare_completion_cmd" >> "$db_install"
  # point it to the right directory
@@ -39,6 +39,8 @@ fuzzysys(){
 
 fzf-marks(){
  cp "${src_dir}/fzf-marks/fzf-marks.plugin.bash" "${install_dir}/fzf-marks.plugin.sh"
+ sed -i 's\(head -1\(/usr/bin/head -1\' "${install_dir}/fzf-marks.plugin.sh"
+ sed -i 's\(tail -1\(/usr/bin/tail -1\' "${install_dir}/fzf-marks.plugin.sh"
 }
 
 fzf-scripts(){
@@ -53,7 +55,7 @@ fzf-interactively(){
      echo "export FZF_HISTORY_DIR='$HOME/.history/fzf'" >> "$HOME/.bash_env_vars"
    fi
  else
-  echo "export FZF_HISTORY_DIR='$HOME/.history/fzf'" > "$HOME/.bash_env_vars" 
+  echo "export FZF_HISTORY_DIR='$HOME/.history/fzf'" > "$HOME/.bash_env_vars"
  fi
 }
 

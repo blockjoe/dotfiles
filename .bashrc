@@ -158,3 +158,4 @@ if [ -f ~/.bash_plugins/bash-plugins.sh ]; then
        export PATH="${PATH}:${bp_dir}/bin"
     fi
 fi
+
