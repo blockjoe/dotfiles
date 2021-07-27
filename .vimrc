@@ -493,7 +493,7 @@ let g:lightline = {
       \ 'colorscheme': 'one',
       \ 'active': {
   \         'left': [['mode'],
-                    \['coc_info', 'coc_errors', 'coc_warnings', 'coc_hints', 'coc_ok'],
+                    \['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok'],
                     \['readonly', 'filename', 'teststatus', 'modified']],
   \         'right': [['lineinfo'], ['percent'], ['filetype', 'fileformat', 'fileencoding']]
   \     },

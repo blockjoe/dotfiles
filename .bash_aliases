@@ -122,6 +122,11 @@ lt() {
 	lsd --tree --depth "${_lvl}" --group-dirs first
 }
 
+# Python
+
+## venv
+alias virtualenv="python -m venv"
+
 ## quick read configs
 
 alias cba="bat /home/joe/.bash_aliases"
