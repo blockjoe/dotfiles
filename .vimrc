@@ -86,6 +86,12 @@ nnoremap <leader>vimrc :tabedit $MYVIMRC<CR>
 " ## Quick Spellcheck fix ##
 imap <C-Q> <Esc>[s1z=`]a
 
+" # Close if Quickfix is the last window/tab #
+augroup CloseQF
+  autocmd!
+  autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+augroup END
+
 " # Internal Plugins #
 
 " ## Syntax highlighting from ~/.vim/syntax ##
@@ -111,13 +117,15 @@ let g:coc_node_path = '/usr/bin/node'
 
 let $FZF_DEFAULT_COMMAND.=' --hidden'
 
+let $PYTHONUNBUFFERED=1
+
 let g:maximizer_set_default_mapping = 0
 
 " ## Vim specific ##
 " ### Custom text objects ###
-
+" #### Base ####
 Plug 'kana/vim-textobj-user'
-
+" #### Community defined ####
 Plug 'fvictorio/vim-textobj-backticks'
 Plug 'kana/vim-textobj-diff'
 Plug 'kana/vim-textobj-entire'
@@ -147,6 +155,9 @@ Plug 'tpope/vim-unimpaired'
 
 " ### Async Make ###
 Plug 'neomake/neomake'
+
+" ### Async Runner ###
+Plug 'skywind3000/asyncrun.vim'
 
 " ## Plugins with additional windows ##
 
@@ -320,6 +331,98 @@ omap ac <Plug>(coc-classobj-a)
 " JSDoc
 autocmd FileType javascript nnoremap <silent> <leader>md :CocCommand docthis.documentThis<CR>
 
+" ### Async Run ###
+
+let g:job_killed = 0
+let g:job_presenting = 0
+
+function! InitAsyncBufferStatus()
+  if !exists('b:ar_status')
+    let b:ar_status = ''
+    let b:ar_spawned = 0
+  else
+    if b:ar_spawned == 1
+      let b:ar_status = g:asyncrun_status
+      if g:job_killed == 1
+        let b:ar_status = 'killed'
+        let g:job_presenting = 0
+      endif
+      if g:job_presenting == 1
+        let b:ar_status = 'presenting'
+      endif
+      if b:ar_status != 'running' || b:ar_status != 'presenting'
+        let b:ar_spawned = 0
+      endif
+    endif
+  endif
+endfunction
+
+function! AsyncStarted()
+  let b:ar_spawned = 1
+  let g:job_killed = 0
+  if g:job_presenting == 0
+    let b:ar_status = g:asyncrun_status
+  else
+    let b:ar_status = 'presenting'
+  endif
+  call asyncrun#quickfix_toggle(8, 1)
+endfunction
+
+function! AsyncDone()
+  if b:ar_spawned == 1
+    if g:job_killed == 0
+      let b:ar_status = g:asyncrun_status
+    else
+      let b:ar_status = 'killed'
+    endif
+    let b:ar_spawned = 0
+  endif
+  let g:job_presenting = 0
+  echo "AsyncDone"
+endfunction
+
+function! AsyncKill() abort
+  :call asyncrun#quickfix_toggle(8, 0)
+  if g:asyncrun_status == 'running'
+    let g:job_killed = 1
+    let g:job_presenting = 0
+    :AsyncStop!
+    echo "Killed running async process."
+  else
+    echo "No async process to kill."
+  endif
+endfunction
+
+augroup asrun
+  autocmd!
+  autocmd BufEnter * call InitAsyncBufferStatus()
+  autocmd User AsyncRunStart call AsyncStarted()
+  autocmd User AsyncRunStop call AsyncDone()
+augroup asrun
+
+function! AsyncStatus() abort
+  let l:status = ''
+  if b:ar_status == 'running'
+    let l:status = "\uF252"
+  elseif b:ar_status == 'success'
+    let l:status =  "\uF164"
+  elseif b:ar_status == 'failure'
+    let l:status =  "\uF165"
+  elseif b:ar_status == 'killed'
+    let l:status = "\uF0C8"
+  elseif b:ar_status == 'presenting'
+    let l:status = "\uF927"
+  endif
+  return l:status
+endfunction
+
+
+" Kill running async job with F4
+noremap <F4> :call AsyncKill()<CR>
+
+" Toggle quickfix for asyncrun with F6
+noremap <silent> <F6> :call asyncrun#quickfix_toggle(8)<CR>
+
 " ### vimspector ###
 let g:vimpsector_enable_mappings = 'HUMAN'
 let g:vimpsector_base_dir=expand('$HOME/.config/vimspector')
@@ -419,9 +522,8 @@ augroup END
 
 " Test Status Functions
 let g:testing_status = ''
-
 function! TestStarted() abort
-  let g:testing_status="\uF252 "
+  let g:testing_status = "\uF252 "
 endfunction
 
 function! TestFinished() abort
@@ -474,10 +576,10 @@ map N <Plug>(easymotion-prev)
 
 
 " ## Solidity Compiler ##
-augroup quickfix
-  autocmd!
-  autocmd QuickFixCmdPost make nested copen
-augroup END
+"augroup quickfix
+"  autocmd!
+"  autocmd QuickFixCmdPost make nested copen
+"augroup END
 
 " ## Better Whitespace ##
 nnoremap <C-f> :StripWhitespace<CR>
@@ -495,10 +597,11 @@ let g:lightline = {
   \         'left': [['mode'],
                     \['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok'],
                     \['readonly', 'filename', 'teststatus', 'modified']],
-  \         'right': [['lineinfo'], ['percent'], ['filetype', 'fileformat', 'fileencoding']]
+  \         'right': [['lineinfo'], ['percent'], ['asyncstatus', 'filetype', 'fileformat', 'fileencoding']]
   \     },
     \ 'component_function': {
-      \ 'teststatus': 'TestStatus'
+      \ 'teststatus': 'TestStatus',
+      \ 'asyncstatus': 'AsyncStatus'
     \ }
 \ }
 
