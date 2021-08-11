@@ -11,7 +11,7 @@
   enabled_plugins = TerminatorThemes, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   always_split_with_profile = True
   title_use_system_font = False
-  title_font = OpenDyslexicMono Nerd Font 9
+  title_font = OpenDyslexicMono Nerd Font 10
 [keybindings]
   zoom_in = <Primary>equal
   cycle_next = None
@@ -54,10 +54,10 @@
     background_type = transparent
     cursor_color = "#c4e9ff"
     foreground_color = "#b4e1fd"
+    exit_action = restart
     palette = "#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6:#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6"
     use_custom_command = True
     custom_command = ssh -F /home/joe/.ssh/config 3900x
-    exit_action  = restart
   [[Cobalt Neon]]
     background_color = "#0d1926"
     background_darkness = 0.86
