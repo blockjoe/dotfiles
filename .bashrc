@@ -37,7 +37,8 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+    *-256color) color_256=yes;;
+    xterm-color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -56,7 +57,10 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
+
+if [ "$color_256" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;231m\]\[\e[48;5;244m\] \u \[\e[48;5;240m\] \w \[\e[0m\] '
+elif [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -66,23 +70,11 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\$ \w\a\]$PS1"
     ;;
 *)
     ;;
 esac
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -93,6 +85,20 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Ctrl-S and Ctrl-Q don't call XOFF and XON (terminal scroll lock)
 stty -ixon
+
+# vi mode over emacs
+set -o vi
+
+# .inputrc config
+bind "set colored-stats on"
+bind "set show-all-if-ambiguous"
+bind "set show-all-if-unmodified on"
+bind "set show-mode-in-prompt on"
+
+if [ "$color_256" = yes ]; then
+    bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 NORMAL \1\e[0m\2"'
+    bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 INSERT \1\e[0m\2"'
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -126,7 +132,8 @@ if [ -f ~/.bash_env_vars ]; then
     . ~/.bash_env_vars
 fi
 
-# Plugins
+# Custom Bash Plugin Manager
+
 # The .bash_plugin directory will be searched, and any .sh file in that
 # directory will included.
 if [ -f ~/.bash_plugins/bash-plugins.sh ]; then
@@ -151,3 +158,4 @@ if [ -f ~/.bash_plugins/bash-plugins.sh ]; then
        export PATH="${PATH}:${bp_dir}/bin"
     fi
 fi
+

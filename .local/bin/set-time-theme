@@ -1,0 +1,37 @@
+#!/bin/bash
+
+HH=$(date +%H)
+bg_dir="/home/joe/Pictures/DesktopSlides"
+
+case "$HH" in
+	23|00|01)
+		bg="7.png"
+		;;
+	02|04)
+		bg="8.jpg"
+		;;
+	03)
+		bg="9.jpg"
+		;;
+	05|06|07)
+		bg="1.jpg"
+		;;
+	08|09|10)
+		bg="2.png"
+		;;
+	11|12|13)
+		bg="3.jpg"
+		;;
+	14|15|16)
+		bg="4.jpg"
+		;;
+	17|18|19)
+		bg="5.jpg"
+		;;
+	20|21|22)
+		bg="6.jpg"
+		;;
+esac
+
+DISPLAY=:0 qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "var allDesktops = desktops(); print (allDesktops); for (i=0;i<allDesktops.length;i++) {d = allDesktops[i]; d.wallpaperPlugin = 'org.kde.image'; d.currentConfigGroup = Array('Wallpaper', 'org.kde.image', 'General'); d.writeConfig('Image', '${bg_dir}/${bg}')}"
+DISPLAY=:0 kwriteconfig5 --file /home/joe/.config/kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Image "file://${bg_dir}/${bg}"

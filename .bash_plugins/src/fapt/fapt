@@ -1,0 +1,49 @@
+#!/bin/bash
+
+usage() {
+	echo "Usage: fapt COMMAND"
+	echo "  An interactive fzf wrapper around apt."
+	echo ""
+	echo "Available Commands:"
+	echo "  install    Install the selected packages."
+	echo "  remove     Remove the selected (manually installed) packages from the system."
+	echo "  purge      Purge the selected (manually installed) packages from the system."
+	echo "  help       Show this message."
+}
+
+_install() {
+	apt-cache pkgnames | sort | fzf --multi --preview 'bat --file-name={} <(apt-cache show {})' | xargs -ro sudo apt-get install
+}
+
+_remove() {
+	apt list --manual-installed 2>/dev/null | sed '1d' | cut -d / -f 1 | fzf --multi --preview 'bat --file-name={} <(apt-cache show {})' | xargs -ro sudo apt-get remove
+}
+
+_purge() {
+	apt list --manual-installed 2>/dev/null | sed '1d' | cut -d / -f 1 | fzf --multi --preview 'bat --file-name={} <(apt-cache show {})' | xargs -ro sudo apt-get purge
+}
+
+if ! command -v fzf &> /dev/null; then
+	echo "Error: Required dependency fzf does not appear to be installed."
+elif [ -z "$1" ]; then
+	echo "Error: No command specified."
+	echo
+	usage
+	exit 1
+else
+	case "$1" in
+		i|install)
+			_install && exit 0 || exit 1
+			;;
+		r|remove)
+			_remove && exit 0 || exit 1
+			;;
+		p|purge)
+			_purge && exit 0 || exit 1
+			;;
+		-h|--help|help)
+			usage
+			exit 0
+			;;
+	esac
+fi

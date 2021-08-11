@@ -11,7 +11,7 @@
   enabled_plugins = TerminatorThemes, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   always_split_with_profile = True
   title_use_system_font = False
-  title_font = Hack 11
+  title_font = OpenDyslexicMono Nerd Font 9
 [keybindings]
   zoom_in = <Primary>equal
   cycle_next = None
@@ -35,16 +35,19 @@
     background_darkness = 0.86
     background_type = transparent
     cursor_color = "#aaaaaa"
+    font = OpenDyslexicMono Nerd Font 9
     foreground_color = "#00ff00"
     palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
+    use_system_font = False
     use_theme_colors = True
   [[default-pretty]]
-    background_color = "#2b2d2e"
     background_darkness = 0.98
     background_type = transparent
     cursor_color = "#708284"
-    foreground_color = "#d2d8d9"
+    font = OpenDyslexicMono Nerd Font 9
+    foreground_color = "#00ff00"
     palette = "#7d8b8f:#b23a52:#789b6a:#b9ac4a:#2a7fac:#bd4f5a:#44a799:#d2d8d9:#888888:#f24840:#80c470:#ffeb62:#4196ff:#fc5275:#53cdbd:#d2d8d9"
+    use_system_font = False
   [[remote]]
     background_color = "#2b2d2e"
     background_darkness = 0.86
@@ -60,8 +63,10 @@
     background_darkness = 0.86
     background_type = transparent
     cursor_color = "#c4e9ff"
+    font = OpenDyslexicMono Nerd Font 9
     foreground_color = "#b4e1fd"
     palette = "#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6:#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6"
+    use_system_font = False
 [layouts]
   [[default]]
     [[[child1]]]

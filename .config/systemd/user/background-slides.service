@@ -1,0 +1,10 @@
+[Unit]
+Description=Update the desktop and lockscreen background to match the current time.
+Wants=background-slides.timer
+
+[Service]
+Type=oneshot
+ExecStart=/home/joe/.local/bin/set-time-theme
+
+[Install]
+WantedBy=default.target
