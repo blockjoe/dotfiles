@@ -26,11 +26,11 @@ fi
 bp(){
     if ! [ -z "$2" ]; then
         echo "Error: too many arguments provided."
-        echo ""    
+        echo ""
         bp::help
     elif [ -z "$1" ]; then
         echo "Error: no command specified."
-        echo "" 
+        echo ""
         bp::help
     else
         case "$1" in
