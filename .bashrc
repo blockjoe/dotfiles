@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -59,7 +59,7 @@ fi
 
 
 if [ "$color_256" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;231m\]\[\e[48;5;244m\] \u \[\e[48;5;240m\] \w \[\e[0m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;231m\]\[\e[48;5;244m\] \h | \u \[\e[48;5;240m\] \w \[\e[0m\] '
 elif [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
@@ -70,7 +70,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\$ \w\a\]$PS1"
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\$ \w (\u@\h)\a\]$PS1"
     ;;
 *)
     ;;
