@@ -1,5 +1,5 @@
 # !/bin/bash
-
+export EDITOR=vi
 export GOPATH="/home/joe/.local/go"
 
 export GH_EMAIL="69400937+blockjoe@users.noreply.github.com"
