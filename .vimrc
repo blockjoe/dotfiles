@@ -82,6 +82,8 @@ nnoremap <leader>cd :lcd %:h<CR>
 " open ~/.vimrc
 nnoremap <leader>vimrc :tabedit $MYVIMRC<CR>
 
+nnoremap <leader>rd :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>
+
 " # Insert Mode Mappings #
 " ## Quick Spellcheck fix ##
 imap <C-Q> <Esc>[s1z=`]a
@@ -181,6 +183,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " ## Language Syntax/Compilers ##
 
+" ### Mixed pandoc formatting ###
+Plug 'vim-pandoc/vim-pandoc-syntax'
 " ### A solid catchall ###
 Plug 'sheerun/vim-polyglot'
 " ### Solidity compiler ###
@@ -255,6 +259,13 @@ if (has("autocmd") && !has("gui_running"))
   augroup END
 endif
 colorscheme onedark
+
+" ## Pandoc Syntax ##
+augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+augroup END
+
+let g:pandoc#syntax#conceal#urls=1
 
 " ## COC ##
 " extensions
