@@ -443,7 +443,7 @@ endfunction
 noremap <F4> :call AsyncKill()<CR>
 
 " Toggle quickfix for asyncrun with F6
-noremap <silent> <F6> :call asyncrun#quickfix_toggle(8)<CR>
+noremap <silent> <F3> :call asyncrun#quickfix_toggle(8)<CR>
 
 " ### vimspector ###
 let g:vimpsector_enable_mappings = 'HUMAN'
