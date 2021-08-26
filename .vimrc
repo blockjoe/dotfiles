@@ -50,6 +50,9 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+" ## Split Resizing ##
+nnoremap <silent> <leader>= :exe "resize " . (winheight(0) * 5/4)<CR>
+nnoremap <silent> <leader>- :exe "resize " . (winheight(0) * 4/5)<CR>
 " ## <Alt-h/l> => prev tab/next tab by index ##
 nnoremap h gT " <a-h>
 nnoremap l gt " <a-l>

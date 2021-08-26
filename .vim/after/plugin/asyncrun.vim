@@ -5,19 +5,56 @@ let g:asrun_failure_str = "\uF165"
 let g:asrun_killed_str = "\uF0C8"
 let g:asrun_presenting_str = "\uF927"
 
+let g:asyncrun_program = get(g:, 'asyncrun_program', {})
+
 " Core Mappings
 " Toggle quickfix for asyncrun with <F3>
 noremap <silent> <F3> :call asyncrun#quickfix_toggle(8)<CR>
 " Kill running async job with <F4>
 noremap <F4> :call AsyncKill()<CR>
 
+let g:last_cmd = ""
+function! URun(...) abort
+  let g:last_cmd = join(a:000, " ")
+  let g:asyncrun_program.ucmd = { opts -> g:last_cmd }
+  AsyncRun -raw -program=ucmd
+endfunction
+
+command! -nargs=+ Run call URun(<args>)
+
+function! ReRun() abort
+  if g:last_cmd == ""
+    echo "No command last run. Use Run(cmd) function to set."
+  else
+    AsyncRun -raw -program=ucmd
+  endif
+endfunction
+noremap <F9> <ESC>:w<CR>:call ReRun()<CR>
+
+
 " Language specific
 
 " Python
+let g:last_py = ""
+function! RunPythonFromCurrentFile() abort
+  let g:last_py = expand('%:p')
+  let g:asyncrun_program.repy = { opts -> opts.cmd . " " . g:last_py }
+  AsyncRun -raw python "$(VIM_FILEPATH)"
+endfunction
+
+function! RerunLastPython() abort
+  if g:last_py == ""
+    echo "No Python file to rerun"
+  else
+        AsyncRun -raw -program=repy python
+  endif
+endfunction
+
 augroup PythonRunners
   autocmd!
-  autocmd Filetype python nmap <silent> <buffer> <F5> <ESC>:w<CR>:AsyncRun -raw python "$(VIM_FILEPATH)"<CR>
+  autocmd Filetype python nmap <silent> <buffer> <F5> <ESC>:w<CR>:call RunPythonFromCurrentFile()<CR>
   autocmd Filetype python xnoremap <silent> <buffer> <F5> :'<,'>AsyncRun -raw python<CR>
+  autocmd Filetype python nmap <silent> <buffer> <F6> <ESC>:w<CR>:call RerunLastPython()<CR>
 augroup END
 
 " Javascript
@@ -94,7 +131,7 @@ function! AsyncStarted()
   else
     let b:ar_status = 'presenting'
   endif
-  call asyncrun#quickfix_toggle(8, 1)
+  call asyncrun#quickfix_toggle(10, 1)
 endfunction
 
 function! AsyncDone()
@@ -111,7 +148,7 @@ function! AsyncDone()
 endfunction
 
 function! AsyncKill() abort
-  :call asyncrun#quickfix_toggle(8, 0)
+  :call asyncrun#quickfix_toggle(10, 0)
   if g:asyncrun_status == 'running'
     let g:job_killed = 1
     let g:job_presenting = 0
