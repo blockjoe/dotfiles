@@ -22,7 +22,7 @@
   go_right = <Super>l
   split_horiz = <Super>bracketleft
   split_vert = <Super>bracketright
-  close_term = <Super>backslash
+  close_term = <Super>BackSpace
   resize_up = <Primary><Shift>k
   resize_down = <Primary><Shift>j
   resize_left = <Primary><Shift>h
