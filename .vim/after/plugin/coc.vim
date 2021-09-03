@@ -34,6 +34,7 @@ let g:coc_global_extensions = [
   \ "coc-snippets",
   \ "coc-html-css-support",
   \ "coc-cmake",
+  \ "coc-clangd",
   \ "coc-marketplace"]
 
 " :Prettier will format the current buffer
