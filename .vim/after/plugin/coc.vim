@@ -33,9 +33,9 @@ let g:coc_global_extensions = [
   \ "coc-yank",
   \ "coc-snippets",
   \ "coc-html-css-support",
-  \ "coc-marketplace",
-  \ "coc-ccls",
-  \ "coc-cmake"]
+  \ "coc-cmake",
+  \ "coc-clangd",
+  \ "coc-marketplace"]
 
 " :Prettier will format the current buffer
 command -nargs=0 Prettier :CocCommand prettier.formatFile
