@@ -111,6 +111,7 @@ alias dotbare-dnote='dotbare checkout main; dotbare add /home/joe/.local/share/d
 
 ## cointop
 alias cointop='ssh -t 3900x screen "cointop"; clear'
+alias ct-summary='ssh -t -o LogLevel=QUIET 3900x ~/.local/bin/ct-summary'
 
 # lsd
 alias l="lsd --group-dirs first"
