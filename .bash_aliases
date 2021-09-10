@@ -133,8 +133,8 @@ alias virtualenv="python -m venv"
 
 ## quick read configs
 
-alias cba="bat ~/.bash_aliases"
-alias cbp="bat ~/.bash_paths"
-alias cbv="bat ~/.bash_env_vars"
-alias cbrc="bat ~/.bashrc"
-alias cvrc="bat ~/.vimrc"
+alias cba="bat ~/.bash_aliases -n"
+alias cbp="bat ~/.bash_paths -n"
+alias cbv="bat ~/.bash_env_vars -n"
+alias cbrc="bat ~/.bashrc -n"
+alias cvrc="bat ~/.vimrc -n"
