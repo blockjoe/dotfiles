@@ -134,6 +134,10 @@ lt() {
 ## venv
 alias virtualenv="python -m venv"
 
+## sshfs
+alias mount-home="sshfs home:/home/joe ~/mnt/3900x"
+alias unmount-home="fusermount -uz ~/mnt/3900x"
+
 ## quick read configs
 
 alias cba="bat /home/joe/.bash_aliases"
