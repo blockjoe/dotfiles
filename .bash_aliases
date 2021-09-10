@@ -2,7 +2,7 @@
 # A home for placing and interactive bash aliases
 
 # Ubuntu .bashrc defaults
-if [ -x /usr/bin/dircolors ]; then
+if [ -x "$PREFIX/bin/dircolors" ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='lsd'
     #alias dir='dir --color=auto'
@@ -16,21 +16,15 @@ fi
 # tmux with colors
 alias tmux="tmux -2"
 
-# Xclip
-alias x-cr="xclip" # copy to register
-alias x-c="xclip -selection clipboard" # copy to system clipboard
-alias x-pr="xclip -o" # paste from register
-alias x-p="xclip -o -selection clipboard" # paste from system clipboard
-
 # Bat
 
 ## cat to bat
-alias cat="bat --paging=never"
+alias cat="bat --paging=never -n"
 ## no line numbers
 alias ccat="bat --paging=never -p"
 
 ## less to bat
-alias less="bat"
+alias less="bat -n"
 ## head to bat
 alias head="head_bat"
 ## tail to bat
@@ -51,7 +45,7 @@ function head_bat() {
       # call 'bat' passing:
       # - '--line-range''s value
       # - and rest of current fcn arguments ($@) unaltered: other 'bat' flags, and final filename/s
-      bat --line-range :$lines2show $@ # E.g.: $ bat --line-range :10 [filename/s]
+      bat --line-range :$lines2show $@ -n # E.g.: $ bat --line-range :10 [filename/s]
       return 0                         # break all (switch, while and current fcn)
       shift
       ;;
@@ -102,19 +96,19 @@ function tail_bat() {
     # call 'bat' passing:
     # - calculated '--line-range'
     # - and rest of current fcn arguments ($arr_flags_tmp) unaltered: other 'bat' flags, and filename
-    bat --line-range $var_range_start: $arr_flags_tmp $file01 # E.g.: $ bat --line-range 990: [filename]
+    bat --line-range $var_range_start: $arr_flags_tmp $file01 -n # E.g.: $ bat --line-range 990: [filename]
   done
 }
 
-## sync master dotbare changes with the arch branch
-alias dotbare-sync="dotbare checkout main; dotbare pull; dotbare checkout arch; dotbare merge --no-ff main"
+## sync master dotbare changes with the termux branch
+alias dotbare-sync="dotbare checkout main; dotbare pull; dotbare checkout termux; dotbare merge --no-ff main"
 
 ## add dnote changes to main branch
-alias dotbare-dnote='dotbare checkout main; dotbare add /home/joe/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnotes"; dotbare push; dotbare checkout arch; echo "dnote changes committed to the main branch. Try dotbare-sync to merge them into the arch branch."'
+alias dotbare-dnote='dotbare checkout main; dotbare add ~/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnotes"; dotbare push; dotbare checkout termux; echo "dnote changes committed to the main branch. Try dotbare-sync to merge them into the termux branch."'
 
 ## cointop
-alias cointop='ssh -t 3900x screen "cointop"; clear'
-alias ct-summary='ssh -t -o LogLevel=QUIET 3900x ~/.local/bin/ct-summary'
+alias cointop='ssh -t home screen "cointop"; clear'
+alias ct-summary='ssh -t -o LogLevel=QUIET home ~/.local/bin/ct-summary'
 
 # lsd
 alias l="lsd --group-dirs first"
@@ -137,14 +131,10 @@ lt() {
 ## venv
 alias virtualenv="python -m venv"
 
-## sshfs
-alias mount-home="sshfs home:/home/joe ~/mnt/3900x"
-alias unmount-home="fusermount -uz ~/mnt/3900x"
-
 ## quick read configs
 
-alias cba="bat /home/joe/.bash_aliases"
-alias cbp="bat /home/joe/.bash_paths"
-alias cbv="bat /home/joe/.bash_env_vars"
-alias cbrc="bat /home/joe/.bashrc"
-alias cvrc="bat /home/joe/.vimrc"
+alias cba="bat ~/.bash_aliases"
+alias cbp="bat ~/.bash_paths"
+alias cbv="bat ~/.bash_env_vars"
+alias cbrc="bat ~/.bashrc"
+alias cvrc="bat ~/.vimrc"

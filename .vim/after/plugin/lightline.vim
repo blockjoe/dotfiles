@@ -5,7 +5,6 @@ let g:lightline = {
       \ 'colorscheme': 'one',
       \ 'active': {
   \         'left': [['mode'],
-                    \['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok'],
                     \['readonly', 'filename', 'teststatus', 'modified']],
   \         'right': [['lineinfo'], ['percent'], ['asyncstatus', 'filetype', 'fileformat', 'fileencoding']]
   \     },

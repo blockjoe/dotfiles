@@ -82,7 +82,6 @@ filetype indent on
 
 " # External Plugins #
 " ## Variable Init ##
-let g:coc_node_path = '/usr/bin/node'
 let $FZF_DEFAULT_COMMAND.=' --hidden'
 let $PYTHONUNBUFFERED=1
 let g:maximizer_set_default_mapping = 0
@@ -137,12 +136,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
-" ## COC (VSCode extensions) ##
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 " ## Interactive Testing ##
 Plug 'vim-test/vim-test'
-" ## Interactive Debugging ##
-Plug 'puremourning/vimspector'
 
 " ## Highlight and fix trailing whitespace ##
 Plug 'ntpeters/vim-better-whitespace'
@@ -161,8 +156,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 " ## Status Line ##
 Plug 'itchyny/lightline.vim'
-" ## COC Functions for Status Line ##
-Plug 'josa42/vim-lightline-coc'
 " ## Hightlighting of hex color codes in that color ##
 Plug 'ap/vim-css-color'
 
