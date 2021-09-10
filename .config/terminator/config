@@ -9,6 +9,7 @@
   title_inactive_fg_color = "#0d1926"
   title_inactive_bg_color = "#b4e1fd"
   enabled_plugins = TerminatorThemes, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  suppress_multiple_term_dialog = True
   always_split_with_profile = True
   title_use_system_font = False
   title_font = OpenDyslexicMono Nerd Font 10

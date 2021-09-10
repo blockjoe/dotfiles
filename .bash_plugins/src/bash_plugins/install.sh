@@ -71,11 +71,9 @@ pac-apt(){
 }
 
 mkdir -p "$install_dir/bin"
-forgit
 dotbare
 fnote
 fuzzysys
 fzf-marks
-fzf-scripts
 fzf-interactively
 pac-apt

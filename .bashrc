@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    *-256color) color_256=yes;;
+    *-256color|*-256color-bce) color_256=yes;;
     xterm-color) color_prompt=yes;;
 esac
 
@@ -99,6 +99,7 @@ if [ "$color_256" = yes ]; then
     bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 NORMAL \1\e[0m\2"'
     bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 INSERT \1\e[0m\2"'
 fi
+
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

@@ -13,6 +13,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# tmux with colors
+alias tmux="tmux -2"
+
 # Xclip
 alias x-cr="xclip" # copy to register
 alias x-c="xclip -selection clipboard" # copy to system clipboard

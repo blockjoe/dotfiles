@@ -20,6 +20,7 @@ set undofile
 " ## Delete comment character on joining commented lines ##
 set formatoptions+=j
 " ## Colors ##
+set term=xterm-256color
 set termguicolors
 " ## margin lines ##
 set scrolloff=4
