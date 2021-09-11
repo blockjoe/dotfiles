@@ -112,7 +112,7 @@ alias dotbare-dnote='dotbare checkout main; dotbare add ~/.local/share/dnote/dno
 
 ## cointop
 alias cointop='ssh -t home screen "cointop"; clear'
-alias ct-summary='ssh -t -o LogLevel=QUIET home "~/.local/bin/ct-summary"'
+alias ct-summary='ssha -t -o LogLevel=QUIET home "~/.local/bin/ct-summary"'
 
 # lsd
 alias l="lsd --group-dirs first"
