@@ -6,7 +6,7 @@ let g:lightline = {
       \ 'active': {
   \         'left': [['mode'],
                     \['readonly', 'filename', 'teststatus', 'modified']],
-  \         'right': [['lineinfo'], ['percent'], ['asyncstatus', 'filetype', 'fileformat', 'fileencoding']]
+  \         'right': [['lineinfo'], ['percent'], ['asyncstatus', 'filetype']]
   \     },
     \ 'component_function': {
       \ 'teststatus': 'TestStatus',

@@ -16,6 +16,10 @@ fi
 # tmux with colors
 alias tmux="tmux -2"
 
+# system cliboard
+alias x-c="termux-clipboard-set"
+alias x-p="termux-clipboard-get"
+
 # Bat
 
 ## cat to bat

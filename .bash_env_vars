@@ -1,6 +1,6 @@
 # !/bin/bash
 export EDITOR=vim
-export GOPATH="/home/joe/.local/go"
+export GOPATH="~/.local/go"
 
 export GH_EMAIL="69400937+blockjoe@users.noreply.github.com"
 
@@ -10,7 +10,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # FZF
 source "$PREFIX/share/fzf/key-bindings.bash"
 source "$PREFIX/share/fzf/completion.bash"
-export FZF_HISTORY_DIR='/home/joe/.history/fzf'
+export FZF_HISTORY_DIR='~/.history/fzf'
 export FZF_DEFAULT_COMMAND="fd --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.steam' --exclude '.cache'"
 export FZF_DEFAULT_OPTS="
 	--layout=reverse
