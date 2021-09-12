@@ -54,7 +54,19 @@ fi
 
 if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then
     _OLD_VIRTUAL_PS1="${PS1:-}"
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;231m\]\[\e[48;5;244m\] \h | \u \[\e[48;5;240m\] __VENV_PROMPT__| \w \[\e[0m\] '
+    case $BASHTHEME in
+        light)
+            PS1='\[\e[38;5;231m\]\[\e[48;5;31m\] \h | \u \[\e[48;5;24m\] __VENV_PROMPT__| \w \[\e[0m\] '
+            ;;
+        light-min)
+           PS1='\[\e[38;5;231m\]\[\e[48;5;24m\] __VENV_PROMPT__| \w \[\e[0m\] '
+           ;;
+        dark-min)
+            PS1='\[\e[38;5;231m\]\[\e[48;5;240m\] __VENV_PROMPT__| \w \[\e[0m\] '
+            ;;
+        *)
+           PS1='\[\e[38;5;231m\]\[\e[48;5;244m\] \h | \u \[\e[48;5;240m\] __VENV_PROMPT__| \w \[\e[0m\] '
+    esac
     export PS1
 fi
 
