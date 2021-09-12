@@ -70,8 +70,6 @@
     use_system_font = False
   [[OneHalfLight]]
     background_color = "#fafafa"
-    background_darkness = 0.86
-    background_type = transparent
     cursor_color = "#bfceff"
     font = OpenDyslexicMono Nerd Font 9
     foreground_color = "#383a42"
