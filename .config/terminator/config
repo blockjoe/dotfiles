@@ -69,7 +69,7 @@
     palette = "#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6:#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6"
     use_system_font = False
   [[OneHalfLight]]
-    background_color = "#fafafa"
+    background_color = "#f2f2f2"
     cursor_color = "#bfceff"
     font = OpenDyslexicMono Nerd Font 9
     foreground_color = "#383a42"
