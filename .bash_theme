@@ -1,0 +1,56 @@
+if [ -z "$BASHTHEME" ]; then
+	export BASHTHEME="dark"
+fi
+
+dark() {
+    PS1='\[\e[38;5;231m\]\[\e[48;5;244m\] \h | \u \[\e[48;5;240m\] \w \[\e[0m\] '
+    bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 NORMAL \1\e[0m\2"'
+    bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 INSERT \1\e[0m\2"'
+		export PS1
+		export BAT_THEME="OneHalfDark"
+}
+
+light() {
+    PS1='\[\e[38;5;231m\]\[\e[48;5;31m\] \h | \u \[\e[48;5;24m\] \w \[\e[0m\] '
+    bind 'set vi-cmd-mode-string "\1\e[38;5;232m\2\1\e[48;5;231m\2 NORMAL \1\e[0m\2"'
+    bind 'set vi-ins-mode-string "\1\e[38;5;63m\2\1\e[48;5;231m\2 INSERT \1\e[0m\2"'
+		export PS1
+		export BAT_THEME="OneHalfLight"
+		export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --color=light"
+}
+
+dark-min() {
+    PS1='\[\e[38;5;231m\]\[\e[48;5;240m\] \w \[\e[0m\] '
+    bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 N \1\e[0m\2"'
+    bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 I \1\e[0m\2"'
+		export PS1
+		export BAT_THEME="OneHalfDark"
+}
+
+light-min() {
+    PS1='\[\e[38;5;231m\]\[\e[48;5;31m\] \w \[\e[0m\] '
+    bind 'set vi-cmd-mode-string "\1\e[38;5;232m\2\1\e[48;5;231m\2 N \1\e[0m\2"'
+    bind 'set vi-ins-mode-string "\1\e[38;5;63m\2\1\e[48;5;231m\2 I \1\e[0m\2"'
+		export PS1
+		export BAT_THEME="OneHalfLight"
+		export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --color=light"
+}
+
+case "$BASHTHEME" in
+	dark)
+		dark
+		;;
+	light)
+		light
+		;;
+	dark-minimal)
+		echo "Minimal Dark Theme"
+		;;
+	light-minimal)
+		echo "Minimal Light Theme"
+		;;
+	*)
+		echo "Warning: Unknown theme: ${BASHTHEME}. Using dark."
+		dark
+		;;
+esac
