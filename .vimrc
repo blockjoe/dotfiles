@@ -153,6 +153,8 @@ Plug 'honza/vim-snippets'
 
 " ## Onedark Colorscheme ##
 Plug 'joshdick/onedark.vim'
+" ## Paper Colorscheme ##
+Plug 'NLKNguyen/papercolor-theme'
 " ## Split 'Zoom' Behavior ##
 Plug 'szw/vim-maximizer'
 " ## Centered View, 'focus-mode' ##
