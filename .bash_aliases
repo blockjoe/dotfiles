@@ -106,6 +106,20 @@ function tail_bat() {
   done
 }
 
+function _cointop(){
+  case $BASHTHEME in
+    light*)
+      cointop --colorscheme xray
+      ;;
+    *)
+      cointop
+      ;;
+    esac
+}
+
+# cointop colorscheme
+alias cointop='_cointop'
+
 # dotbare dnote
 alias dotbare-dnote='dotbare add ~/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnote"; dotbare push'
 

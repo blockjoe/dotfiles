@@ -86,6 +86,7 @@ let g:coc_node_path = '/usr/bin/node'
 let $FZF_DEFAULT_COMMAND.=' --hidden'
 let $PYTHONUNBUFFERED=1
 let g:maximizer_set_default_mapping = 0
+let g:goyo_width = 81
 
 " ## Loading the Plugins ##
 call plug#begin("~/.vim/plugged")
