@@ -65,6 +65,15 @@
     foreground_color = "#b4e1fd"
     palette = "#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6:#363636:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#b6b6b6"
     use_system_font = False
+  [[OneHalfLight]]
+    background_color = "#f2f2f2"
+    cursor_color = "#bfceff"
+    font = OpenDyslexicMono Nerd Font 9
+    foreground_color = "#383a42"
+    palette = "#383a42:#e45649:#50a14f:#c18401:#0184bc:#a626a4:#0997b3:#fafafa:#4f525e:#e06c75:#98c379:#e5c07b:#61afef:#c678dd:#56b6c2:#ffffff"
+    use_custom_command = True
+    custom_command = BASHTHEME=light bash -l
+    use_system_font = False
 [layouts]
   [[default]]
     [[[child1]]]
@@ -72,6 +81,14 @@
       profile = Cobalt Neon
       type = Terminal
     [[[window0]]]
+      parent = ""
+      type = Window
+  [[light]]
+    [[[child0]]]
+      parent = window1
+      profile = OneHalfLight
+      type = Terminal
+    [[[window1]]]
       parent = ""
       type = Window
 [plugins]
