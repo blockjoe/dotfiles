@@ -68,9 +68,12 @@ nnoremap <leader>cd :lcd %:h<CR>
 nnoremap <leader>vimrc :tabedit $MYVIMRC<CR>
 " ## toggle conceal between 0 and 2 ##
 nnoremap <leader>rd :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>
+
 " # Insert Mode Mappings #
 " ## Quick Spellcheck fix ##
 imap <C-Q> <Esc>[s1z=`]a
+" ## –  with control on dash ##
+imap <C-_> <C-k>-N
 
 " # Internal Plugins #
 " ## Syntax highlighting from ~/.vim/syntax ##
@@ -119,6 +122,8 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 " ## Unimpaired ##
 Plug 'tpope/vim-unimpaired'
+" ## FftT across lines ##
+Plug 'dahu/vim-fanfingtastic'
 
 " ## Async Stuff ##
 

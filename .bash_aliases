@@ -109,10 +109,10 @@ function tail_bat() {
 function _cointop(){
   case $BASHTHEME in
     light*)
-      cointop --colorscheme xray
+      cointop --colorscheme xray $@
       ;;
     *)
-      cointop
+      cointop $@
       ;;
     esac
 }
