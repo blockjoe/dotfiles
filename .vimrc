@@ -124,6 +124,8 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-unimpaired'
 " ## FftT across lines ##
 Plug 'dahu/vim-fanfingtastic'
+" ## Align GH markdown charts ##
+Plug 'junegunn/vim-easy-align'
 
 " ## Async Stuff ##
 
