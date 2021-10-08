@@ -68,9 +68,12 @@ nnoremap <leader>cd :lcd %:h<CR>
 nnoremap <leader>vimrc :tabedit $MYVIMRC<CR>
 " ## toggle conceal between 0 and 2 ##
 nnoremap <leader>rd :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>
+
 " # Insert Mode Mappings #
 " ## Quick Spellcheck fix ##
 imap <C-Q> <Esc>[s1z=`]a
+" ## –  with control on dash ##
+imap <C-_> <C-k>-N
 
 " # Internal Plugins #
 " ## Syntax highlighting from ~/.vim/syntax ##
@@ -86,6 +89,7 @@ let g:coc_node_path = '/usr/bin/node'
 let $FZF_DEFAULT_COMMAND.=' --hidden'
 let $PYTHONUNBUFFERED=1
 let g:maximizer_set_default_mapping = 0
+let g:goyo_width = 81
 
 " ## Loading the Plugins ##
 call plug#begin("~/.vim/plugged")
@@ -118,6 +122,10 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 " ## Unimpaired ##
 Plug 'tpope/vim-unimpaired'
+" ## FftT across lines ##
+Plug 'dahu/vim-fanfingtastic'
+" ## Align GH markdown charts ##
+Plug 'junegunn/vim-easy-align'
 
 " ## Async Stuff ##
 
