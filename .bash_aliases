@@ -113,7 +113,18 @@ alias dotbare-sync="dotbare checkout main; dotbare pull; dotbare checkout arch; 
 alias dotbare-dnote='dotbare checkout main; dotbare add /home/joe/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnotes"; dotbare push; dotbare checkout arch; echo "dnote changes committed to the main branch. Try dotbare-sync to merge them into the arch branch."'
 
 ## cointop
-alias cointop='ssh -t home screen "cointop"; clear'
+function _cointop() {
+  case $BASHTHEME in
+    light*)
+      ssh -t home screen "cointop --colorscheme xray"; clear
+      ;;
+    *)
+      ssh -t home screen "cointop"; clear
+      ;;
+  esac
+}
+
+alias cointop='_cointop'
 alias ct-summary='ssh -t -o LogLevel=QUIET home "~/.local/bin/ct-summary"'
 
 # lsd
