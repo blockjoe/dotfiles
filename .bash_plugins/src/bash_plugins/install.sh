@@ -15,7 +15,7 @@ fi
 
 
 forgit(){
- cp "${src_dir}/forgit/forgit.plugin.sh" "${install_dir}/forgit.plugin.sh"
+ cp "${src_dir}/forgit/forgit.plugin.sh" "${install_dir}/bin/forgit"
 }
 
 dotbare(){
@@ -68,6 +68,6 @@ fzf-interactively(){
 mkdir -p "$install_dir/bin"
 dotbare
 fnote
+forgit
 fuzzysys
 fzf-marks
-fzf-interactively
