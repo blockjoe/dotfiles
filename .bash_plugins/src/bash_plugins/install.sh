@@ -68,6 +68,7 @@ fzf-interactively(){
 mkdir -p "$install_dir/bin"
 dotbare
 fnote
+fapt
 forgit
 fuzzysys
 fzf-marks
