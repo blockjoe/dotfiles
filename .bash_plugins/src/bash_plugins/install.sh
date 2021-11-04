@@ -34,7 +34,7 @@ fnote(){
  cp "${src_dir}/fnote/fnote" "${install_dir}/bin/fnote"
 }
 
-fnote(){
+fapt(){
  cp "${src_dir}/fapt/fapt.plugin.sh" "${install_dir}/fapt.plugin.sh"
  cp "${src_dir}/fapt/fapt" "${install_dir}/bin/fapt"
 }
