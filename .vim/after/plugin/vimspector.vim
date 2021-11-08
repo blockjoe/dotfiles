@@ -31,6 +31,6 @@ nnoremap <leader>rbp :call vimspector#ClearBreakpoints()<CR>
 nmap <leader>ia <Plug>VimspectorBalloonEval
 
 " Up and down the stack
-nmap [s <Plug>VimspectorUpFrame
-nmap ]s <Plug>VimspectorDownFrame
+"nmap [s <Plug>VimspectorUpFrame
+"nmap ]s <Plug>VimspectorDownFrame
 

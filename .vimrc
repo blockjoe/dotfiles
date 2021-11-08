@@ -112,6 +112,8 @@ Plug 'coachshea/vim-textobj-markdown'
 
 " ## Comment manipulations ##
 Plug 'scrooloose/nerdcommenter'
+" ## File explorer ##
+Plug 'preservim/nerdtree'
 " ## Date Incrementing ##
 Plug 'tpope/vim-speeddating'
 " ## Quote, (), and [] manipulations ##

@@ -15,7 +15,7 @@ fi
 
 
 forgit(){
- cp "${src_dir}/forgit/forgit.plugin.sh" "${install_dir}/forgit.plugin.sh"
+ cp "${src_dir}/forgit/forgit.plugin.sh" "${install_dir}/bin/forgit"
 }
 
 dotbare(){
@@ -34,7 +34,7 @@ fnote(){
  cp "${src_dir}/fnote/fnote" "${install_dir}/bin/fnote"
 }
 
-fnote(){
+fapt(){
  cp "${src_dir}/fapt/fapt.plugin.sh" "${install_dir}/fapt.plugin.sh"
  cp "${src_dir}/fapt/fapt" "${install_dir}/bin/fapt"
 }
@@ -68,6 +68,7 @@ fzf-interactively(){
 mkdir -p "$install_dir/bin"
 dotbare
 fnote
+fapt
+forgit
 fuzzysys
 fzf-marks
-fzf-interactively
