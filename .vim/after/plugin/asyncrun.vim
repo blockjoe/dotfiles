@@ -103,22 +103,19 @@ let g:job_killed = 0
 let g:job_presenting = 0
 
 function! InitAsyncBufferStatus()
-  if !exists('b:ar_status')
-    let b:ar_status = ''
-    let b:ar_spawned = 0
-  else
-    if b:ar_spawned == 1
-      let b:ar_status = g:asyncrun_status
-      if g:job_killed == 1
-        let b:ar_status = 'killed'
-        let g:job_presenting = 0
-      endif
-      if g:job_presenting == 1
-        let b:ar_status = 'presenting'
-      endif
-      if b:ar_status != 'running' || b:ar_status != 'presenting'
-        let b:ar_spawned = 0
-      endif
+  let b:ar_status = get(b:, 'ar_status', '')
+  let b:ar_spawned = get(b:, 'ar_spawned', 0)
+  if b:ar_spawned == 1
+    let b:ar_status = g:asyncrun_status
+    if g:job_killed == 1
+      let b:ar_status = 'killed'
+      let g:job_presenting = 0
+    endif
+    if g:job_presenting == 1
+      let b:ar_status = 'presenting'
+    endif
+    if b:ar_status != 'running' || b:ar_status != 'presenting'
+      let b:ar_spawned = 0
     endif
   endif
 endfunction
@@ -167,6 +164,8 @@ augroup asrun
 augroup asrun
 
 function! AsyncStatus() abort
+  let b:ar_status = get(b:, 'ar_status', '')
+  let b:ar_spawned = get(b:, 'ar_spawned', 0)
   let l:status = ''
   if b:ar_status == 'running'
     let l:status = g:asrun_running_str

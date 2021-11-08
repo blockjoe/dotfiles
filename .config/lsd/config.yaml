@@ -1,2 +1,5 @@
 color:
-  theme: ~/.config/lsd/themes/light.yaml
+  theme: /home/joe/.config/lsd/themes/light.yaml
+  when: auto
+
+
