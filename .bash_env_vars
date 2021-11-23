@@ -11,14 +11,14 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 source /usr/share/fzf/key-bindings.bash
 source /usr/share/fzf/completion.bash
 export FZF_HISTORY_DIR='/home/joe/.history/fzf'
-export FZF_DEFAULT_COMMAND="fd --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.steam' --exclude '.cache'"
+export FZF_DEFAULT_COMMAND="fd --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.cache'"
 export FZF_DEFAULT_OPTS="
 	--layout=reverse
 	--height=75%
 	--info=hidden
 	--multi
 	--ansi
-	--preview '([[ -f {} ]] && (bat --color=always --style=numbers {} || cat {})) || ([[ -d {} ]] && (lsd --icon always --color always --tree --depth 2 --group-dirs first {} | less)) || echo {} 2>/dev/null | head -200'
+	--preview '/home/joe/.local/bin/preview-fzf {}'
 	--bind '?:toggle-preview'
 	--bind 'ctrl-a:select-all'
 "

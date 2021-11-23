@@ -13,6 +13,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+#mpv no audio display
+alias mpv="mpv --no-audio-display"
+
 # tmux with colors
 alias tmux="tmux -2"
 
@@ -154,8 +157,8 @@ alias unmount-home="fusermount -uz ~/mnt/3900x"
 
 ## quick read configs
 
-alias cba="bat /home/joe/.bash_aliases"
-alias cbp="bat /home/joe/.bash_paths"
-alias cbv="bat /home/joe/.bash_env_vars"
-alias cbrc="bat /home/joe/.bashrc"
+alias cba="bat -l sh /home/joe/.bash_aliases"
+alias cbp="bat -l sh /home/joe/.bash_paths"
+alias cbv="bat -l sh /home/joe/.bash_env_vars"
+alias cbrc="bat -l sh /home/joe/.bashrc"
 alias cvrc="bat /home/joe/.vimrc"
