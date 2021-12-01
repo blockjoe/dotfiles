@@ -1,6 +1,4 @@
 # !/bin/bash
-# bat
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # FZF
 export FZF_HISTORY_DIR="${HOME}/.history/fzf"
@@ -10,6 +8,7 @@ export FZF_DEFAULT_OPTS="
 	--height=75%
 	--multi
 	--ansi
+	--preview 'cat {}'
 	--bind '?:toggle-preview'
 	--bind 'ctrl-a:select-all'
 "
