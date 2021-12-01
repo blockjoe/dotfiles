@@ -36,7 +36,6 @@ if (empty($BASHTHEME) || $BASHTHEME ==? "dark")
         \ 'colorscheme': 'one',
         \ 'active': {
     \         'left': [['mode'],
-                      \['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok'],
                       \['readonly', 'filename', 'teststatus', 'modified']],
     \         'right': [['lineinfo'], ['percent'], ['asyncstatus', 'filetype', 'fileformat', 'fileencoding']]
     \     },
@@ -48,8 +47,6 @@ if (empty($BASHTHEME) || $BASHTHEME ==? "dark")
         \ 'fileformat' : 'LightlineFileformat',
         \ 'filetype' : 'LightlineFiletype',
         \ 'fileencoding' : 'LightlineFileencoding',
-        \ 'teststatus': 'TestStatus',
-        \ 'asyncstatus': 'AsyncStatus'
       \ }
   \ }
 elseif $BASHTHEME ==? "dark-min"
@@ -67,8 +64,6 @@ elseif $BASHTHEME ==? "dark-min"
         \ 'modified' : 'LightlineModified',
         \ 'filename' : 'LightlineFilename',
         \ 'filetype' : 'LightlineFiletype',
-        \ 'teststatus': 'TestStatus',
-        \ 'asyncstatus': 'AsyncStatus'
       \ }
   \ }
 elseif $BASHTHEME ==? "light"
@@ -77,7 +72,6 @@ elseif $BASHTHEME ==? "light"
         \ 'colorscheme': 'PaperColor',
         \ 'active': {
     \         'left': [['mode'],
-                      \['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok'],
                       \['readonly', 'filename', 'teststatus', 'modified']],
     \         'right': [['lineinfo'], ['percent'], ['asyncstatus', 'filetype', 'fileformat', 'fileencoding']]
     \     },
@@ -89,8 +83,6 @@ elseif $BASHTHEME ==? "light"
         \ 'fileformat' : 'LightlineFileformat',
         \ 'filetype' : 'LightlineFiletype',
         \ 'fileencoding' : 'LightlineFileencoding',
-        \ 'teststatus': 'TestStatus',
-        \ 'asyncstatus': 'AsyncStatus'
       \ }
   \ }
 elseif $BASHTHEME ==? "light-min"
@@ -108,8 +100,6 @@ elseif $BASHTHEME ==? "light-min"
         \ 'readonly' : 'LightlineReadonly',
         \ 'modified' : 'LightlineModified',
         \ 'filetype' : 'LightlineFiletype',
-        \ 'teststatus': 'TestStatus',
-        \ 'asyncstatus': 'AsyncStatus'
       \ }
   \ }
 

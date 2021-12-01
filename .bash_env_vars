@@ -1,11 +1,4 @@
 # !/bin/bash
-
-source "$HOME/.cargo/env"
-
-export GOPATH="/home/joe/.local/go"
-
-export GH_EMAIL="69400937+blockjoe@users.noreply.github.com"
-
 # bat
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
@@ -20,7 +13,7 @@ export FZF_DEFAULT_OPTS="
 	--info=hidden
 	--multi
 	--ansi
-	--preview '/home/joe/.local/bin/preview-fzf {}'
+	--preview '${HOME}/.local/bin/preview-fzf {}'
 	--bind '?:toggle-preview'
 	--bind 'ctrl-a:select-all'
 "
@@ -34,10 +27,3 @@ _fzf_compgen_dir(){
 	fd --type d . "$1"
 }
 
-export FORGIT_NO_ALIASES=1
-export FORGIT_PAGER="bat --color=always --style=numbers"
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -19,11 +19,6 @@ alias mpv="mpv --no-audio-display"
 # tmux with colors
 alias tmux="tmux -2"
 
-# Xclip
-alias x-cr="xclip" # copy to register
-alias x-c="xclip -selection clipboard" # copy to system clipboard
-alias x-pr="xclip -o" # paste from register
-alias x-p="xclip -o -selection clipboard" # paste from system clipboard
 
 # Bat
 
@@ -109,19 +104,6 @@ function tail_bat() {
   done
 }
 
-function _cointop(){
-  case $BASHTHEME in
-    light*)
-      cointop --colorscheme xray $@
-      ;;
-    *)
-      cointop $@
-      ;;
-    esac
-}
-
-# cointop colorscheme
-alias cointop='_cointop'
 
 # dotbare dnote
 alias dotbare-dnote='dotbare add ~/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnote"; dotbare push'
