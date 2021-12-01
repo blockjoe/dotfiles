@@ -135,31 +135,3 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-# Custom Bash Plugin Manager
-
-# The .bash_plugin directory will be searched, and any .sh file in that
-# directory will included.
-if [ -f ~/.bash_plugins/bash-plugins.sh ]; then
-    . ~/.bash_plugins/bash-plugins.sh
-
-    if [ -z "$BP_INSTALL_DIR" ]; then
-        bp_dir=~/.bash_plugins/installed
-    else
-        bp_dir="$BP_INSTALL_DIR"
-    fi
-
-    if [ -d "$bp_dir" ]; then
-        _pwd="$(pwd)"
-        cd "$bp_dir"
-        for i in *.sh; do
-            [ -f "$i" ] || continue
-            . "$i"
-        done
-        cd "$_pwd"
-    fi
-    if [ -d "$bp_dir/bin" ]; then
-       export PATH="${PATH}:${bp_dir}/bin"
-    fi
-fi
-

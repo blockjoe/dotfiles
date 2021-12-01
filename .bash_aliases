@@ -4,7 +4,10 @@
 # Ubuntu .bashrc defaults
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='lsd'
+    alias ls='ls --color=auto'
+    alias ll='ls -alF'
+    alias la='ls -A'
+    alias l='ls -CF'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -13,12 +16,8 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-#mpv no audio display
-alias mpv="mpv --no-audio-display"
-
 # tmux with colors
 alias tmux="tmux -2"
-
 
 # Bat
 
@@ -104,36 +103,8 @@ function tail_bat() {
   done
 }
 
-
-# dotbare dnote
-alias dotbare-dnote='dotbare add ~/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnote"; dotbare push'
-
-# lsd
-alias l="lsd --group-dirs first"
-alias la="lsd -A --group-dirs first"
-alias ld="lsd -d"
-alias ll="lsd -l --group-dirs first"
-alias lla="lsd -lA --group-dirs first"
-lt() {
-	if [ -z "$1" ]; then
-		_lvl=2
-	else
-		_lvl="$1"
-	fi
-
-	lsd --tree --depth "${_lvl}" --group-dirs first
-}
-
 # Python
 
 ## venv
 alias virtualenv="python -m venv"
-
-## quick read configs
-
-alias cba="bat -l sh /home/joe/.bash_aliases"
-alias cbp="bat -l sh /home/joe/.bash_paths"
-alias cbv="bat -l sh /home/joe/.bash_env_vars"
-alias cbrc="bat -l sh /home/joe/.bashrc"
-alias cvrc="bat /home/joe/.vimrc"
 
