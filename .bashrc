@@ -62,6 +62,22 @@ esac
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
 
+# Addtional Path Configuration
+# You may want to put all your additions into a separate file like
+# ~/.bash_paths, instead of adding them here directly.
+
+if [ -f ~/.bash_paths ]; then
+    . ~/.bash_paths
+fi
+
+if [ -f ~/.bash_env_vars ]; then
+    . ~/.bash_env_vars
+fi
+
+if [ -f ~/.bash_completion ]; then
+  . ~/.bash_completion
+fi
+
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
@@ -76,9 +92,9 @@ fi
 if [[ "$color_256" == "yes" && -f ~/.bash_theme ]]; then
   . ~/.bash_theme
 elif [ "$color_256" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;231m\]\[\e[48;5;244m\] \h | \u \[\e[48;5;240m\] \w \[\e[0m\] '
-    bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 NORMAL \1\e[0m\2"'
-    bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 INSERT \1\e[0m\2"'
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;231m\]\[\e[48;5;240m\] \w \[\e[0m\] '
+    bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 N \1\e[0m\2"'
+    bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 I \1\e[0m\2"'
 elif [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
@@ -134,7 +150,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
 
 # Custom Bash Plugin Manager
 
