@@ -32,6 +32,8 @@ if command -v xclip &> /dev/null; then
   alias x-c="xclip -selection clipboard" # copy to system clipboard
   alias x-pr="xclip -o" # paste from register
   alias x-p="xclip -o -selection clipboard" # paste from system clipboard
+else
+  echo "xclip not installed."
 fi
 
 if command -v bat &> /dev/null; then
@@ -116,6 +118,8 @@ if command -v bat &> /dev/null; then
       bat --line-range $var_range_start: $arr_flags_tmp $file01 # E.g.: $ bat --line-range 990: [filename]
     done
   }
+else
+  echo "bat not installed"
 fi
 
 if command -v cointop &> /dev/null; then
@@ -155,6 +159,8 @@ if command -v lsd &> /dev/null; then
 
     lsd --tree --depth "${_lvl}" --group-dirs first
   }
+else
+  echo "lsd not installed."
 fi
 
 # Python
