@@ -54,8 +54,6 @@ if (empty($BASHTHEME) || $BASHTHEME ==? "dark")
   \ }
 elseif $BASHTHEME ==? "dark-min"
   let g:lightline = {
-      \ }
-  let g:lightline = {
       \ 'mode_map': {
         \ 'n' : 'N',
         \ 'i' : 'I',
