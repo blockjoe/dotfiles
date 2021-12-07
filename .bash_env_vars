@@ -1,38 +1,82 @@
 # !/bin/bash
 export EDITOR=vim
-export GOPATH="~/.local/go"
+
+if [ -f "$HOME/.cargo/env" ]; then
+	source "$HOME/.cargo/env"
+fi
+
+if [ -d "$HOME/.local/go" ]; then
+	export GOPATH="$HOME/.local/go"
+fi
 
 export GH_EMAIL="69400937+blockjoe@users.noreply.github.com"
 
-# bat
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+if command -v bat &> /dev/null; then
+	# bat
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
 
 # FZF
-source "$PREFIX/share/fzf/key-bindings.bash"
-source "$PREFIX/share/fzf/completion.bash"
+if [ -f  "$PREFIX/share/fzf/key-bindings.bash"  ]; then
+	source "$PREFIX/share/fzf/key-bindings.bash"
+else
+	echo "FZF key-bindings not isntalled"
+fi
+
+if [ -f  "$PREFIX/share/fzf/completion.bash"  ]; then
+	source  "$PREFIX/share/fzf/completion.bash"
+else
+	echo "FZF complettion not installed"
+fi
+
 export FZF_HISTORY_DIR='~/.history/fzf'
-export FZF_DEFAULT_COMMAND="fd --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.steam' --exclude '.cache'"
-export FZF_DEFAULT_OPTS="
+
+if command -v fd &> /dev/null; then
+	export FZF_DEFAULT_COMMAND="fd --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.cache'"
+	export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+	_fzf_compgen_path(){
+		fd .  "$1"
+	}
+	_fzf_compgen_dir(){
+		fd --type d . "$1"
+	}
+elif command -v fdfind &> /dev/null; then
+	export FZF_DEFAULT_COMMAND="fdfind --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.cache'"
+	export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+	_fzf_compgen_path(){
+		fdfind .  "$1"
+	}
+	_fzf_compgen_dir(){
+		fdfind --type d . "$1"
+	}
+else
+	echo "fd not installed"
+	export FZF_DEFAULT_COMMAND="find"
+fi
+
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+FZF_DEFAULT_OPTS="
 	--layout=reverse
 	--height=75%
 	--info=hidden
 	--multi
 	--ansi
-	--preview '([[ -f {} ]] && (bat --color=always --style=numbers {} || cat {})) || ([[ -d {} ]] && (lsd --icon always --color always --tree --depth 2 --group-dirs first {} | less)) || echo {} 2>/dev/null | head -200'
 	--bind '?:toggle-preview'
 	--bind 'ctrl-a:select-all'
 "
 
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
-_fzf_compgen_path(){
-	fd .  "$1"
-}
-_fzf_compgen_dir(){
-	fd --type d . "$1"
-}
+if [ -f "$HOME/.local/bin/preview-fzf" ]; then
+	export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview '${HOME}/.local/bin/preview-fzf {}'"
+elif command -v bat &> /dev/null; then
+	export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+else
+	export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview 'cat {}'"
+fi
 
 # NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [ -d "$HOME/.nvm" ]; then
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi

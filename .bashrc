@@ -30,6 +30,22 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# Addtional Path Configuration
+# You may want to put all your additions into a separate file like
+# ~/.bash_paths, instead of adding them here directly.
+
+if [ -f ~/.bash_paths ]; then
+    . ~/.bash_paths
+fi
+
+if [ -f ~/.bash_env_vars ]; then
+    . ~/.bash_env_vars
+fi
+
+if [ -f ~/.bash_completion ]; then
+  . ~/.bash_completion
+fi
+
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -57,9 +73,12 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-
-if [ "$color_256" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;231m\]\[\e[48;5;240m\] \w \[\e[0m\] '
+if [[ "$color_256" == "yes" && -f ~/.bash_theme ]]; then
+  . ~/.bash_theme
+elif [ "$color_256" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;231m\]\[\e[48;5;244m\] \h | \u \[\e[48;5;240m\] \w \[\e[0m\] '
+    bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 NORMAL \1\e[0m\2"'
+    bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 INSERT \1\e[0m\2"'
 elif [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
@@ -95,11 +114,6 @@ bind "set show-all-if-ambiguous"
 bind "set show-all-if-unmodified on"
 bind "set show-mode-in-prompt on"
 
-if [ "$color_256" = yes ]; then
-    bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 N \1\e[0m\2"'
-    bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 I \1\e[0m\2"'
-fi
-
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -121,17 +135,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Addtional Path Configuration
-# You may want to put all your additions into a separate file like
-# ~/.bash_paths, instead of adding them here directly.
-
-if [ -f ~/.bash_paths ]; then
-    . ~/.bash_paths
-fi
-
-if [ -f ~/.bash_env_vars ]; then
-    . ~/.bash_env_vars
-fi
 
 # Custom Bash Plugin Manager
 

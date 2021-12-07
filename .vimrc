@@ -68,9 +68,24 @@ nnoremap <leader>cd :lcd %:h<CR>
 nnoremap <leader>vimrc :tabedit $MYVIMRC<CR>
 " ## toggle conceal between 0 and 2 ##
 nnoremap <leader>rd :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>
+" ## make Y yank to end of line instead of yy ##
+nnoremap Y y$"
+" ## map yank to clipboard ##
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+y$
+" ## map put from clipboard ##
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+" ## map from select (three finger/middle click) ##
+nnoremap <leader>o "*p
+nnoremap <leader>O "*P
+
+
 " # Insert Mode Mappings #
 " ## Quick Spellcheck fix ##
 imap <C-Q> <Esc>[s1z=`]a
+" ## –  with control on dash ##
+imap <C-_> <C-k>-N
 
 " # Internal Plugins #
 " ## Syntax highlighting from ~/.vim/syntax ##
@@ -85,6 +100,7 @@ filetype indent on
 let $FZF_DEFAULT_COMMAND.=' --hidden'
 let $PYTHONUNBUFFERED=1
 let g:maximizer_set_default_mapping = 0
+let g:goyo_width = 81
 
 " ## Loading the Plugins ##
 call plug#begin("~/.vim/plugged")
@@ -107,6 +123,8 @@ Plug 'coachshea/vim-textobj-markdown'
 
 " ## Comment manipulations ##
 Plug 'scrooloose/nerdcommenter'
+" ## File explorer ##
+Plug 'preservim/nerdtree'
 " ## Date Incrementing ##
 Plug 'tpope/vim-speeddating'
 " ## Quote, (), and [] manipulations ##
@@ -117,6 +135,10 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 " ## Unimpaired ##
 Plug 'tpope/vim-unimpaired'
+" ## FftT across lines ##
+Plug 'dahu/vim-fanfingtastic'
+" ## Align GH markdown charts ##
+Plug 'junegunn/vim-easy-align'
 
 " ## Async Stuff ##
 
@@ -127,10 +149,14 @@ Plug 'neomake/neomake'
 " ### Async Runner (my runners) ###
 Plug 'skywind3000/asyncrun.vim'
 
-" ## Pandoc markdown formatting and conceal ##
+"## Language specific plugins ##
+" ### Pandoc markdown formatting and conceal ###
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " ### A solid catchall language pack ###
 Plug 'sheerun/vim-polyglot'
+" ### Python autoformatter ###
+Plug 'psf/black', { 'branch': 'stable' }
+
 
 " ## fzf ##
 Plug 'junegunn/fzf.vim'
@@ -148,6 +174,8 @@ Plug 'honza/vim-snippets'
 
 " ## Onedark Colorscheme ##
 Plug 'joshdick/onedark.vim'
+" ## Paper Colorscheme ##
+Plug 'NLKNguyen/papercolor-theme'
 " ## Split 'Zoom' Behavior ##
 Plug 'szw/vim-maximizer'
 " ## Centered View, 'focus-mode' ##

@@ -1,6 +1,11 @@
 #!/bin/bash
 
-HH=$(date +%H)
+if [ -z "$1" ]; then
+	HH=$(date +%H)
+else
+	HH="$1"
+fi
+
 bg_dir="/home/joe/Pictures/DesktopSlides"
 
 case "$HH" in
