@@ -1,19 +1,14 @@
 # !/bin/bash
-# bat
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # FZF
-source /usr/share/doc/fzf/examples/key-bindings.bash
-source /usr/share/doc/fzf/examples/completion.bash
-export FZF_HISTORY_DIR='/home/joe/.history/fzf'
-export FZF_DEFAULT_COMMAND="fd --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.cache'"
+export FZF_HISTORY_DIR="${HOME}/.history/fzf"
+export FZF_DEFAULT_COMMAND="fdfind --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.cache'"
 export FZF_DEFAULT_OPTS="
 	--layout=reverse
 	--height=75%
-	--info=hidden
 	--multi
 	--ansi
-	--preview '${HOME}/.local/bin/preview-fzf {}'
+	--preview 'cat {}'
 	--bind '?:toggle-preview'
 	--bind 'ctrl-a:select-all'
 "
