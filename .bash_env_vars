@@ -39,6 +39,15 @@ if command -v fd &> /dev/null; then
 	_fzf_compgen_dir(){
 		fd --type d . "$1"
 	}
+elif command -v fdfind &> /dev/null; then
+	export FZF_DEFAULT_COMMAND="fdfind --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.cache'"
+	export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+	_fzf_compgen_path(){
+		fdfind .  "$1"
+	}
+	_fzf_compgen_dir(){
+		fdfind --type d . "$1"
+	}
 else
 	echo "fd not installed"
 	export FZF_DEFAULT_COMMAND="find"
