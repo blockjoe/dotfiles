@@ -49,7 +49,7 @@ case "$BASHTHEME" in
 		darkmin
 		;;
 	light-min*)
-		lightminn
+		lightmin
 		;;
 	*)
 		echo "Warning: Unknown theme: ${BASHTHEME}. Using dark."
