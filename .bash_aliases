@@ -16,17 +16,17 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-if -v mpv &> /dev/null; then
+if command -v mpv &> /dev/null; then
   #mpv no audio display
   alias mpv="mpv --no-audio-display"
 fi
 
-if -v tmux &> /dev/null; then
+if command -v tmux &> /dev/null; then
   # tmux with colors
   alias tmux="tmux -2"
 fi
 
-if -v xclip &> /dev/null; then
+if command -v xclip &> /dev/null; then
   # Xclip
   alias x-cr="xclip" # copy to register
   alias x-c="xclip -selection clipboard" # copy to system clipboard
@@ -34,7 +34,7 @@ if -v xclip &> /dev/null; then
   alias x-p="xclip -o -selection clipboard" # paste from system clipboard
 fi
 
-if -v bat &> /dev/null; then
+if command -v bat &> /dev/null; then
   ## cat to bat
   alias cat="bat --paging=never"
   ## no line numbers
@@ -143,7 +143,7 @@ function _cointop() {
 alias cointop='_cointop'
 alias ct-summary='ssh -t -o LogLevel=QUIET home "~/.local/bin/ct-summary"'
 
-if -v lsd &> /dev/null; then
+if command -v lsd &> /dev/null; then
   # lsd
   alias l="lsd --group-dirs first"
   alias la="lsd -A --group-dirs first"
