@@ -42,6 +42,10 @@ if [ -f ~/.bash_env_vars ]; then
     . ~/.bash_env_vars
 fi
 
+if [ -f ~/.bash_completion ]; then
+  . ~/.bash_completion
+fi
+
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)

@@ -19,21 +19,23 @@ light() {
 		export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --color=light"
 }
 
-dark-min() {
-    PS1='\[\e[38;5;231m\]\[\e[48;5;240m\] \w \[\e[0m\] '
+darkmin() {
+    PS1='\[\e[38;5;231m\]\[\e[48;5;244m\] \h \[\e[48;5;240m\] \w \[\e[0m\] '
     bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 N \1\e[0m\2"'
     bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 I \1\e[0m\2"'
 		export PS1
 		export BAT_THEME="OneHalfDark"
+		export BASHTHEME="dark-min"
 }
 
-light-min() {
-    PS1='\[\e[38;5;231m\]\[\e[48;5;31m\] \w \[\e[0m\] '
+lightmin() {
+    PS1='\[\e[38;5;231m\]\[\e[48;5;31m\] \h \[\e[48;5;31m\] \w \[\e[0m\] '
     bind 'set vi-cmd-mode-string "\1\e[38;5;232m\2\1\e[48;5;231m\2 N \1\e[0m\2"'
     bind 'set vi-ins-mode-string "\1\e[38;5;63m\2\1\e[48;5;231m\2 I \1\e[0m\2"'
 		export PS1
 		export BAT_THEME="OneHalfLight"
 		export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --color=light"
+		export BASHTHEME="light-min"
 }
 
 case "$BASHTHEME" in
@@ -43,11 +45,11 @@ case "$BASHTHEME" in
 	light)
 		light
 		;;
-	dark-minimal)
-		echo "Minimal Dark Theme"
+	dark-min*)
+		darkmin
 		;;
-	light-minimal)
-		echo "Minimal Light Theme"
+	light-min*)
+		lightminn
 		;;
 	*)
 		echo "Warning: Unknown theme: ${BASHTHEME}. Using dark."
