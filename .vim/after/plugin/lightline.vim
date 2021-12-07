@@ -54,6 +54,19 @@ if (empty($BASHTHEME) || $BASHTHEME ==? "dark")
   \ }
 elseif $BASHTHEME ==? "dark-min"
   let g:lightline = {
+      \ 'mode_map': {
+        \ 'n' : 'N',
+        \ 'i' : 'I',
+        \ 'R' : 'R',
+        \ 'v' : 'V',
+        \ 'V' : 'VL',
+        \ "\<C-v>": 'VB',
+        \ 'c' : 'C',
+        \ 's' : 'S',
+        \ 'S' : 'SL',
+        \ "\<C-s>": 'SB',
+        \ 't': 'T',
+        \ },
         \ 'background' : 'dark',
         \ 'colorscheme': 'one',
         \ 'active': {
@@ -95,6 +108,19 @@ elseif $BASHTHEME ==? "light"
   \ }
 elseif $BASHTHEME ==? "light-min"
   let g:lightline = {
+      \ 'mode_map': {
+        \ 'n' : 'N',
+        \ 'i' : 'I',
+        \ 'R' : 'R',
+        \ 'v' : 'V',
+        \ 'V' : 'VL',
+        \ "\<C-v>": 'VB',
+        \ 'c' : 'C',
+        \ 's' : 'S',
+        \ 'S' : 'SL',
+        \ "\<C-s>": 'SB',
+        \ 't': 'T',
+        \ },
         \ 'background' : 'light',
         \ 'colorscheme': 'PaperColor',
         \ 'active': {
