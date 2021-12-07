@@ -100,7 +100,6 @@ elseif $BASHTHEME ==? "light"
   \ }
 elseif $BASHTHEME ==? "light-min"
   let g:lightline = {
-  let g:lightline = {
       \ 'mode_map': {
         \ 'n' : 'N',
         \ 'i' : 'I',
