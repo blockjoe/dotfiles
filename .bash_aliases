@@ -146,6 +146,7 @@ fi
 if command -v lsd &> /dev/null; then
   # lsd
   alias l="lsd --group-dirs first"
+  alias ls="lsd"
   alias la="lsd -A --group-dirs first"
   alias ld="lsd -d"
   alias ll="lsd -l --group-dirs first"
