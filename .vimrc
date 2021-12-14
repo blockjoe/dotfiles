@@ -163,13 +163,6 @@ Plug 'psf/black', { 'branch': 'stable' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
-" ## COC (VSCode extensions) ##
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
-" ## Interactive Testing ##
-Plug 'vim-test/vim-test'
-" ## Interactive Debugging ##
-Plug 'puremourning/vimspector'
-
 " ## Highlight and fix trailing whitespace ##
 Plug 'ntpeters/vim-better-whitespace'
 " ## Highlight what was yanked. ##

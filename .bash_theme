@@ -1,5 +1,5 @@
 if [ -z "$BASHTHEME" ]; then
-	export BASHTHEME="dark"
+	export BASHTHEME="dark-min"
 fi
 
 dark() {
