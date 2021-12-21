@@ -1,0 +1,143 @@
+#!/bin/zsh
+fpath=("$HOME/.zprompts" "$fpath[@]")
+
+function zle-line-init zle-keymap-select {
+	PS1="${${KEYMAP/vicmd/$VI_NORM_PROMPT}/(main|viins)/$VI_INS_PROMPT}$VI_BASE_PROMPT"
+	PS2=$PS1
+	if [ -z "$VI_TAIL_HEAD" ]; then
+		RPS1=""
+	else
+		RPS1="$VI_TAIL_HEAD$(_lightline_battery) %f%k${${KEYMAP/vicmd/$VI_NORM_TAIL}/(main|viisn)/$VI_INS_TAIL}"
+	fi
+	RPS2=$RPS2
+	zle reset-prompt
+}
+
+_lightline_battery() {
+	s=`cat /sys/class/power_supply/cw2015-battery/status`
+	case "$s" in
+		Charging)
+			_lightline_battery_charging
+			;;
+		*)
+			_lightline_battery_discharging
+			;;
+	esac
+}
+
+_lightline_battery_discharging() {
+	val=`cat /sys/class/power_supply/cw2015-battery/capacity`
+	case "$val" in
+		100)
+			echo "\UF578 $val%%"
+			;;
+		9*)
+			echo "\UF581 $val%%"
+			;;
+		8*)
+			echo "\UF580 $val%%"
+			;;
+		7*)
+			echo "\UF57F $val%%"
+			;;
+		6*)
+			echo "\UF57E $val%%"
+			;;
+		5*)
+			echo "\UF57D $val%%"
+			;;
+		4*)
+			echo "\UF57C $val%%"
+			;;
+		3*)
+			echo "\UF57B $val%%"
+			;;
+		2*)
+			echo "\UF57A $val%%"
+			;;
+		1*)
+			echo "\UF579 $val%%"
+			;;
+		*)
+			echo "\UF579 $val%%"
+			;;
+	esac
+}
+
+_lightline_battery_charging() {
+	val=`cat /sys/class/power_supply/cw2015-battery/capacity`
+	case "$val" in
+		100)
+			echo "\UF584 $val%%"
+			;;
+		9*)
+			echo "\UF58A $val%%"
+			;;
+		8*)
+			echo "\UF589 $val%%"
+			;;
+		6*|7*)
+			echo "\UF588 $val%%"
+			;;
+		4*|5*)
+			echo "\UF587 $val%%"
+			;;
+		3*)
+			echo "\UF586 $val%%"
+			;;
+		1*|2*)
+			echo "\UF585 $val%%"
+			;;
+		*)
+			echo "\UF585 $val%%"
+			;;
+	esac
+
+}
+
+_lightline_cleanup() {
+	zle -D zle-line-init
+	zle -D zle-keymap-select
+	export VI_BASE_PROMPT=""
+	export VI_TAIL_HEAD=""
+	export VI_NORM_PROMPT=""
+	export VI_NORM_TAIL=""
+	export VI_INS_PROMPT=""
+	export VI_INS_TAIL=""
+}
+
+autoload -Uz promptinit
+promptinit
+
+if [ -z "$BASHTHEME" ]; then
+	export BASHTHEME="dark"
+fi
+
+case "$BASHTHEME" in
+	dark)
+		prompt lightline
+		export BAT_THEME="OneHalfDark"
+		;;
+	light)
+		prompt lightline-light
+		export BAT_THEME="OneHalfLight"
+		export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --color=light"
+		;;
+	dark-min*)
+		prompt lightline-min
+		export BAT_THEME="OneHalfDark"
+		export BASHTHEME="dark-min"
+		;;
+	light-min*)
+		prompt lightline-light-min
+		export BAT_THEME="OneHalfLight"
+		export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --color=light"
+		export BASHTHEME="light-min"
+		;;
+	*)
+		echo "Unsupported theme: ${BASHTHEME}. Using defaults."
+		prompt adam1
+		;;
+esac
+
+
