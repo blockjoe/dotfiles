@@ -30,6 +30,16 @@ fi
 
 export FZF_HISTORY_DIR='/home/joe/.history/fzf'
 
+FZF_BASE_OPTS="
+	--layout=reverse
+	--height=75%
+	--info=hidden
+	--multi
+	--ansi
+	--bind '?:toggle-preview'
+	--bind 'ctrl-a:select-all'
+"
+
 if command -v fd &> /dev/null; then
 	export FZF_DEFAULT_COMMAND="fd --follow --color=always --exclude '.git' --exclude 'node_modules' --exclude 'venv' --exclude '.cache'"
 	export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
@@ -55,22 +65,13 @@ fi
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-FZF_DEFAULT_OPTS="
-	--layout=reverse
-	--height=75%
-	--info=hidden
-	--multi
-	--ansi
-	--bind '?:toggle-preview'
-	--bind 'ctrl-a:select-all'
-"
 
 if [ -f "$HOME/.local/bin/preview-fzf" ]; then
-	export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview '${HOME}/.local/bin/preview-fzf {}'"
+	export FZF_DEFAULT_OPTS="$FZF_BASE_OPTS --preview '${HOME}/.local/bin/preview-fzf {}'"
 elif command -v bat &> /dev/null; then
-	export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+	export FZF_DEFAULT_OPTS="$FZF_BASE_OPTS --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 else
-	export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview 'cat {}'"
+	export FZF_DEFAULT_OPTS="$FZF_BASE_OPTS --preview 'cat {}'"
 fi
 
 # NVM
