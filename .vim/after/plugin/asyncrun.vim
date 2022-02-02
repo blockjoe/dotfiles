@@ -92,10 +92,17 @@ function! StartMarkdownPDFPreview() abort
 	AsyncRun -raw pandoc "$(VIM_FILEPATH)" -o %:p:r.pdf; xdg-open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" -o %:p:r.pdf
 endfunction
 
+"Render markdown to revealjs slides via pandoc
+function! StartMarkdownRevealPreview() abort
+  let g:job_presenting = 1
+  AsyncRun -raw pandoc "$(VIM_FILEPATH)" -s -t revealjs -o %:p:r.html; xdg-open %:p:r.html; live-pandoc "$(VIM_FILEPATH)" -s -t revealjs -o %:p:r.html
+endfunction
+
 augroup MarkdownRunners
   autocmd!
   autocmd Filetype markdown map <silent> <buffer> <F5> <ESC>:w<CR>:call StartMarkdownHTMLPreview()<CR>
   autocmd Filetype markdown map <silent> <buffer> <F6> <ESC>:w<CR>:call StartMarkdownPDFPreview()<CR>
+  autocmd Filetype markdown map <silent> <buffer> <F7> <ESC>:w<CR>:call StartMarkdownRevealPreview()<CR>
 augroup END
 
 " All the functions for managing the AsyncStatus
