@@ -1,4 +1,3 @@
-
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -60,10 +59,10 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    if [ -x /usr/bin/tput ]; then
 	# We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
@@ -73,12 +72,8 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [[ "$color_256" == "yes" && -f ~/.bash_theme ]]; then
+if [[ "$color_prompt" == "yes" && -f ~/.bash_theme ]]; then
   . ~/.bash_theme
-elif [ "$color_256" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;231m\]\[\e[48;5;244m\] \h | \u \[\e[48;5;240m\] \w \[\e[0m\] '
-    bind 'set vi-cmd-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;150m\2 NORMAL \1\e[0m\2"'
-    bind 'set vi-ins-mode-string "\1\e[01;38;5;232m\2\1\e[48;5;111m\2 INSERT \1\e[0m\2"'
 elif [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
@@ -133,32 +128,5 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
-fi
-
-# Custom Bash Plugin Manager
-
-# The .bash_plugin directory will be searched, and any .sh file in that
-# directory will included.
-if [ -f ~/.bash_plugins/bash-plugins.sh ]; then
-    . ~/.bash_plugins/bash-plugins.sh
-
-    if [ -z "$BP_INSTALL_DIR" ]; then
-        bp_dir=~/.bash_plugins/installed
-    else
-        bp_dir="$BP_INSTALL_DIR"
-    fi
-
-    if [ -d "$bp_dir" ]; then
-        _pwd="$(pwd)"
-        cd "$bp_dir"
-        for i in *.sh; do
-            [ -f "$i" ] || continue
-            . "$i"
-        done
-        cd "$_pwd"
-    fi
-    if [ -d "$bp_dir/bin" ]; then
-       export PATH="${PATH}:${bp_dir}/bin"
-    fi
 fi
 
