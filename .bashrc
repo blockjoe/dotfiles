@@ -135,7 +135,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
 # Custom Bash Plugin Manager
 
 # The .bash_plugin directory will be searched, and any .sh file in that

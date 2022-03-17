@@ -95,7 +95,7 @@ endfunction
 "Render markdown to revealjs slides via pandoc
 function! StartMarkdownRevealPreview() abort
   let g:job_presenting = 1
-  AsyncRun -raw pandoc "$(VIM_FILEPATH)" -s -t revealjs -o %:p:r.html; xdg-open %:p:r.html; live-pandoc "$(VIM_FILEPATH)" -s -t revealjs -o %:p:r.html
+  AsyncRun -raw pandoc "$(VIM_FILEPATH)" -s -t revealjs --slide-level 2 -o %:p:r.html; xdg-open %:p:r.html; live-pandoc "$(VIM_FILEPATH)" -s -t revealjs --slide-level 2 -o %:p:r.html
 endfunction
 
 augroup MarkdownRunners

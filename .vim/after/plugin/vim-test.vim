@@ -20,6 +20,32 @@ nnoremap <leader>tv :TestVisit<CR>
 nnoremap <leader>tm :echo "No nearest verbose function defined."<CR>
 " Run nearest in debug (langauge specific)
 nnoremap <leader>td :echo "No nearest debug function defined."<CR>
+nnoremap <leader>te :exec RunTestEcho()<CR>
+
+
+function! EchoStrategy(cmd)
+  echo 'Command for running tests: ' . a:cmd
+endfunction
+
+function! RunTestEcho()
+  :TestNearest -strategy=echoname
+endfunction
+
+" Python
+function! RunPythonDebug()
+  :TestNearest -strategy=pytest
+endfunction
+
+function! PytestDebugStrategy(cmd)
+  let testName = split(a:cmd)[1]
+  echo split(a:cmd)[1]
+  call vimspector#LaunchWithSettings( #{configuration: 'pytest', TestName: testName } )
+endfunction
+
+augroup PythonMappings
+  autocmd!
+  autocmd Filetype python nnoremap <leader>td :exec RunPythonDebug()<CR>
+augroup END
 
 " Javascript
 let g:test#javascript#runner = 'jest'
@@ -29,7 +55,6 @@ function! JestDebugStrategy(cmd)
   let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
   call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
 endfunction
-let g:test#custom_strategies = {'jest': function('JestDebugStrategy')}
 
 function! RunJestDebug()
   let g:test#javascript#jest#options=''
@@ -42,6 +67,8 @@ function! RunJestVerbose()
   :TestNearest -strategy="vimterminal"
   let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
 endfunction
+
+let g:test#custom_strategies = {'echoname': function('EchoStrategy'), 'pytest': function('PytestDebugStrategy'), 'jest': function('JestDebugStrategy')}
 
 augroup JSMappings
   autocmd!

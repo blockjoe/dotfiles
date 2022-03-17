@@ -166,7 +166,7 @@ fi
 
 # Python
 ## venv
-alias virtualenv="python -m venv"
+#alias virtualenv="python -m venv"
 
 ## quick read configs
 alias cba="bat -l sh /home/joe/.bash_aliases"
