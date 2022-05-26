@@ -87,6 +87,10 @@ imap <C-Q> <Esc>[s1z=`]a
 " ## –  with control on dash ##
 imap <C-_> <C-k>-N
 
+" # Visual Mode Mappings #
+" ## Sort selected text ##
+vmap <leader>abc :sort<CR>
+
 " # Internal Plugins #
 " ## Syntax highlighting from ~/.vim/syntax ##
 syntax enable
@@ -105,6 +109,9 @@ let g:goyo_width = 81
 
 " ## Loading the Plugins ##
 call plug#begin("~/.vim/plugged")
+
+" ## Manually managed vimballs
+" # Plug '~/.vim/vimballs/plugged/AnsiEsc'
 
 " ## Custom text objects ##
 " ### Base ###
@@ -154,9 +161,11 @@ Plug 'skywind3000/asyncrun.vim'
 " ### Pandoc markdown formatting and conceal ###
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " ### A solid catchall language pack ###
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 " ### Python autoformatter ###
 Plug 'psf/black', { 'branch': 'stable' }
+" ### Go autoformatter and inputs
+Plug 'darrikonn/vim-gofmt', { 'do': ':GoUpdateBinaries' }
 
 
 " ## fzf ##
@@ -193,6 +202,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'josa42/vim-lightline-coc'
 " ## Hightlighting of hex color codes in that color ##
 Plug 'ap/vim-css-color'
+
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 " !!! MUST BE FINAL IMPORT !!!
 " ## UTF-8 font icons ##
