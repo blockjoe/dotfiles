@@ -89,7 +89,7 @@ endfunction
 "Render markdown to PDF via pandoc
 function! StartMarkdownPDFPreview() abort
 	let g:job_presenting = 1
-	AsyncRun -raw pandoc "$(VIM_FILEPATH)" -o %:p:r.pdf; xdg-open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" -o %:p:r.pdf
+	AsyncRun -raw pandoc "$(VIM_FILEPATH)" --variable urlcolor=cyan -o %:p:r.pdf; xdg-open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" --variable urlcolor=cyan -o %:p:r.pdf
 endfunction
 
 "Render markdown to revealjs slides via pandoc

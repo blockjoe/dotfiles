@@ -16,7 +16,6 @@ set signcolumn=yes
 " extensions
 let g:coc_global_extensions = [
   \ "coc-css",
-  \ "coc-json",
   \ "coc-docker",
   \ "coc-docthis",
   \ "coc-markdownlint",

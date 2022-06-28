@@ -158,6 +158,7 @@ Plug 'neomake/neomake'
 Plug 'skywind3000/asyncrun.vim'
 
 "## Language specific plugins ##
+Plug 'tomlion/vim-solidity'
 " ### Pandoc markdown formatting and conceal ###
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " ### A solid catchall language pack ###
