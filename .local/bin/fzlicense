@@ -6,5 +6,4 @@ _choice="$(printf "%s\n" ${choices[@]} |  fzf --preview 'getlicense --stdout {} 
 if [ -z "$_choice" ]; then
 	exit 0
 fi
-echo "Using the LICENSE.txt for SPDX: "${_choice}""
 getlicense "$_choice" "$@"

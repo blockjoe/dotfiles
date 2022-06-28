@@ -47,114 +47,147 @@ done
 # set positional arguments in their proper place
 eval set -- "$PARAMS"
 
-_GI_BASE="https://raw.githubusercontent.com/github/gitignore/main/"
+_GI_ROOT="https://raw.githubusercontent.com/github/gitignore/main/"
+_GLOBAL="${_GI_ROOT}Global/"
+_COMMUNITY="${_GI_ROOT}community/"
+_BASE="$_GI_ROOT"
 
-case "$1" in
-	[aA]rch*|pkgbuild)
-		_FILE="ArchLinuxPackages"
-		;;
-	[aA]utotools)
-		_FILE="Autotools"
-		;;
-	[cC]pp|CPP|[cC]\+\+)
-		_FILE="C++"
-		;;
-	[cC])
-		_FILE="C"
-		;;
-	[cC][mM]ake)
-		_FILE="CMake"
-		;;
-	[cC]uda|CUDA)
-		_FILE="CUDA"
-		;;
-	[gG]it[bB]ook)
-		_FILE="GitBook"
-		;;
-	[gG]o)
-		_FILE="Go"
-		;;
-	[gG]odot)
-		_FILE="Godot"
-		;;
-	[hH]askell)
-		_FILE="Haskell"
-		;;
-	[jJ]ava)
-		_FILE="Java"
-		;;
-	[jJ]ekyll)
-		_FILE="Jekyll"
-		;;
-	[jJ]ulia)
-		_FILE="Juila"
-		;;
-	[kK]i[cC]ad)
-		_FILE="KiCad"
-		;;
-	[lL]ua)
-		_FILE="Lua"
-		;;
-	[nN]ode*)
-		_FILE="Node"
-		;;
-	[oO][cC]aml)
-		_FILE="OCaml"
-		;;
-	[pP]ure[sS]cript)
-		_FILE="PureScript"
-		;;
-	[pP]y*)
-		_FILE="Python"
-		;;
-	[qQ][tT])
-		_FILE="Qt"
-		;;
-	[rR])
-		_FILE="R"
-		;;
-	[rR]ails)
-		_FILE="Rails"
-		;;
-	[rR]ust)
-		_FILE="Rust"
-		;;
-	[rR]uby)
-		_FILE="Ruby"
-		;;
-	[sW]ift)
-		_FILE="Swift"
-		;;
-	[lL]a[tT]e[xX]|[tT]e[xX])
-		_FILE="TeX"
-		;;
-	[tT]erraform)
-		_FILE="Terraform"
-		;;
-	[uU]nity)
-		_FILE="Unity"
-		;;
-	[uU]nreal*)
-		_FILE="UnrealEngine"
-		;;
-	*)
-		echo "Unsupported .gitignore file type: ${1}"
-		exit 1
-		;;
-esac
+get-ignore() {
+	case "$1" in
+		[aA]rch*|pkgbuild)
+			_FILE="ArchLinuxPackages"
+			;;
+		[aA]utotools)
+			_FILE="Autotools"
+			;;
+		[cC]pp|CPP|[cC]\+\+)
+			_FILE="C++"
+			;;
+		[cC])
+			_FILE="C"
+			;;
+		[cC][mM]ake)
+			_FILE="CMake"
+			;;
+		[cC]uda|CUDA)
+			_FILE="CUDA"
+			;;
+		[gG]it[bB]ook)
+			_FILE="GitBook"
+			;;
+		[gG]o)
+			_FILE="Go"
+			;;
+		[gG]odot)
+			_FILE="Godot"
+			;;
+		[hH]askell)
+			_FILE="Haskell"
+			;;
+		[hH]ugo)
+			_BASE="${_COMMUNITY}Golang/"
+			_FILE="Hugo"
+			;;
+		[jJ]ava)
+			_FILE="Java"
+			;;
+		[jJ]ekyll)
+			_FILE="Jekyll"
+			;;
+		[jJ]ulia)
+			_FILE="Juila"
+			;;
+		[kK]i[cC]ad)
+			_FILE="KiCad"
+			;;
+		[lL]inux)
+			_BASE="$_GLOBAL"
+			_FILE="Linux"
+			;;
+		[lL]ua)
+			_FILE="Lua"
+			;;
+		[nN]ode*)
+			_FILE="Node"
+			;;
+		[oO][cC]aml)
+			_FILE="OCaml"
+			;;
+		[pP]ure[sS]cript)
+			_FILE="PureScript"
+			;;
+		[pP]y*)
+			_FILE="Python"
+			;;
+		[qQ][tT])
+			_FILE="Qt"
+			;;
+		[rR])
+			_FILE="R"
+			;;
+		[rR]ails)
+			_FILE="Rails"
+			;;
+		[rR]ust)
+			_FILE="Rust"
+			;;
+		[rR]uby)
+			_FILE="Ruby"
+			;;
+		[sW]ift)
+			_FILE="Swift"
+			;;
+		[lL]a[tT]e[xX]|[tT]e[xX])
+			_FILE="TeX"
+			;;
+		[tT]erraform)
+			_FILE="Terraform"
+			;;
+		[uU]nity)
+			_FILE="Unity"
+			;;
+		[uU]nreal*)
+			_FILE="UnrealEngine"
+			;;
+		[vV]im)
+			_BASE="$_GLOBAL"
+			_FILE="Vim"
+			;;
+		[vV]irtual[eE]nv|[vV]env)
+			_BASE="$_GLOBAL"
+			_FILE="VirtualEnv"
+			;;
+		*)
+			echo "Unsupported .gitignore file type: ${1}"
+			exit 1
+			;;
+	esac
 
 
-_DL="${_GI_BASE}${_FILE}.gitignore"
-_CACHED="${HOME}/.cache/getignore/${_FILE}.gitignore"
+	_DL="${_BASE}${_FILE}.gitignore"
+	_CACHED="${HOME}/.cache/getignore/${_FILE}.gitignore"
 
-mkdir -p ~/.cache/getignore
+	mkdir -p ~/.cache/getignore
 
-if [ ! -f "$_CACHED" ] || [ 1 -eq $_FORCE_DL ]; then
-	wget -q -O "$_CACHED" "$_DL"
-fi
+	if [ ! -f "$_CACHED" ] || [ 1 -eq $_FORCE_DL ]; then
+		wget -q -O "$_CACHED" "$_DL"
+		sed -i "1i# Source: ${_DL}" "$_CACHED"
+		sed -i "1i### Start ${_FILE} Section ###" "$_CACHED"
+		echo "### End ${_FILE} Section ###" >> "$_CACHED"
+		echo "" >> "$_CACHED"
+	fi
+
+	echo "$_CACHED"
+}
+
+_ignores=()
+for ft in $@; do
+	_ignore="$(get-ignore $ft)"
+	_ignores[${#_ignores[@]}]="${_ignore}"
+done
 
 if [ 1 -eq $_STDOUT ]; then
-	cat "$_CACHED"
+	cat "${_ignores[@]}"
 else
-	cp "$_CACHED" "$_OUTPUT"
+	cat "${_ignores[@]}" > "$_OUTPUT"
 fi
