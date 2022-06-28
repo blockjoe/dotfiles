@@ -1,0 +1,236 @@
+#!/bin/bash
+
+if command -v wget &> /dev/null; then
+	:
+else
+	echo "Required wget not installed"
+	exit 1
+fi
+
+if [ -n "$COPYRIGHT_HOLDER" ]; then
+	_COPY_HOLDER="$COPYRIGHT_HOLDER"
+fi
+
+_dir="$(pwd)"
+_STDOUT=0
+_FORCE_DL=0
+_OUTPUT="${_dir}/LICENSE"
+_COPY_YEAR="$(date +"%Y")"
+
+PARAMS=""
+
+while (( "$#" )); do
+  case "$1" in
+		-f|--force-dl)
+			_FORCE_DL=1
+			shift
+			;;
+		-y|--year)
+      if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        _COPY_YEAR=$2
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+			;;
+		-h|--holder)
+      if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        _COPY_HOLDER=$2
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+			;;
+		-s|--stdout)
+			_STDOUT=1
+			shift
+			;;
+    -o|--output)
+      if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        _OUTPUT=$2
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+      ;;
+    -*|--*=) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      PARAMS="$PARAMS $1"
+      shift
+      ;;
+  esac
+done
+
+# set positional arguments in their proper place
+eval set -- "$PARAMS"
+
+if [ -z "$_COPY_HOLDER" ]; then
+	echo "No copyright holder provided via the -h/--holder parameter or COPYRIGHT_HOLDER env variable."
+	exit 1
+fi
+
+_BASE="https://raw.githubusercontent.com/github/choosealicense.com/gh-pages/_licenses/"
+
+case "$1" in
+	0BSD|[bB]sd-?0|BSD-?0|0-?[bB]sd|0-?BSD)
+		_FILE="0bsd"
+		;;
+	AFL-3.0|[aA][fF][lL]*)
+		_FILE="afl-3.0"
+		;;
+	AGPL-3.0|[aA][gG][pP][lL]*)
+		_FILE="agpl-3.0"
+		;;
+	Apache-2.0|[Aa]pache*)
+		_FILE="apache-2.0"
+		;;
+	Artistic-2.0|[aR]tistic*)
+		_FILE="artistic-2.0"
+		;;
+	BSD-2-Clause|[bB]sd-?2*|BSD-?2*)
+		_FILE="bsd-2-clause"
+		;;
+	BSD-3-Clause-Clear|[bB]sd-?3*clear*|BSD-?3*clear*|[bB]sd-?3*cc*|BSD-?3*cc*)
+		_FILE="bsd-3-clause-clear"
+		;;
+	BSD-3-Clause|[bB]sd-?3*|BSD-?3*)
+		_FILE="bsd-3-clause"
+		;;
+	BSD-4-Clause|[bB][sS][dD]*)
+		_FILE="bsd-4-clause"
+		;;
+	BSL-1.0|[bB]sl*|BSL*)
+		_FILE="bsl-1.0"
+		;;
+	CC-BY-SA-4.0|[cC]*sa*|CC*sa*)
+		_FILE="cc-by-sa-4.0"
+		;;
+	CC-BY-4.0|[cC]*by*|CC*by*)
+		_FILE="cc-by-4.0"
+		;;
+	CC0-1.0|[cC][cC]*)
+		_FILE="cc0-1.0"
+		;;
+	CECILL-2.1|[cC]ecill*|CeCILL*)
+		_FILE="cecill-2.1"
+		;;
+	ECL-2.0|[eE]cl*|ECL*)
+		_FILE="ecl-2.0"
+		;;
+	EPL-1.0|[eE]pl-?1*|EPL-?1*)
+		_FILE="epl-1.0"
+		;;
+	EPL-2.0|[eE]pl*|EPL*)
+		_FILE="epl-2.0"
+		;;
+	EUPL-1.1|[eE]upl-?1.?1*|EUPL-?1.?1*)
+		_FILE="eupl-1.1"
+		;;
+	EUPL-1.2|[eE]upl*|EUPL*)
+		_FILE="eupl-1.2"
+		;;
+	GPL-2.0|[gG]pl-?2*|GPL-?2*)
+		_FILE="gpl-2.0"
+		;;
+	GPL-2.0|[gG]pl*|GPL*)
+		_FILE="gpl-3.0"
+		;;
+	ISC|[iI]sc*|ISC*)
+		_FILE="isc"
+		;;
+	LGPL-2.1|[lL]gpl-?2*|LGPL-?2*)
+		_FILE="lgpl-2.1"
+		;;
+	LGPL-3.0|[lL]gpl*|LGPL*)
+		_FILE="lgpl-3.0"
+		;;
+	LPPL-1.3c|[lL]ppl*|LPPL*)
+		_FILE="lppl-1.3c"
+		;;
+	MIT-0|[mM]it-?0|MIT-?0)
+		_FILE="mit-0"
+		;;
+	MIT|[mM]it)
+		_FILE="mit"
+		;;
+	MPL-2.0|[mM]pl*|MPL*)
+		_FILE="mpl-2.0"
+		;;
+	MS-PL|[mM]s-pl)
+		_FILE="ms-pl"
+		;;
+	MS-RL|[mM]s-rl)
+		_FILE="ms-rl"
+		;;
+	MulanPSL-2.0|[Mm]ulan*)
+		_FILE="mulanpsl-2.0"
+		;;
+	NCSA|[nN]csa)
+		_FILE="ncsa"
+		;;
+	ODbL-1.0|[oO][dD]b[lL]*)
+		_FILE="odbl-1.0"
+		;;
+	OFL-1.1|[oO][fF][lL]*)
+		_FILE="ofl-1.1"
+		;;
+	OSL-3.0|[oO][sS][lL]*)
+		_FILE="osl-3.0"
+		;;
+	PostgreSQL|[pP]ostgre*)
+		_FILE="posegresql"
+		;;
+	[uU]nlicense)
+		_FILE="unlicense"
+		;;
+	UPL-1.0|[uU][pP][lL]*)
+		_FILE="upl-1.0"
+		;;
+	[vV]im)
+		_FILE="vim"
+		;;
+	WTFPL|[wW][tT][fF]*)
+		_FILE="wtfpl"
+		;;
+	[zZ]lib)
+		_FILE="zlib"
+		;;
+	*)
+		echo "Unsupported License file type: ${1}"
+		exit 1
+		;;
+esac
+
+
+strip-frontmatter() {
+	sed '1 { /^---/ { :a N; /\n---/! ba; d} }' $1 | sed '/./,$!d'
+}
+
+populate-year() {
+	sed "s/\[year\]/$_COPY_YEAR/g" $1
+}
+
+populate-holder() {
+	sed "s/\[fullname\]/$_COPY_HOLDER/g" $1
+}
+
+_DL="${_BASE}${_FILE}.txt"
+_CACHED="${HOME}/.cache/getlicense/${_FILE}.txt"
+
+mkdir -p ~/.cache/getlicense
+
+if [ ! -f "$_CACHED" ] || [ 1 -eq $_FORCE_DL ]; then
+	wget -q -O  "$_CACHED" "$_DL"
+fi
+
+if [ 1 -eq $_STDOUT ]; then
+	cat "$_CACHED" | strip-frontmatter
+else
+	cat "$_CACHED" | strip-frontmatter | populate-year | populate-holder > "${_OUTPUT}"
+fi

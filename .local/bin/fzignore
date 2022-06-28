@@ -1,0 +1,11 @@
+#!/bin/bash
+
+choices=(ArchLinuxPackages Autotools C++ C CMake GitBook Go Godot Haskell Jekyll Julia KiCad Lua Node OCaml PureScript Python Qt R Rails Ruby Rust Swift TeX Terraform Unity Unreal)
+
+_choice="$(printf "%s\n" ${choices[@]} |  fzf --preview 'getignore --stdout {} | bat -l gitignore --color=always --file-name={}.gitignore')"
+if [ -z "$_choice" ]; then
+	exit 0
+fi
+echo "Using the gitignore for "${_choice}""
+getignore "$_choice" "$@"
+

@@ -1,1 +1,213 @@
-/home/joe/Projects/scripts/preview-fzf-bat/fzf-preview.sh
+#!/bin/bash
+
+_check_command() {
+	if command -v "$1" &> /dev/null; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+_check_preview_deps() {
+	missing=""
+	for cmd in "$@"; do
+		_check_command "$cmd"
+		if [ 0 -ne $? ]; then
+			missing="${missing} ${cmd}"
+		fi
+	done
+	if [ "$missing" = "" ]; then
+		return 0
+	else
+		echo "$missing"
+		return 1
+	fi
+}
+
+_check_all_deps() {
+	missing="$(_check_preview_deps hexyl xxd bat termwave identify imgcat bc ffmpeg ffprobe lsd)"
+	if [ 0 -ne $? ]; then
+		echo "The following commands appear to be missing: ${missing}"
+		exit 1
+	else
+		echo "Everything appears to be installed"
+		exit 0
+	fi
+}
+
+_preview_check() {
+	missing="$(_check_preview_deps $1)"
+	ret=$?
+	if [ 0 -ne $ret ] && [ -z "$4" ]; then
+		_missing_preview_depends "$missing" "$2" "$3"
+		return 1
+	elif [ 0 -ne $ret ]; then
+		return 1
+	fi
+	return 0
+}
+
+_hex_preview() {
+	_preview_check "hexyl xxd bat" "$2" "${1}/${3}"
+	if [ 0 -eq $? ]; then
+		(hexyl "$2" || xxd "$2") | head -n 500 | bat --color=always --style=header --file-name "${2} [${1}/${3}] – Showing hexdump."
+	fi
+}
+
+_application_preview() {
+	case "$2" in
+		json)
+			_text_preview "$1"
+			;;
+		*)
+			_hex_preview "application" "$1" "$2"
+			;;
+	esac
+}
+
+_audio_preview() {
+	_preview_check termwave "$1" "$2" false
+	if [ 0 -ne $? ]; then
+		_hex_preview "audio" "$1" "$2"
+	else
+		termwave "$1" 2>/dev/null
+	fi
+}
+
+_directory_preview() {
+	_preview_check lsd "$1" "directory" && lsd --icon always --color always --tree --depth 2 --group-dirs first "$1" | less
+}
+
+_image_dims() {
+	identify -format '%wx%h' "$1"
+}
+
+_image_preview() {
+	if [ -z "$FZF_PREVIEW_LINES" ]; then
+		FZF_PREVIEW_LINES=40
+	fi
+	if [ -z "$FZF_PREVIEW_COLUMNS" ]; then
+		FZF_PREVIEW_COLUMNS=79
+	fi
+	_preview_check "identify imgcat bc" "$1" "$2"
+	if [ "$?" -ne 0 ]; then
+		_hex_preview "image" "$1" "$2"
+	else
+		_dims="$(_image_dims "$1")"
+		_h="${_dims##*x}"
+		_w="${_dims%%x*}"
+		if [ "$_w" -lt "$_h" ]; then
+			_rows="$(echo "${FZF_PREVIEW_LINES}*2" | bc)"
+			_cols="$(echo "scale=1; ${_w}/${_h}*${_rows}" | bc )"
+			imgcat -H --true --width="${_cols%%.*}" -r "${_rows%%.*}" "$1" 2>/dev/null
+		elif [ "$_h" -lt "$_w" ]; then
+			imgcat -H --true --width="$FZF_PREVIEW_COLUMNS" "$1" 2>/dev/null
+		elif [ "$FZF_PREVIEW_COLUMNS" -lt "$FZF_PREVIEW_LINES" ]; then
+			imgcat -H --true --width="$FZF_PREVIEW_COLUMNS" "$1" 2>/dev/null
+		else
+			_rows="$(echo "${FZF_PREVIEW_LINES}*2" | bc)"
+			imgcat -H --true --width="$_rows" -r "$_rows" "$1" 2>/dev/null
+		fi
+	fi
+}
+
+_font_preview() {
+	_hex_preview "font" "$1" "$2"
+}
+
+_model_preview() {
+	_hex_preview "3D model" "$1" "$2"
+}
+
+_text_preview() {
+	_preview_check bat "$1" "$2"
+	if [ 0 -ne $? ]; then
+		cat "$1"
+	else
+		if [ -z "$3" ]; then
+			bat --color=always --style=numbers "$1" || less "$1"
+		else
+			line="$3"
+			center=$(( (LINES - 3) / 2 ))
+			if [ $line -lt $center ]; then
+				center=$line
+			fi
+			begin=$(( line - center ))
+			end=$(( line + begin ))
+			bat --color always --highlight-line $line --line-range $begin:$end --style=numbers "$1"
+		fi
+	fi
+}
+
+_video_preview() {
+	_preview_check "ffmpeg ffprobe imgcat"
+	if [ 0 -ne $? ]; then
+		_hex_preview "video" "$1" "$2"
+	else
+	(ffmpeg -hide_banner -loglevel quiet -ss "$(bc -l <<< "$(ffprobe -loglevel quiet -of csv=p=0 -show_entries format=duration "$1")*0.5")" -i "$1" -frames:v 1 -c:v png -f image2pipe - | imgcat -H --true --width="$FZF_PREVIEW_COLUMNS") 2>/dev/null
+	fi
+}
+
+_link_preview() {
+	_resolved="$(readlink "$1")"
+	if [ "$?" -ne 0 ]; then
+		echo "No preview availbe for ${1} – looks like a hardlink."
+	else
+		echo "${1} is a symlink to the non-existant path ${_resolved}"
+	fi
+}
+
+_unsupported_preview() {
+	echo "No preview available for ${1}"
+}
+
+_missing_preview_depends() {
+	echo "The command(s) '${1}', needed to preview '${2}' of type '${3}' could not be found."
+	_unsupported_preview "${2}"
+}
+
+_file_preview() {
+	_mimetype="$(file -b --mime-type "$1")"
+	_group="${_mimetype%%/*}"
+	_type="${_mimetype##*/}"
+	case "$_group" in
+		application)
+			_application_preview "$1" "$_type"
+			;;
+		audio)
+			_audio_preview "$1" "$_type"
+			;;
+		image)
+			_image_preview "$1" "$_type"
+			;;
+		font)
+			_font_preview "$1" "$_type"
+			;;
+		model)
+			_model_preview "$1" "$_type"
+			;;
+		text)
+			_text_preview "$1" "$_type" "$2"
+			;;
+		video)
+			_video_preview "$1" "$_type"
+			;;
+		*)
+			_unsupported_preview "$1"
+			;;
+	esac
+}
+
+
+
+if [[ -d "$1" ]]; then
+	_directory_preview "$1"
+elif [[ -f "$1" ]]; then
+	_file_preview "$1" "$2"
+elif [[ -L "$1" ]]; then
+	_link_preview "$1"
+elif [ "$1" = "check-deps" ]; then
+	_check_all_deps
+else
+	_unsupported_preview "$1"
+fi

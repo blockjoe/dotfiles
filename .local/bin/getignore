@@ -1,0 +1,160 @@
+#!/bin/bash
+
+if command -v wget &> /dev/null; then
+	:
+else
+	echo "Required wget not installed"
+	exit 1
+fi
+
+_dir="$(pwd)"
+_FORCE_DL=0
+_STDOUT=0
+_OUTPUT="${_dir}/.gitignore"
+
+PARAMS=""
+
+while (( "$#" )); do
+  case "$1" in
+		-f|--force-dl)
+			_FORCE_DL=1
+			shift
+			;;
+		-s|--stdout)
+			_STDOUT=1
+			shift
+			;;
+    -o|--output)
+      if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        _OUTPUT=$2
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+      ;;
+    -*|--*=) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      PARAMS="$PARAMS $1"
+      shift
+      ;;
+  esac
+done
+
+# set positional arguments in their proper place
+eval set -- "$PARAMS"
+
+_GI_BASE="https://raw.githubusercontent.com/github/gitignore/main/"
+
+case "$1" in
+	[aA]rch*|pkgbuild)
+		_FILE="ArchLinuxPackages"
+		;;
+	[aA]utotools)
+		_FILE="Autotools"
+		;;
+	[cC]pp|CPP|[cC]\+\+)
+		_FILE="C++"
+		;;
+	[cC])
+		_FILE="C"
+		;;
+	[cC][mM]ake)
+		_FILE="CMake"
+		;;
+	[cC]uda|CUDA)
+		_FILE="CUDA"
+		;;
+	[gG]it[bB]ook)
+		_FILE="GitBook"
+		;;
+	[gG]o)
+		_FILE="Go"
+		;;
+	[gG]odot)
+		_FILE="Godot"
+		;;
+	[hH]askell)
+		_FILE="Haskell"
+		;;
+	[jJ]ava)
+		_FILE="Java"
+		;;
+	[jJ]ekyll)
+		_FILE="Jekyll"
+		;;
+	[jJ]ulia)
+		_FILE="Juila"
+		;;
+	[kK]i[cC]ad)
+		_FILE="KiCad"
+		;;
+	[lL]ua)
+		_FILE="Lua"
+		;;
+	[nN]ode*)
+		_FILE="Node"
+		;;
+	[oO][cC]aml)
+		_FILE="OCaml"
+		;;
+	[pP]ure[sS]cript)
+		_FILE="PureScript"
+		;;
+	[pP]y*)
+		_FILE="Python"
+		;;
+	[qQ][tT])
+		_FILE="Qt"
+		;;
+	[rR])
+		_FILE="R"
+		;;
+	[rR]ails)
+		_FILE="Rails"
+		;;
+	[rR]ust)
+		_FILE="Rust"
+		;;
+	[rR]uby)
+		_FILE="Ruby"
+		;;
+	[sW]ift)
+		_FILE="Swift"
+		;;
+	[lL]a[tT]e[xX]|[tT]e[xX])
+		_FILE="TeX"
+		;;
+	[tT]erraform)
+		_FILE="Terraform"
+		;;
+	[uU]nity)
+		_FILE="Unity"
+		;;
+	[uU]nreal*)
+		_FILE="UnrealEngine"
+		;;
+	*)
+		echo "Unsupported .gitignore file type: ${1}"
+		exit 1
+		;;
+esac
+
+
+_DL="${_GI_BASE}${_FILE}.gitignore"
+_CACHED="${HOME}/.cache/getignore/${_FILE}.gitignore"
+
+mkdir -p ~/.cache/getignore
+
+if [ ! -f "$_CACHED" ] || [ 1 -eq $_FORCE_DL ]; then
+	wget -q -O "$_CACHED" "$_DL"
+fi
+
+if [ 1 -eq $_STDOUT ]; then
+	cat "$_CACHED"
+else
+	cp "$_CACHED" "$_OUTPUT"
+fi

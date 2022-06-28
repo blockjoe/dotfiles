@@ -175,3 +175,17 @@ alias cbv="bat -l sh /home/joe/.bash_env_vars"
 alias cbrc="bat -l sh /home/joe/.bashrc"
 alias cvrc="bat /home/joe/.vimrc"
 
+which-cat() {
+	_prog="$(which $@)"
+	bat --paging=never "$_prog"
+}
+
+which-ccat() {
+	_prog="$(which $@)"
+	bat --paging=never -p "$_prog"
+}
+
+which-less() {
+	_prog="$(which $@)"
+	bat "$_prog"
+}
