@@ -41,6 +41,9 @@ if command -v bat &> /dev/null; then
   alias cat="bat --paging=never"
   ## no line numbers
   alias ccat="bat --paging=never -p"
+	if command -v preview-fzf &> /dev/null; then
+		alias vcat="preview-fzf"
+	fi
 
   ## less to bat
   alias less="bat"
@@ -175,17 +178,23 @@ alias cbv="bat -l sh /home/joe/.bash_env_vars"
 alias cbrc="bat -l sh /home/joe/.bashrc"
 alias cvrc="bat /home/joe/.vimrc"
 
-which-cat() {
+cat-which() {
 	_prog="$(which $@)"
 	bat --paging=never "$_prog"
 }
 
-which-ccat() {
+ccat-which() {
 	_prog="$(which $@)"
 	bat --paging=never -p "$_prog"
 }
 
-which-less() {
+less-which() {
 	_prog="$(which $@)"
 	bat "$_prog"
 }
+
+vim-which() {
+	_prog="$(which $@)"
+	vim "$_prog"
+}
+

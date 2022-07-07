@@ -144,7 +144,7 @@ _video_preview() {
 	if [ 0 -ne $? ]; then
 		_hex_preview "video" "$1" "$2"
 	else
-	(ffmpeg -hide_banner -loglevel quiet -ss "$(bc -l <<< "$(ffprobe -loglevel quiet -of csv=p=0 -show_entries format=duration "$1")*0.5")" -i "$1" -frames:v 1 -c:v png -f image2pipe - | imgcat -H --true --width="$FZF_PREVIEW_COLUMNS") 2>/dev/null
+		(ffmpeg -hide_banner -loglevel quiet -ss "$(bc -l <<< "$(ffprobe -loglevel quiet -of csv=p=0 -show_entries format=duration "$1")*0.5")" -i "$1" -frames:v 1 -c:v png -f image2pipe - | imgcat -H --true --width="$FZF_PREVIEW_COLUMNS") 2>/dev/null
 	fi
 }
 
