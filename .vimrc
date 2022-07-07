@@ -55,11 +55,11 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <silent> <leader>= :exe "resize " . (winheight(0) * 5/4)<CR>
 nnoremap <silent> <leader>- :exe "resize " . (winheight(0) * 4/5)<CR>
 " ## <Alt-h/l> => prev tab/next tab by index ##
-nnoremap h gT " <a-h>
-nnoremap l gt " <a-l>
+" nnoremap h gT " <a-h>
+" nnoremap l gt " <a-l>
 " ## <Alt-j/k> toggles between previous and last opened tab ##
-nnoremap <silent> j :exe "tabn ".g:lasttab<CR>
-nnoremap <silent> k :exe "tabn ".g:lasttab<CR>
+" nnoremap <silent> j :exe "tabn ".g:lasttab<CR>
+" nnoremap <silent> k :exe "tabn ".g:lasttab<CR>
 " ## Easier delete to null register ##
 nnoremap <leader>d "_d
 " ## cd to file directory ##
