@@ -54,17 +54,36 @@ _BASE="$_GI_ROOT"
 
 get-ignore() {
 	case "$1" in
+		[aA]ndroid)
+			_FILE="Android"
+			;;
+		[aA]nsible)
+			_BASE="$_GLOBAL"
+			_FILE="Ansible"
+			;;
+		[aA]rchives)
+			_BASE="$_GLOBAL"
+			_FILE="Archives"
+			;;
 		[aA]rch*|pkgbuild)
 			_FILE="ArchLinuxPackages"
 			;;
 		[aA]utotools)
 			_FILE="Autotools"
 			;;
+		[bB]ackup)
+			_BASE="$_GLOBAL"
+			_FILE="Backup"
+			;;
 		[cC]pp|CPP|[cC]\+\+)
 			_FILE="C++"
 			;;
 		[cC])
 			_FILE="C"
+			;;
+		*[cC]dk|*CDK)
+			_BASE="${_COMMUNITY}AWS/"
+			_FILE="CDK"
 			;;
 		[cC][mM]ake)
 			_FILE="CMake"
@@ -81,12 +100,20 @@ get-ignore() {
 		[gG]odot)
 			_FILE="Godot"
 			;;
+		[gG]pg|GPG)
+			_BASE="$_GLOBAL"
+			_FILE="GPG"
+			;;
 		[hH]askell)
 			_FILE="Haskell"
 			;;
 		[hH]ugo)
 			_BASE="${_COMMUNITY}Golang/"
 			_FILE="Hugo"
+			;;
+		[iI]mages)
+			_BASE="$_GLOBAL"
+			_FILE="Images"
 			;;
 		[jJ]ava)
 			_FILE="Java"
@@ -95,7 +122,11 @@ get-ignore() {
 			_FILE="Jekyll"
 			;;
 		[jJ]ulia)
-			_FILE="Juila"
+			_FILE="Julia"
+			;;
+		[jJ]upyter*)
+			_BASE="${_COMMUNITY}Python/"
+			_FILE="JupyterNotebooks"
 			;;
 		[kK]i[cC]ad)
 			_FILE="KiCad"
@@ -107,11 +138,27 @@ get-ignore() {
 		[lL]ua)
 			_FILE="Lua"
 			;;
+		[mM]ac[oO][sS]*|[oO][sS][xX])
+			_BASE="$_GLOBAL"
+			_FILE="macOS"
+			;;
+		[nN]ix)
+			_BASE="$_COMMUNITY"
+			_FILE="Nix"
+			;;
 		[nN]ode*)
 			_FILE="Node"
 			;;
 		[oO][cC]aml)
 			_FILE="OCaml"
+			;;
+		[oO]pen[sS][sS][lL])
+			_BASE="$_COMMUNITY"
+			_FILE="OpenSSL"
+			;;
+		[pP]uppet)
+			_BASE="$_COMMUNITY"
+			_FILE="Puppet"
 			;;
 		[pP]ure[sS]cript)
 			_FILE="PureScript"
@@ -128,14 +175,30 @@ get-ignore() {
 		[rR]ails)
 			_FILE="Rails"
 			;;
-		[rR]ust)
-			_FILE="Rust"
+		[rR]edis)
+			_BASE="$_GLOBAL"
+			_FILE="Redis"
 			;;
 		[rR]uby)
 			_FILE="Ruby"
 			;;
-		[sW]ift)
+		[rR]ust)
+			_FILE="Rust"
+			;;
+		*[sS][aA][mM])
+			_BASE="${_COMMUNITY}AWS/"
+			_FILE="SAM"
+			;;
+		[sS]nap)
+			_BASE="${_COMMUNITY}Linux/"
+			_FILE="Snap"
+			;;
+		[sS]wift)
 			_FILE="Swift"
+			;;
+		[tT]ags)
+			_BASE="$_GLOBAL"
+			_FILE="Tags"
 			;;
 		[lL]a[tT]e[xX]|[tT]e[xX])
 			_FILE="TeX"
@@ -156,6 +219,18 @@ get-ignore() {
 		[vV]irtual[eE]nv|[vV]env)
 			_BASE="$_GLOBAL"
 			_FILE="VirtualEnv"
+			;;
+		[vV][sS][cC]ode|[vV]isual[sS]tudio[cC]ode)
+			_BASE="$_GLOBAL"
+			_FILE="VisualStudioCode"
+			;;
+		[wW]indows)
+			_BASE="$_GLOBAL"
+			_FILE="Windows"
+			;;
+		[xX]code)
+			_BASE="$_GLOBAL"
+			_FILE="Xcode"
 			;;
 		*)
 			echo "Unsupported .gitignore file type: ${1}"

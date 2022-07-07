@@ -1,6 +1,6 @@
 #!/bin/bash
 
-choices=(ArchLinuxPackages Autotools C++ C CMake GitBook Go Godot Haskell Hugo Jekyll Julia KiCad Lua Node OCaml PureScript Python Qt R Rails Ruby Rust Swift TeX Terraform Unity Unreal)
+choices=(Android Ansible Archives ArchLinuxPackages Autotools Backup C++ C CDK CMake GitBook Go Godot GPG Haskell Hugo Images Java Jekyll Julia JupyterNotebooks KiCad Linux Lua macOS Nix Node OCaml OpenSSL Puppet PureScript Python Qt R Rails Redis Ruby Rust SAM Snap Swift Tags TeX Terraform Unity Unreal Vim VirtualEnv VisualStudioCode Windows Xcode)
 
 _choices="$(printf "%s\n" ${choices[@]} |  fzf -m --preview 'getignore --stdout {} | bat -l gitignore --color=always --file-name={}.gitignore')"
 if [ -z "$_choices" ]; then
