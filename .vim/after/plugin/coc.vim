@@ -30,7 +30,6 @@ let g:coc_global_extensions = [
   \ "coc-prettier",
   \ "coc-yaml",
   \ "coc-yank",
-  \ "coc-snippets",
   \ "coc-html-css-support",
   \ "coc-cmake",
   \ "coc-clangd",
