@@ -18,7 +18,6 @@ let g:coc_global_extensions = [
   \ "coc-css",
   \ "coc-docker",
   \ "coc-docthis",
-  \ "coc-markdownlint",
   \ "coc-markmap",
   \ "coc-reveal",
   \ "coc-pyright",
