@@ -9,6 +9,7 @@ function! TestStatus() abort
   return g:nm_job_status
 endfunction
 
+
 " Mappings
 nnoremap <leader>tn :TestNearest<CR>
 nnoremap <leader>tf :TestFile<CR>
@@ -75,3 +76,6 @@ augroup JSMappings
   autocmd Filetype javascript nnoremap <leader>tm :exec RunJestVerbose()<CR>
   autocmd Filetype javascript nnoremap <leader>td :exec RunJestDebug()<CR>
 augroup END
+
+let g:test#go#runner = "gotest"
+let g:test#go#runner#gotest#options = '-v'

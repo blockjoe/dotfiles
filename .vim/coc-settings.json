@@ -3,9 +3,7 @@
 		"javascript",
 		"javascriptreact",
 		"css",
-		"html",
-		"markdown",
-		"solidity",
+		"solidity"
 	],
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.hintSign": "\uF7C6",

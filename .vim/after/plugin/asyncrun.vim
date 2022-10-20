@@ -57,6 +57,29 @@ augroup PythonRunners
   autocmd Filetype python nmap <silent> <buffer> <F6> <ESC>:w<CR>:call RerunLastPython()<CR>
 augroup END
 
+" Go
+let g:last_go = ""
+function! RunGoFromCurrentFile() abort
+  let g:last_go = expand('%:p')
+  let g:asyncrun_program.rego = { opts -> opts.cmd . " " . g:last_go }
+  AsyncRun -raw go run "$(VIM_FILEPATH)"
+endfunction
+
+function! RerunLastGo() abort
+  if g:last_go == ""
+    echo "No Go file to rerun"
+  else
+        AsyncRun -raw -program=rego go run
+  endif
+endfunction
+
+augroup GoRunners
+  autocmd!
+  autocmd Filetype go nmap <silent> <buffer> <F5> <ESC>:w<CR>:call RunGoFromCurrentFile()<CR>
+  autocmd Filetype go nmap <silent> <buffer> <F6> <ESC>:w<CR>:call RerunLastGo()<CR>
+augroup END
+
+
 " Javascript
 augroup JavascriptRunners
   autocmd!
@@ -89,7 +112,7 @@ endfunction
 "Render markdown to PDF via pandoc
 function! StartMarkdownPDFPreview() abort
 	let g:job_presenting = 1
-	AsyncRun -raw pandoc "$(VIM_FILEPATH)" --variable urlcolor=cyan -o %:p:r.pdf; open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" --variable urlcolor=cyan -o %:p:r.pdf
+	AsyncRun -raw pandoc ~/.local/share/pandoc/templates/latex-includes.yaml "$(VIM_FILEPATH)" --variable urlcolor=cyan -o %:p:r.pdf; open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" ~/.local/share/pandoc/templates/latex-includes.yaml --variable urlcolor=cyan -o %:p:r.pdf
 endfunction
 
 "Render markdown to revealjs slides via pandoc
