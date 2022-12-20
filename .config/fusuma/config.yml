@@ -1,0 +1,48 @@
+swipe:
+  4:
+    left:
+      sendkey: "RIGHTCTRL+RIGHTALT+RIGHT" # Next Workspace
+      keypress:
+        LEFTMETA:
+          sendkey: "RIGHTCTRL+RIGHTALT+RIGHTSHIFT+RIGHT"
+    right:
+      sendkey: "RIGHTCTRL+RIGHTALT+LEFT" # Previous Workspace
+      keypress:
+        LEFTMETA:
+          sendkey: "RIGHTCTRL+RIGHTALT+RIGHTSHIFT+LEFT"
+    up:
+      sendkey: "RIGHTMETA+A" # Show all apps
+    down:
+      sendkey: "RIGHTCTRL+F7" # Show all windows of current app
+  3:
+    left:
+      sendkey: "RIGHTALT+RIGHT" # Back a page
+      keypress:
+        LEFTMETA:
+          sendkey: "RIGHTCTRL+RIGHTMETA+LEFT" # Move window to next screen
+    right:
+      sendkey: "RIGHTALT+LEFT" # Forward a page
+      keypress:
+        LEFTMETA:
+          sendkey: "RIGHTCTRL+RIGHTMETA+RIGHT" # Move window to previous screen
+    up:
+      sendkey: "RIGHTMETA+PAGEUP" # Maximize
+    down:
+      sendkey: "RIGHTMETA+PAGEDOWN" # Minimize
+pinch:
+  4:
+    out: #actually in
+      sendkey: "RIGHTCTRL+F8" # Show Workspace Grid
+      threshold: 0.2
+  3:
+    in: #actually out
+      sendkey: "RIGHTCTRL+F11" #Toggle Full screen active app
+      threshold: 0.2
+    out: #actually in
+      sendkey: "RIGHTCTRL+F11" #Toggle Full screen active app
+      threshold: 0.2
+
+  plugin:
+    inputs:
+      libinput_command_input:
+        show-keycodes: true
