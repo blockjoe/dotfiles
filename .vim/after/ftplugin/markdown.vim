@@ -1,3 +1,5 @@
+set expandtab ts=4 sw=4
+
 " Spellcheck on
 setlocal spell
 

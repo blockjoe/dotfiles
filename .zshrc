@@ -71,9 +71,10 @@ ZSH_THEME="strug"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(git dotbare fzf-tab fzf-brew)
+plugins=(git dotbare fzf-tab fzf-brew virtualenv)
 
 source $ZSH/oh-my-zsh.sh
+export VIRTUAL_ENV_DISABLE_PROMPT=0
 
 # vi-mode setup
 

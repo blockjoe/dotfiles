@@ -34,13 +34,17 @@ TRAPINT() {
   return $(( 128 + $1 ))
 }
 
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+}
+
 # terminal coloring
 export CLICOLOR=1
 export LSCOLORS=dxFxCxDxBxegedabagacad
 
 local git_branch='$(git_prompt_info)%{$reset_color%}$(git_remote_status)'
 
-PROMPT="%{$fg[green]%}╭─%n@%m %{$reset_color%}%{$fg[yellow]%}in %~ %{$reset_color%}${git_branch}
+PROMPT="%{$fg[green]%}╭─%n@%m %{$reset_color%}%{$fg[yellow]%}in %~ %{$reset_color%}${git_branch} $(virtualenv_prompt_info)
 %{$fg[green]%}╰$THEME_PROMPT_PREFIX%f%B%F{240}%1~%f%b %(?.%F{cyan}$THEME_VI_MODE_SYMBOL.%F{green}$THEME_VI_MODE_SYMBOL) "
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[yellow]%}on "

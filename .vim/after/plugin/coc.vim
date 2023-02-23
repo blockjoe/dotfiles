@@ -1,5 +1,4 @@
-" Vim Settings that COC needs
-" See: https://github.com/neoclide/coc.nvim#example-vim-configuration
+" Vim Settings that COC needs See: https://github.com/neoclide/coc.nvim#example-vim-configuration
 
 " TextEdit might fail
 set hidden
@@ -32,7 +31,6 @@ let g:coc_global_extensions = [
   \ "coc-yank",
   \ "coc-html-css-support",
   \ "coc-cmake",
-  \ "coc-clangd",
   \ "coc-go",
   \ "coc-marketplace"]
 
@@ -103,3 +101,9 @@ augroup JSDoc
 	autocmd!
 	autocmd FileType javascript nnoremap <silent> <leader>md :CocCommand docthis.documentThis<CR>
 augroup END
+
+augroup PyRight
+	autocmd!
+	autocmd FileType python nnoremap <silent> <leader>hh :CocCommand document.toggleInlayHint<CR>
+augroup END
+
