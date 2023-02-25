@@ -151,14 +151,14 @@ Plug 'junegunn/vim-easy-align'
 " ## Async Stuff ##
 
 " ### Async Make Dispatch (vimspector) ###
-Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-dispatch'
 " ### Async Make (vim-test) ###
-Plug 'neomake/neomake'
+" Plug 'neomake/neomake'
 " ### Async Runner (my runners) ###
 Plug 'skywind3000/asyncrun.vim'
 
 "## Language specific plugins ##
-Plug 'tomlion/vim-solidity'
+" Plug 'tomlion/vim-solidity'
 " ### Pandoc markdown formatting and conceal ###
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " ### A solid catchall language pack ###
@@ -166,7 +166,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 " ### Python autoformatter ###
 Plug 'psf/black', { 'branch': 'stable' }
 " ### Go autoformatter and inputs
-Plug 'darrikonn/vim-gofmt', { 'do': ':GoUpdateBinaries' }
+" Plug 'darrikonn/vim-gofmt', { 'do': ':GoUpdateBinaries' }
 
 
 " ## fzf ##
@@ -176,9 +176,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " ## COC (VSCode extensions) ##
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 " ## Interactive Testing ##
-Plug 'vim-test/vim-test'
+" Plug 'vim-test/vim-test'
 " ## Interactive Debugging ##
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 
 " ## Highlight and fix trailing whitespace ##
 Plug 'ntpeters/vim-better-whitespace'

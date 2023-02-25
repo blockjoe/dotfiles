@@ -3,7 +3,7 @@
 		"javascript",
 		"javascriptreact",
 		"css",
-		"solidity",
+		"solidity"
 	],
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.hintSign": "\uF7C6",
@@ -11,13 +11,5 @@
 	"diagnostic.errorSign": "\uF057",
 	"diagnostic.infoSign": "\uF05A",
 	"prettier.disableSuccessMessage" : true,
-	"prettier.proseWrap": "always",
-	"languageserver": {
-		"solidity": {
-			"command": "/opt/bin/solc",
-			"args": [ "--lsp" ],
-			"rootPatterns": [".git/"],
-			"filetypes": ["solidity"]
-		}
-	}
+	"prettier.proseWrap": "always"
 }

@@ -16,26 +16,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-if command -v mpv &> /dev/null; then
-  #mpv no audio display
-  alias mpv="mpv --no-audio-display"
-fi
-
-if command -v tmux &> /dev/null; then
-  # tmux with colors
-  alias tmux="tmux -2"
-fi
-
-if command -v xclip &> /dev/null; then
-  # Xclip
-  alias x-cr="xclip" # copy to register
-  alias x-c="xclip -selection clipboard" # copy to system clipboard
-  alias x-pr="xclip -o" # paste from register
-  alias x-p="xclip -o -selection clipboard" # paste from system clipboard
-else
-  echo "xclip not installed."
-fi
-
 if command -v bat &> /dev/null; then
   ## cat to bat
   alias cat="bat --paging=never"
@@ -125,27 +105,6 @@ else
   echo "bat not installed"
 fi
 
-if command -v cointop &> /dev/null; then
-  function _cointop(){
-    case $BASHTHEME in
-      light*)
-        cointop --colorscheme xray $@
-        ;;
-      *)
-        cointop $@
-        ;;
-      esac
-  }
-
-  # cointop colorscheme
-  alias cointop='_cointop'
-fi
-
-if [ -f ~/.local/share/dnote/dnote.db ]; then
-  # dotbare dnote
-  alias dotbare-dnote='dotbare add ~/.local/share/dnote/dnote.db; dotbare commit -m "Added new dnote"; dotbare push'
-fi
-
 if command -v lsd &> /dev/null; then
   # lsd
   alias l="lsd --group-dirs first"
@@ -166,10 +125,6 @@ if command -v lsd &> /dev/null; then
 else
   echo "lsd not installed."
 fi
-
-# Python
-## venv
-#alias virtualenv="python -m venv"
 
 ## quick read configs
 alias cba="bat -l sh /home/joe/.bash_aliases"

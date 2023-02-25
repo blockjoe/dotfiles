@@ -102,31 +102,6 @@ augroup VimRunners
   autocmd Filetype vim nmap <silent> <buffer> <F5> <ESC>:w<CR>:source %<CR>
 augroup END
 
-" Markdown
-" Render markdown to Github HTML via grip
-function! StartMarkdownHTMLPreview() abort
-	let g:job_presenting = 1
-	AsyncRun -raw grip -b "$(VIM_FILEPATH)"
-endfunction
-
-"Render markdown to PDF via pandoc
-function! StartMarkdownPDFPreview() abort
-	let g:job_presenting = 1
-	AsyncRun -raw pandoc ~/.local/share/pandoc/templates/latex-includes.yaml "$(VIM_FILEPATH)" --variable urlcolor=cyan -o %:p:r.pdf; open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" ~/.local/share/pandoc/templates/latex-includes.yaml --variable urlcolor=cyan -o %:p:r.pdf
-endfunction
-
-"Render markdown to revealjs slides via pandoc
-function! StartMarkdownRevealPreview() abort
-  let g:job_presenting = 1
-  AsyncRun -raw pandoc "$(VIM_FILEPATH)" -s -t revealjs --slide-level 2 -o %:p:r.html; open %:p:r.html; live-pandoc "$(VIM_FILEPATH)" -s -t revealjs --slide-level 2 -o %:p:r.html
-endfunction
-
-augroup MarkdownRunners
-  autocmd!
-  autocmd Filetype markdown map <silent> <buffer> <F5> <ESC>:w<CR>:call StartMarkdownHTMLPreview()<CR>
-  autocmd Filetype markdown map <silent> <buffer> <F6> <ESC>:w<CR>:call StartMarkdownPDFPreview()<CR>
-  autocmd Filetype markdown map <silent> <buffer> <F7> <ESC>:w<CR>:call StartMarkdownRevealPreview()<CR>
-augroup END
 
 " All the functions for managing the AsyncStatus
 let g:job_killed = 0

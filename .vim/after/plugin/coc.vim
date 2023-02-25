@@ -17,24 +17,13 @@ set signcolumn=yes
 let g:coc_global_extensions = [
   \ "coc-css",
   \ "coc-docker",
-  \ "coc-docthis",
-  \ "coc-markmap",
-  \ "coc-reveal",
   \ "coc-pyright",
-  \ "coc-react-refactor",
   \ "coc-sh",
-  \ "coc-emmet",
-  \ "coc-tsserver",
-  \ "coc-eslint",
   \ "coc-prettier",
   \ "coc-yaml",
   \ "coc-yank",
   \ "coc-snippets",
-  \ "coc-html-css-support",
-  \ "coc-cmake",
-  \ "coc-clangd",
-  \ "coc-go",
-  \ "coc-marketplace"]
+  \ "coc-html-css-support"]
 
 " :Prettier will format the current buffer
 command -nargs=0 Prettier :CocCommand prettier.formatFile
