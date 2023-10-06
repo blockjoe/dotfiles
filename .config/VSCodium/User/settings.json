@@ -2,5 +2,6 @@
     "window.autoDetectColorScheme": true,
     "workbench.colorTheme": "Coldark - Dark",
     "editor.emptySelectionClipboard": false,
-    "editor.selectionClipboard": false
+    "editor.selectionClipboard": false,
+    "python.linting.flake8Enabled": true
 }

@@ -112,7 +112,7 @@ endfunction
 "Render markdown to PDF via pandoc
 function! StartMarkdownPDFPreview() abort
 	let g:job_presenting = 1
-	AsyncRun -raw pandoc ~/.local/share/pandoc/templates/latex-includes.yaml "$(VIM_FILEPATH)" --variable urlcolor=cyan -o %:p:r.pdf; open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" ~/.local/share/pandoc/templates/latex-includes.yaml --variable urlcolor=cyan -o %:p:r.pdf
+	AsyncRun -raw pandoc "$(VIM_FILEPATH)" --variable urlcolor=cyan -o %:p:r.pdf; open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" --variable urlcolor=cyan -o %:p:r.pdf
 endfunction
 
 "Render markdown to revealjs slides via pandoc

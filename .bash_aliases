@@ -198,3 +198,23 @@ vim-which() {
 	vim "$_prog"
 }
 
+rgr() {
+	if  [ -z "$1" ]; then
+		echo "Argument to match not provided"
+	elif [ -z "$2" ]; then
+		echo "Argument to replace not provided"
+	else
+		rg "$1"
+		echo
+		echo "About to replace the above matches of ${1} with ${2}, do you wish to proceed? (y/n) "
+		read yn
+		case $yn in
+			[yY]) rg "$1" --files-with-matches | xargs sed -i '' "s/${1}/${2}/g"
+				;;
+			*) echo ""
+				;;
+
+		esac
+	fi
+}
+

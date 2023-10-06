@@ -3,7 +3,7 @@
 		"javascript",
 		"javascriptreact",
 		"css",
-		"solidity",
+		"solidity"
 	],
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.hintSign": "\uF7C6",
@@ -19,5 +19,7 @@
 			"rootPatterns": [".git/"],
 			"filetypes": ["solidity"]
 		}
-	}
+	},
+	"python.linting.flake8Enabled": true
+
 }
