@@ -18,5 +18,6 @@
 			"rootPatterns": [".git/"],
 			"filetypes": ["solidity"]
 		}
-	}
+	},
+	"tsserver.useLocalTsdk": true
 }

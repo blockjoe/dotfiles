@@ -126,3 +126,10 @@ fi
 if [ -f ~/.bash_env_vars ]; then
 	source ~/.bash_env_vars
 fi
+
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
+
+
+

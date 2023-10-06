@@ -79,6 +79,12 @@ augroup GoRunners
   autocmd Filetype go nmap <silent> <buffer> <F6> <ESC>:w<CR>:call RerunLastGo()<CR>
 augroup END
 
+augroup VyperRunners
+    autocmd!
+    autocmd Filetype vyper map <silent> <buffer> <F5> <ESC>:w<CR>:AsyncRun -raw vyper "$(VIM_FILEPATH)"<CR>
+    autocmd Filetype vyper map <silent> <buffer> <F6> <ESC>:w<CR>:AsyncRun -raw ape compile<CR>
+    autocmd Filetype vyper map <silent> <buffer> <F7> <ESC>:w<CR>:AsyncRun -raw ape test<CR>
+augroup END
 
 " Javascript
 augroup JavascriptRunners

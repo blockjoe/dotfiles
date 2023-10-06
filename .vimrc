@@ -1,5 +1,8 @@
 " # Basic Config #
 
+" ## MacOS ##
+set re=2
+
 " ## UTF-8 ##
 set encoding=UTF-8
 " ## vim not vi ##
@@ -159,6 +162,7 @@ Plug 'skywind3000/asyncrun.vim'
 
 "## Language specific plugins ##
 Plug 'tomlion/vim-solidity'
+Plug 'vyperlang/vim-vyper'
 " ### Pandoc markdown formatting and conceal ###
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " ### A solid catchall language pack ###
