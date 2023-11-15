@@ -20,7 +20,7 @@ let g:coc_global_extensions = [
   \ "coc-markdownlint",
   \ "coc-markmap",
   \ "coc-reveal",
-  \ "coc-pyright",
+  \ "@yaegassy/coc-ruff",
   \ "coc-react-refactor",
   \ "coc-sh",
   \ "coc-emmet",

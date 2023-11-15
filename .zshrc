@@ -79,6 +79,8 @@ export VIRTUAL_ENV_DISABLE_PROMPT=0
 # vi-mode setup
 
 bindkey -v
+source /opt/homebrew/Cellar/fzf/0.38.0/shell/completion.zsh
+source /opt/homebrew/Cellar/fzf/0.38.0/shell/key-bindings.zsh
 export KEYTIMEOUT=1
 
 

@@ -25,7 +25,7 @@ _check_preview_deps() {
 }
 
 _check_all_deps() {
-	missing="$(_check_preview_deps hexyl xxd bat termwave identify imgcat bc ffmpeg ffprobe lsd)"
+	missing="$(_check_preview_deps hexyl xxd bat termwave identify imgcat bc ffmpeg ffprobe lsd jq)"
 	if [ 0 -ne $? ]; then
 		echo "The following commands appear to be missing: ${missing}"
 		exit 1
@@ -124,7 +124,10 @@ _text_preview() {
 	if [ 0 -ne $? ]; then
 		cat "$1"
 	else
-		if [ -z "$3" ]; then
+        fext=$([[ "$1" = *.* ]] && echo ".${1##*.}" || echo '')
+        if [ "$fext" = ".json" ]; then
+            jq . "$1" | bat -l json --color=always --style=numbers || less "$1"
+		elif [ -z "$3" ]; then
 			bat --color=always --style=numbers "$1" || less "$1"
 		else
 			line="$3"
@@ -156,6 +159,15 @@ _link_preview() {
 		echo "${1} is a symlink to the non-existant path ${_resolved}"
 	fi
 }
+
+_shell_hist_preview() {
+    number="${1%% [^1-9]*}"
+    cmd=${1##"$number"}
+	if [ -z "$FZF_PREVIEW_COLUMNS" ]; then
+		FZF_PREVIEW_COLUMNS=79
+	fi
+    echo "$cmd" | bat --color=always --style=numbers --wrap=auto -l zsh --terminal-width "$FZF_PREVIEW_COLUMNS"
+ }
 
 _unsupported_preview() {
 	echo "No preview available for ${1}"
@@ -206,6 +218,8 @@ elif [[ -f "$1" ]]; then
 	_file_preview "$1" "$2"
 elif [[ -L "$1" ]]; then
 	_link_preview "$1"
+elif [[ "$1" =~ [0-9]*[[:blank:]]*.* ]]; then
+   _shell_hist_preview "$1"
 elif [ "$1" = "check-deps" ]; then
 	_check_all_deps
 else
