@@ -25,7 +25,7 @@ _check_preview_deps() {
 }
 
 _check_all_deps() {
-	missing="$(_check_preview_deps hexyl xxd bat termwave identify imgcat bc ffmpeg ffprobe lsd jq)"
+	missing="$(_check_preview_deps hexyl xxd bat termwave identify imgcat bc ffmpeg ffprobe lsd jq pandoc)"
 	if [ 0 -ne $? ]; then
 		echo "The following commands appear to be missing: ${missing}"
 		exit 1
@@ -54,7 +54,31 @@ _hex_preview() {
 	fi
 }
 
+_pandoc_preview() {
+    _preview_check "pandoc bat" "$1" "$2"
+	if [ 0 -eq $? ]; then
+        if [ -z "$FZF_PREVIEW_COLUMNS" ]; then
+            FZF_PREVIEW_COLUMNS=79
+        fi
+        pandoc "$1" -t markdown --wrap=preserve | bat --color=always --style=header,grid --file-name "${1} as Markdown" -l md --wrap=auto --terminal-width "$FZF_PREVIEW_COLUMNS"
+
+    fi
+}
+
 _application_preview() {
+    case "$1" in
+      (.*.*) extension=${1##*.};;
+      (.*)   extension="";;
+      (*.*)  extension=${1##*.};;
+      (*)    extension="";;
+    esac
+    case "$extension" in
+        docx|ipynb|epub|rtf)
+            _pandoc_preview "$1" "$extension"
+            return 0
+            ;;
+    esac
+
 	case "$2" in
 		json)
 			_text_preview "$1"
