@@ -118,13 +118,13 @@ endfunction
 "Render markdown to PDF via pandoc
 function! StartMarkdownPDFPreview() abort
 	let g:job_presenting = 1
-	AsyncRun -raw pandoc ~/.local/share/pandoc/templates/latex-includes.yaml "$(VIM_FILEPATH)" -F mermaid-filter --variable urlcolor=cyan -o %:p:r.pdf; open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" ~/.local/share/pandoc/templates/latex-includes.yaml -F mermaid-filter --variable urlcolor=cyan -o %:p:r.pdf
+	AsyncRun -raw pandoc ~/.local/share/pandoc/templates/latex-includes.yaml "$(VIM_FILEPATH)" -F mermaid-filter --variable urlcolor=cyan -o %:p:r.pdf; xdg-open %:p:r.pdf; live-pandoc "$(VIM_FILEPATH)" ~/.local/share/pandoc/templates/latex-includes.yaml -F mermaid-filter --variable urlcolor=cyan -o %:p:r.pdf
 endfunction
 
 "Render markdown to revealjs slides via pandoc
 function! StartMarkdownRevealPreview() abort
   let g:job_presenting = 1
-  AsyncRun -raw pandoc "$(VIM_FILEPATH)" -s -t revealjs --slide-level 2 -o %:p:r.html; open %:p:r.html; live-pandoc "$(VIM_FILEPATH)" -s -t revealjs --slide-level 2 -o %:p:r.html
+  AsyncRun -raw pandoc "$(VIM_FILEPATH)" -s -t revealjs --slide-level 2 -o %:p:r.html; xdg-open %:p:r.html; live-pandoc "$(VIM_FILEPATH)" -s -t revealjs --slide-level 2 -o %:p:r.html
 endfunction
 
 augroup MarkdownRunners

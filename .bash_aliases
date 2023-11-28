@@ -180,11 +180,11 @@ fi
 
 ## quick read configs
 
-alias cba="bat -l sh /Users/joe/.bash_aliases"
-alias cbp="bat -l sh /Users/joe/.bash_paths"
-alias cbv="bat -l sh /Users/joe/.bash_env_vars"
-alias cbrc="bat -l sh /Users/joe/.bashrc"
-alias cvrc="bat /Users/joe/.vimrc"
+alias cba="bat -l sh /home/joe/.bash_aliases"
+alias cbp="bat -l sh /home/joe/.bash_paths"
+alias cbv="bat -l sh /home/joe/.bash_env_vars"
+alias cbrc="bat -l sh /home/joe/.bashrc"
+alias cvrc="bat /home/joe/.vimrc"
 
 cat-which() {
 	_prog="$(which $@)"
@@ -206,7 +206,6 @@ vim-which() {
 	vim "$_prog"
 }
 
-
 rgr() {
 	if  [ -z "$1" ]; then
 		echo "Argument to match not provided"
@@ -225,13 +224,5 @@ rgr() {
 
 		esac
 	fi
-}
-
-hotspot-on() {
-    sudo sysctl net.inet.ip.ttl=65
-}
-
-hotspot-off() {
-    sudo sysctl net.inet.ip.ttl=64
 }
 

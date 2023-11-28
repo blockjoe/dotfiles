@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z "$EDITOR" ]; then
+	EDITOR="vim"
+fi
+
 RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
 INITIAL_QUERY="${*:-}"
 IFS=: read -ra selected < <(
@@ -13,4 +17,4 @@ IFS=: read -ra selected < <(
       --preview 'preview-fzf {1} {2}' \
 
 )
-[ -n "${selected[0]}" ] && vim "${selected[0]}" "+${selected[1]}"
+[ -n "${selected[0]}" ] && $EDITOR "${selected[0]}" "+${selected[1]}"
