@@ -204,7 +204,7 @@ _shell_hist_preview() {
 	if [ -z "$FZF_PREVIEW_COLUMNS" ]; then
 		FZF_PREVIEW_COLUMNS=88
 	fi
-    echo "$cmd" | bat --color=always --style=numbers --wrap=auto -l zsh --terminal-width "$FZF_PREVIEW_COLUMNS"
+    echo "$cmd" | bat --color=always --style=numbers --wrap=auto -l bash --terminal-width "$FZF_PREVIEW_COLUMNS"
  }
 
 _unsupported_preview() {

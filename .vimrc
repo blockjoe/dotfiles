@@ -1,8 +1,5 @@
 " # Basic Config #
 
-" ## MacOS ##
-set re=2
-
 " ## UTF-8 ##
 set encoding=UTF-8
 " ## vim not vi ##
@@ -104,7 +101,7 @@ filetype indent on
 
 " # External Plugins #
 " ## Variable Init ##
-let g:coc_node_path = '/opt/homebrew/bin/node'
+let g:coc_node_path = '/usr/bin/node'
 let $FZF_DEFAULT_COMMAND.=' --hidden'
 let $PYTHONUNBUFFERED=1
 let g:maximizer_set_default_mapping = 0
@@ -154,7 +151,7 @@ Plug 'junegunn/vim-easy-align'
 " ## Async Stuff ##
 
 " ### Async Make Dispatch (vimspector) ###
-"# Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-dispatch'
 " ### Async Make (vim-test) ###
 Plug 'neomake/neomake'
 " ### Async Runner (my runners) ###
@@ -182,7 +179,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 " ## Interactive Testing ##
 Plug 'vim-test/vim-test'
 " ## Interactive Debugging ##
-" Plug 'puremourning/vimspector'
+Plug 'puremourning/vimspector'
 
 " ## Highlight and fix trailing whitespace ##
 Plug 'ntpeters/vim-better-whitespace'

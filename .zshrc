@@ -79,8 +79,8 @@ export VIRTUAL_ENV_DISABLE_PROMPT=0
 # vi-mode setup
 
 bindkey -v
-source /opt/homebrew/Cellar/fzf/0.38.0/shell/completion.zsh
-source /opt/homebrew/Cellar/fzf/0.38.0/shell/key-bindings.zsh
+# source /opt/homebrew/Cellar/fzf/0.38.0/shell/completion.zsh
+# source /opt/homebrew/Cellar/fzf/0.38.0/shell/key-bindings.zsh
 export KEYTIMEOUT=1
 
 
@@ -119,7 +119,7 @@ zle -N zle-keymap-select
 # fi
 
 
-export PATH="$PATH:/Users/joe/.local/bin/"
+export PATH="$PATH:/home/joe/.local/bin/"
 
 if [ -f ~/.bash_aliases ]; then
 	source ~/.bash_aliases

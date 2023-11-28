@@ -209,7 +209,7 @@ esac
 
 
 strip-frontmatter() {
-	gsed '1 { /^---/ { :a N; /\n---/! ba; d} }' $1 | sed '/./,$!d'
+	sed '1 { /^---/ { :a N; /\n---/! ba; d} }' $1 | sed '/./,$!d'
 }
 
 populate-year() {

@@ -31,7 +31,7 @@ else
 	#echo "FZF complettion not installed"
 fi
 
-export FZF_HISTORY_DIR='/Users/joe/.history/fzf'
+export FZF_HISTORY_DIR='/home/joe/.history/fzf'
 
 FZF_BASE_OPTS="
 	--layout=reverse
@@ -90,4 +90,3 @@ export POCKET_TESTNET_SEEDS="3487f08b9e915f347eb4372b406326ffbf13d82c@testnet-se
 
 export POCKET_DATA_DIR="/data/fast/joe/pocket"
 
-export OPEN_API_TOKEN="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"
