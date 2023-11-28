@@ -199,7 +199,7 @@ _link_preview() {
 }
 
 _shell_hist_preview() {
-    number="${1%% [^1-9]*}"
+    number="${1%% [^0-9]*}"
     cmd=${1##"$number"}
 	if [ -z "$FZF_PREVIEW_COLUMNS" ]; then
 		FZF_PREVIEW_COLUMNS=88
