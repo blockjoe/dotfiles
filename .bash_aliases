@@ -26,11 +26,18 @@ if command -v tmux &> /dev/null; then
   alias tmux="tmux -2"
 fi
 
+if command -v grip &> /dev/null; then
+  if [ -f ~/.config/grip/access ]; then
+    # grip pass token
+      alias grip='grip --pass "$(cat ~/.config/grip/access)"'
+  fi
+fi
+
 if command -v xclip &> /dev/null; then
   # Xclip
   alias x-cr="xclip" # copy to register
   alias x-c="xclip -selection clipboard" # copy to system clipboard
-  alias x-pr="xclip -o" # paste from register
+  alias x-pr="xclip -o" # paste from register"
   alias x-p="xclip -o -selection clipboard" # paste from system clipboard
 else
   echo "xclip not installed."
@@ -172,6 +179,7 @@ fi
 #alias virtualenv="python -m venv"
 
 ## quick read configs
+
 alias cba="bat -l sh /home/joe/.bash_aliases"
 alias cbp="bat -l sh /home/joe/.bash_paths"
 alias cbv="bat -l sh /home/joe/.bash_env_vars"

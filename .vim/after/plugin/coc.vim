@@ -1,5 +1,4 @@
-" Vim Settings that COC needs
-" See: https://github.com/neoclide/coc.nvim#example-vim-configuration
+" Vim Settings that COC needs See: https://github.com/neoclide/coc.nvim#example-vim-configuration
 
 " TextEdit might fail
 set hidden
@@ -20,19 +19,15 @@ let g:coc_global_extensions = [
   \ "coc-docthis",
   \ "coc-markmap",
   \ "coc-reveal",
-  \ "coc-pyright",
+  \ "@yaegassy/coc-ruff",
   \ "coc-react-refactor",
   \ "coc-sh",
   \ "coc-emmet",
-  \ "coc-tsserver",
-  \ "coc-eslint",
   \ "coc-prettier",
   \ "coc-yaml",
   \ "coc-yank",
-  \ "coc-snippets",
   \ "coc-html-css-support",
   \ "coc-cmake",
-  \ "coc-clangd",
   \ "coc-go",
   \ "coc-marketplace"]
 
@@ -41,12 +36,16 @@ command -nargs=0 Prettier :CocCommand prettier.formatFile
 " marketplace available through :CocMP
 command -nargs=0 CocMP :CocList marketplace
 
-" TAB for trigger completion with characters ahead and navigate.
+
+"TAB for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -103,3 +102,9 @@ augroup JSDoc
 	autocmd!
 	autocmd FileType javascript nnoremap <silent> <leader>md :CocCommand docthis.documentThis<CR>
 augroup END
+
+augroup PyRight
+	autocmd!
+	autocmd FileType python nnoremap <silent> <leader>hh :CocCommand document.toggleInlayHint<CR>
+augroup END
+

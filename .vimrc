@@ -165,7 +165,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 " ### A solid catchall language pack ###
 " Plug 'sheerun/vim-polyglot'
 " ### Python autoformatter ###
-Plug 'psf/black', { 'branch': 'stable' }
+" Plug 'psf/black', { 'branch': 'stable' }
 " ### Go autoformatter and inputs
 Plug 'darrikonn/vim-gofmt', { 'do': ':GoUpdateBinaries' }
 
@@ -204,8 +204,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'josa42/vim-lightline-coc'
 " ## Hightlighting of hex color codes in that color ##
 Plug 'ap/vim-css-color'
-
+" ## ANSI Codes ##
 Plug 'powerman/vim-plugin-AnsiEsc'
+
 
 " !!! MUST BE FINAL IMPORT !!!
 " ## UTF-8 font icons ##

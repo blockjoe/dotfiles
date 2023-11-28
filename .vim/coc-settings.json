@@ -20,6 +20,5 @@
 			"filetypes": ["solidity"]
 		}
 	},
-	"python.linting.flake8Enabled": true
-
+	"tsserver.useLocalTsdk": true
 }
