@@ -56,7 +56,9 @@ _hex_preview() {
 
 _pandoc_preview() {
     _preview_check "pandoc bat" "$1" "$2"
-	if [ 0 -eq $? ]; then
+	if [ 0 -ne $? ]; then
+        _hex_preview "Pandoc Compatible Document" "$1" "$2"
+     else
         if [ -z "$FZF_PREVIEW_COLUMNS" ]; then
             FZF_PREVIEW_COLUMNS=88
         fi
@@ -66,8 +68,10 @@ _pandoc_preview() {
 }
 
 _pdf_preview() {
-    _preview_check "pdftotext" "$1" "$2"
-	if [ 0 -eq $? ]; then
+    _preview_check "pdftotext bat" "$1" "$2"
+	if [ 0 -ne $? ]; then
+        _hex_preview "PDF" "$1" "$2"
+    else
         if [ -z "$FZF_PREVIEW_COLUMNS" ]; then
             FZF_PREVIEW_COLUMNS=88
         fi
@@ -85,22 +89,17 @@ _application_preview() {
     case "$extension" in
         docx|ipynb|epub|rtf)
             _pandoc_preview "$1" "$extension"
-            return 0
             ;;
         pdf)
             _pdf_preview "$1" "$extension"
-            return 0
             ;;
-    esac
-
-	case "$2" in
 		json)
 			_text_preview "$1"
 			;;
 		*)
 			_hex_preview "application" "$1" "$2"
 			;;
-	esac
+    esac
 }
 
 _audio_preview() {
@@ -157,15 +156,21 @@ _model_preview() {
 	_hex_preview "3D model" "$1" "$2"
 }
 
+_json_preview() {
+    _preview_check "jq bat" "$1" "json"
+	if [ 0 -ne $? ]; then
+		cat "$1"
+	else
+        jq . "$1" | bat -l json --color=always --style=numbers || less "$1"
+    fi
+}
+
 _text_preview() {
 	_preview_check bat "$1" "$2"
 	if [ 0 -ne $? ]; then
 		cat "$1"
 	else
-        fext=$([[ "$1" = *.* ]] && echo ".${1##*.}" || echo '')
-        if [ "$fext" = ".json" ]; then
-            jq . "$1" | bat -l json --color=always --style=numbers || less "$1"
-		elif [ -z "$3" ]; then
+		if [ -z "$3" ]; then
 			bat --color=always --style=numbers "$1" || less "$1"
 		else
 			line="$3"
