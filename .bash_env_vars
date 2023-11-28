@@ -22,13 +22,13 @@ fi
 if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
 	source /usr/share/doc/fzf/examples/key-bindings.bash
 else
-	#echo "FZF key-bindings not isntalled"
+	echo "FZF key-bindings not isntalled"
 fi
 
 if [ -f /usr/share/doc/fzf/examples/completion.bash ]; then
 	source /usr/share/doc/fzf/examples/completion.bash
 else
-	#echo "FZF complettion not installed"
+	echo "FZF complettion not installed"
 fi
 
 export FZF_HISTORY_DIR='/home/joe/.history/fzf'
